@@ -1,0 +1,60 @@
+{
+  "name": "EasyKit",
+  "version": "0.0.1",
+  "summary": "使用简单的工具包",
+  "description": "开源日常开发中常用的简单工具，目标-使用简单，后续不断完善",
+  "homepage": "https://github.com/MengLiMing/EasyKit",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "MengLiMing": "920459250@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/MengLiMing/EasyKit.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_versions": "5.0",
+  "frameworks": "UIKit",
+  "subspecs": [
+    {
+      "name": "EasyPopup",
+      "dependencies": {
+        "SnapKit": [
+          "~> 4.2.0"
+        ]
+      },
+      "source_files": "EasyKit/EasyPopup/*.swift"
+    },
+    {
+      "name": "EasyResponder",
+      "source_files": "EasyKit/EasyResponder/*.swift"
+    },
+    {
+      "name": "EasyListView",
+      "source_files": "EasyKit/EasyListView/**/*"
+    },
+    {
+      "name": "EasySyncScroll",
+      "dependencies": {
+        "RxSwift": [
+
+        ],
+        "RxCocoa": [
+
+        ]
+      },
+      "source_files": "EasyKit/EasySyncScroll/*.swift",
+      "frameworks": "WebKit"
+    },
+    {
+      "name": "EasyExtension",
+      "source_files": "EasyKit/EasyExtension/*.swift"
+    }
+  ],
+  "swift_version": "5.0"
+}

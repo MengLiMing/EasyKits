@@ -1,0 +1,47 @@
+PODS:
+  - EasyKit (0.0.1):
+    - EasyKit/EasyExtension (= 0.0.1)
+    - EasyKit/EasyListView (= 0.0.1)
+    - EasyKit/EasyPopup (= 0.0.1)
+    - EasyKit/EasyResponder (= 0.0.1)
+    - EasyKit/EasySyncScroll (= 0.0.1)
+  - EasyKit/EasyExtension (0.0.1)
+  - EasyKit/EasyListView (0.0.1)
+  - EasyKit/EasyPopup (0.0.1):
+    - SnapKit (~> 4.2.0)
+  - EasyKit/EasyResponder (0.0.1)
+  - EasyKit/EasySyncScroll (0.0.1):
+    - RxCocoa
+    - RxSwift
+  - RxCocoa (6.0.0):
+    - RxRelay (= 6.0.0)
+    - RxSwift (= 6.0.0)
+  - RxRelay (6.0.0):
+    - RxSwift (= 6.0.0)
+  - RxSwift (6.0.0)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - EasyKit (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SnapKit
+
+EXTERNAL SOURCES:
+  EasyKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EasyKit: 438ae482bf3370d9d192561505e03bf4b132c5d3
+  RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
+  RxRelay: 8d593be109c06ea850df027351beba614b012ffb
+  RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: 699c29b2b2804063151c162b4a72d2864fb49012
+
+COCOAPODS: 1.10.0
