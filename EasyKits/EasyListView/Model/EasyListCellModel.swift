@@ -8,6 +8,7 @@
 import UIKit
 
 public final class EasyListCellModel: NSObject {
+    public typealias SelectedHandler = (EasyListCellModel) -> ()
     
     /// 每个cell需要数据
     public var data: Any?
@@ -54,7 +55,7 @@ public final class EasyListCellModel: NSObject {
         return EasyListCellModel(cellType: EasyListViewCell.self, data: nil)
     }
     
-    public var selectedHandler: ((EasyListCellModel) -> ())?
+    public var selectedHandler: SelectedHandler?
 }
 
 public extension EasyListCellModel {

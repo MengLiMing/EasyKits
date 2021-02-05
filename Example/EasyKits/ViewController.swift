@@ -34,8 +34,12 @@ class ViewController: UIViewController {
             }
         }
         
-        var demoVC: UIViewController? {
+        var demoVC: UIViewController.Type? {
             switch self {
+            case .popup:
+                return EasyPopupVC.self
+            case .responder:
+                return EasyResponder.self
             default:
                 return nil
             }
@@ -66,7 +70,12 @@ class ViewController: UIViewController {
     fileprivate func demoSections() {
         sectionModels = Demo.allCases.map { item in
             let sectionModel = EasyListSectionModel()
-            sectionModel.add(cellType: VCCell.self, data: item)
+            sectionModel.add(cellType: VCCell.self, data: item) {[weak self] (cellModel) in
+                guard let vcType = (cellModel.data as? Demo)?.demoVC else {
+                    return
+                }
+                self?.navigationController?.pushViewController(vcType.init(), animated: true)
+            }
             sectionModel.addSpace(height: 1, color: UIColor.hex("#F6F6F6"))
             return sectionModel
         }

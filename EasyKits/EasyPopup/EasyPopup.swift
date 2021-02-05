@@ -56,6 +56,18 @@ public enum EasyPopupTransfer {
             break
         }
     }
+    
+    /// 还原
+    public func restore(_ view: UIView) {
+        switch self {
+        case .alpha:
+            view.alpha = 1
+        case .zoom:
+            view.transform = .identity
+        case .none:
+            break
+        }
+    }
 }
 
 /// 动画效果
@@ -380,6 +392,7 @@ extension EasyPopupProtocol where Self: UIView {
             completion?()
             self.coverView.removeFromSuperview()
             self.removeFromSuperview()
+            transfers.forEach { $0.restore(self) }
         }
     }
 }

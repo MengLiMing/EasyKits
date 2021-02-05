@@ -40,13 +40,19 @@ public final class EasyListSectionModel: NSObject {
 }
 
 public extension EasyListSectionModel {
-    func add(cellType: EasyListCellTypeLimit, data: Any? = nil) {
+    func add(cellType: EasyListCellTypeLimit,
+             data: Any? = nil,
+             selectedHandler: EasyListCellModel.SelectedHandler? = nil) {
         let cellModel = EasyListCellModel(cellType: cellType, data: data)
+        cellModel.selectedHandler = selectedHandler
         self.add(cellModel: cellModel)
     }
     
-    func add<T: EasyListViewCell>(cellType: T.Type, data: Any? = nil) {
+    func add<T: EasyListViewCell>(cellType: T.Type,
+                                  data: Any? = nil,
+                                  selectedHandler: EasyListCellModel.SelectedHandler? = nil) {
         let cellModel = EasyListCellModel(cellType: cellType, data: data)
+        cellModel.selectedHandler = selectedHandler
         self.add(cellModel: cellModel)
     }
     
