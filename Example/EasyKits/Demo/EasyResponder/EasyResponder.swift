@@ -23,7 +23,7 @@ class EasyResponder: UIViewController {
     }
 }
 
-/// view层级太多 如果使用block嵌套 或者delegate设置等 代码会变得比较难看
+/// 解决view层级太多 block、delegate的嵌套传递
 extension EasyResponder: ERAViewTapHandler,
                          ERBViewTapHandler,
                          ERCViewTapHandler {
