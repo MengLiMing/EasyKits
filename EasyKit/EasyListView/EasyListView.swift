@@ -53,7 +53,7 @@ open class EasyListView: UITableView {
         self.estimatedSectionHeaderHeight = 0
         
         if #available(iOS 11.0, *) {
-            scrollView.contentInsetAdjustmentBehavior = .never
+            self.contentInsetAdjustmentBehavior = .never
         }
     }
     
