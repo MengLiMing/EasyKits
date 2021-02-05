@@ -10,10 +10,11 @@
 		10FD93675A33A3DF4E60E9A4 /* Pods_EasyKits_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
-		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		95956AA025CCE3EE0021FF3F /* VCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956A9F25CCE3EE0021FF3F /* VCCell.swift */; };
+		95956AA925CCE4310021FF3F /* EasyPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956AA825CCE4310021FF3F /* EasyPopupVC.swift */; };
 		9BF1122A5C8BF3F3ACF305E4 /* Pods_EasyKits_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7081D91B35C703B20F27524A /* Pods_EasyKits_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,12 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		39CB6570477B87D0DF69174E /* EasyKits.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = EasyKits.podspec; path = ../EasyKits.podspec; sourceTree = "<group>"; };
+		39CB6570477B87D0DF69174E /* EasyKits.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = EasyKits.podspec; path = ../EasyKits.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* EasyKits_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyKits_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* EasyKits_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyKits_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,10 +43,12 @@
 		6E7B1E1473EA069EBE310652 /* Pods-EasyKits_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Example.release.xcconfig"; path = "Target Support Files/Pods-EasyKits_Example/Pods-EasyKits_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7081D91B35C703B20F27524A /* Pods_EasyKits_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D5FDBEC34C58DFAF2443F1F /* Pods-EasyKits_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.release.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		974E5CD7E748BAB3DEC0E2BD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		95956A9F25CCE3EE0021FF3F /* VCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCCell.swift; sourceTree = "<group>"; };
+		95956AA825CCE4310021FF3F /* EasyPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPopupVC.swift; sourceTree = "<group>"; };
+		974E5CD7E748BAB3DEC0E2BD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,8 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				95956A9F25CCE3EE0021FF3F /* VCCell.swift */,
+				95956AA525CCE4110021FF3F /* Demo */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -148,6 +151,22 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		95956AA525CCE4110021FF3F /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				95956AA725CCE4210021FF3F /* EasyPopup */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		95956AA725CCE4210021FF3F /* EasyPopup */ = {
+			isa = PBXGroup;
+			children = (
+				95956AA825CCE4310021FF3F /* EasyPopupVC.swift */,
+			);
+			path = EasyPopup;
+			sourceTree = "<group>";
+		};
 		BFA6738379BF8A72F9FC9D1E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +175,6 @@
 				BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */,
 				7D5FDBEC34C58DFAF2443F1F /* Pods-EasyKits_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +245,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -246,7 +265,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -270,10 +288,18 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EasyKits_Example/Pods-EasyKits_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EasyKits/EasyKits.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyKits.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -331,8 +357,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95956AA025CCE3EE0021FF3F /* VCCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				95956AA925CCE4310021FF3F /* EasyPopupVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				607FACDA1AFB9204008FA782 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		607FACDE1AFB9204008FA782 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

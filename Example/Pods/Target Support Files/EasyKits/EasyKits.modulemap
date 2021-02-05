@@ -1,0 +1,6 @@
+framework module EasyKits {
+  umbrella header "EasyKits-umbrella.h"
+
+  export *
+  module * { export * }
+}
