@@ -20,6 +20,14 @@ it, simply add the following line to your Podfile:
 pod 'EasyKits'
 ```
 
+## 组件列表
+- EasyListView: 复杂列表的简单实现，可用于快速构建电商类首页、商品详情、朋友圈等复杂列表
+- EasyResponder：简单的事件传递策略，方便图层嵌套多层时的事件传递
+- EasyPopup: 协议实现简单弹窗
+- EasySyncScroll：快速实现UIScrollView嵌套，实现类似简书个人信息页面效果，低耦合 易使用
+- EasySegmentControl：分类导航栏实现，可自定义任何样式的导航栏效果
+- EasyContainerView：横向滑动切换实现，支持最大显示个数
+
 ## Author
 
 MengLiMing, 920459250@qq.com
