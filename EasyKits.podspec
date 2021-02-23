@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EasyKits'
-  s.version          = '0.0.5'
+  s.version          = '0.0.6'
   s.summary          = '使用简单的工具集合'
   
   s.description      = <<-DESC

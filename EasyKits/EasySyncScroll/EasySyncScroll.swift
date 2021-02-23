@@ -75,7 +75,13 @@ public final class SyncScrollContext {
         case inner
     }
     
-    public var refreshType: RefreshType
+    public var refreshType: RefreshType {
+        didSet {
+            if refreshType == .outer {
+                self.resetOuterBounces(self.outerItem?.scrollView.contentOffset ?? .zero)
+            }
+        }
+    }
     /// 最大偏移 - 悬停时的偏移量
     public var maxOffsetY: CGFloat = 0
     /// 外部偏移
@@ -124,12 +130,7 @@ public final class SyncScrollContext {
             guard let outer = base.outerItem else {
                 return
             }
-            switch base.refreshType {
-            case .inner:
-                outer.scrollView.bounces = false
-            case .outer:
-                outer.scrollView.bounces = contentOffset.y <= (base.maxOffsetY)/2
-            }
+            self.resetOuterBounces(contentOffset)
             
             if base.innerOffset.y > 0 {/// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
                 outer.scrollView.contentOffset.y = base.maxOffsetY
@@ -139,6 +140,18 @@ public final class SyncScrollContext {
             }
             
             base.changeHover()
+        }
+    }
+    
+    fileprivate func resetOuterBounces(_ contentOffset: CGPoint) {
+        guard let outer = self.outerItem else {
+            return
+        }
+        switch self.refreshType {
+        case .inner:
+            outer.scrollView.bounces = false
+        case .outer:
+            outer.scrollView.bounces = contentOffset.y <= (self.maxOffsetY)/2
         }
     }
     
