@@ -1,16 +1,16 @@
 PODS:
-  - EasyKits (0.0.4):
-    - EasyKits/EasyExtension (= 0.0.4)
-    - EasyKits/EasyListView (= 0.0.4)
-    - EasyKits/EasyPopup (= 0.0.4)
-    - EasyKits/EasyResponder (= 0.0.4)
-    - EasyKits/EasySyncScroll (= 0.0.4)
-  - EasyKits/EasyExtension (0.0.4)
-  - EasyKits/EasyListView (0.0.4)
-  - EasyKits/EasyPopup (0.0.4):
+  - EasyKits (0.0.5):
+    - EasyKits/EasyExtension (= 0.0.5)
+    - EasyKits/EasyListView (= 0.0.5)
+    - EasyKits/EasyPopup (= 0.0.5)
+    - EasyKits/EasyResponder (= 0.0.5)
+    - EasyKits/EasySyncScroll (= 0.0.5)
+  - EasyKits/EasyExtension (0.0.5)
+  - EasyKits/EasyListView (0.0.5)
+  - EasyKits/EasyPopup (0.0.5):
     - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.0.4)
-  - EasyKits/EasySyncScroll (0.0.4):
+  - EasyKits/EasyResponder (0.0.5)
+  - EasyKits/EasySyncScroll (0.0.5):
     - RxCocoa
     - RxSwift
   - RxCocoa (6.0.0):
@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: aea62d3803c23a03af0e92850d9e4996b5a218d0
+  EasyKits: 2a332acc316dea7884d4a3c9d1bd3a262b630400
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
   RxRelay: 8d593be109c06ea850df027351beba614b012ffb
   RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295

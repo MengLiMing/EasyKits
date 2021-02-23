@@ -40,6 +40,8 @@ class ViewController: UIViewController {
                 return EasyPopupVC.self
             case .responder:
                 return EasyResponder.self
+            case .syncScroll:
+                return EasySyncScrollVC.self
             default:
                 return nil
             }

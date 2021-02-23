@@ -14,10 +14,10 @@ import RxCocoa
 public protocol SyncScrollItemProtocol: NSObjectProtocol {
     var scrollView: UIScrollView { get }
 }
-extension UIScrollView: SyncScrollItemProtocol {
+extension SyncScrollItemProtocol where Self: UIScrollView {
     public var scrollView: UIScrollView { return self }
 }
-extension WKWebView: SyncScrollItemProtocol {}
+extension SyncScrollItemProtocol where Self: WKWebView {}
 
 
 /// 外部需要遵循此协议 - 外部需要重写UIGestureRecognizerDelegate： shouldRecognizeSimultaneouslyWith
@@ -75,7 +75,7 @@ public final class SyncScrollContext {
         case inner
     }
     
-    public let refreshType: RefreshType
+    public var refreshType: RefreshType
     /// 最大偏移 - 悬停时的偏移量
     public var maxOffsetY: CGFloat = 0
     /// 外部偏移
@@ -105,10 +105,8 @@ public final class SyncScrollContext {
             outerDisposeBag = DisposeBag()
             outerItem?.scrollView.rx
                 .contentOffset
-                .observeOn(MainScheduler.asyncInstance)
-                .asDriver(onErrorJustReturn: .zero)
                 .distinctUntilChanged()
-                .drive(outerOffsetChanged)
+                .bind(to: outerOffsetChanged)
                 .disposed(by: outerDisposeBag)
             
             outerItem?.scrollView.rx.contentSize
@@ -165,10 +163,8 @@ public final class SyncScrollContext {
             self.innerDisposeBag = DisposeBag()
             self.innerItem?.scrollView.rx
                 .contentOffset
-                .observeOn(MainScheduler.asyncInstance)
-                .asDriver(onErrorJustReturn: .zero)
                 .distinctUntilChanged()
-                .drive(innerOffsetChanged)
+                .bind(to: innerOffsetChanged)
                 .disposed(by: self.innerDisposeBag)
         }
     }
