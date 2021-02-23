@@ -13,6 +13,7 @@ PODS:
   - EasyKits/EasySyncScroll (0.0.5):
     - RxCocoa
     - RxSwift
+  - MJRefresh (3.5.0)
   - RxCocoa (6.0.0):
     - RxRelay (= 6.0.0)
     - RxSwift (= 6.0.0)
@@ -23,9 +24,11 @@ PODS:
 
 DEPENDENCIES:
   - EasyKits (from `../`)
+  - MJRefresh
 
 SPEC REPOS:
   trunk:
+    - MJRefresh
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -37,11 +40,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   EasyKits: 2a332acc316dea7884d4a3c9d1bd3a262b630400
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
   RxRelay: 8d593be109c06ea850df027351beba614b012ffb
   RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: dfab4e494e36f44c7cc302d11c6c8bdcffcf0c8f
+PODFILE CHECKSUM: ccbca77a3fe3485133742f361bc5da8ed1ea4876
 
 COCOAPODS: 1.10.0

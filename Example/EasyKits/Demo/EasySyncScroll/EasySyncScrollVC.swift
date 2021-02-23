@@ -9,6 +9,7 @@
 import UIKit
 import EasyKits
 import SnapKit
+import MJRefresh
 
 class EasySyncScrollVC: UIViewController {
     fileprivate lazy var outerScrollView: SyncOuterScrollView = {
@@ -88,6 +89,12 @@ class EasySyncScrollVC: UIViewController {
         
         /// 设置初始innerItem
         self.containerView.customItemChange()
+        
+        self.outerScrollView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {[weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self?.outerScrollView.mj_header?.endRefreshing()
+            }
+        })
     }
     
     @objc fileprivate func changeRefreshType() {

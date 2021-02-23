@@ -9,13 +9,19 @@
 import UIKit
 import EasyKits
 import WebKit
-
+import MJRefresh
 
 class SyncInnerScrollView: UIScrollView, SyncInnerScrollProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
         self.contentSize = CGSize(width: .screenWidth, height: 3000)
+        
+        self.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {[weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self?.mj_header?.endRefreshing()
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +33,12 @@ class SyncInnerWebView: WKWebView, SyncInnerScrollProtocol {
     init() {
         super.init(frame: .zero, configuration: WKWebViewConfiguration())
         self.load(URLRequest(url: URL(string: "https://www.baidu.com")!))
+        
+        self.scrollView.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {[weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self?.scrollView.mj_header?.endRefreshing()
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +69,11 @@ class SyncInnerTableView: UITableView,
         self.delegate = self
         self.dataSource = self
         self.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {[weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self?.mj_header?.endRefreshing()
+            }
+        })
     }
     
     required init?(coder: NSCoder) {
