@@ -28,6 +28,12 @@ pod 'EasyKits'
 - EasySegmentControl：分类导航栏实现，可自定义任何样式的导航栏效果
 - EasyContainerView：横向滑动切换实现，支持最大显示个数
 
+## 项目演示
+|EasySyncScroll|
+|:---:|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|
+
+
 ## Author
 
 MengLiMing, 920459250@qq.com
