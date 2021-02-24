@@ -9,7 +9,6 @@
 import UIKit
 import EasyKits
 
-/// 电商Demo
 class EasyListViewVC: UIViewController {
     fileprivate lazy var listView: EasyListView = {
         let v = EasyListView(frame: .zero, style: .plain)
@@ -25,8 +24,7 @@ class EasyListViewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        self.title = "商品详情demo"
     }
 }
 
