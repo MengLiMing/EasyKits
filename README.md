@@ -29,10 +29,9 @@ pod 'EasyKits'
 - EasyContainerView：横向滑动切换实现，支持最大显示个数
 
 ## 项目演示
-|EasySyncScroll|
-|:---:|
-|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|
-
+|EasySyncScroll|EasyCarouseView|
+|:---:|:---:|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/carouseView.gif)|
 
 ## Author
 
