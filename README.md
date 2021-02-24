@@ -38,7 +38,7 @@ pod 'EasyKits'
 |EasyListView+EasySegmentControl+EasyContainerView|
 |:---:|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_1.gif)|
-|EasyListView+EasySegmentControl|
+|EasyListView+EasySegmentControl+EasyCarouseView|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_2.gif)|
 
 ## Author
