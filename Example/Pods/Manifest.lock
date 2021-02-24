@@ -1,18 +1,21 @@
 PODS:
-  - EasyKits (0.0.6):
-    - EasyKits/EasyExtension (= 0.0.6)
-    - EasyKits/EasyListView (= 0.0.6)
-    - EasyKits/EasyPopup (= 0.0.6)
-    - EasyKits/EasyResponder (= 0.0.6)
-    - EasyKits/EasySyncScroll (= 0.0.6)
-  - EasyKits/EasyExtension (0.0.6)
-  - EasyKits/EasyListView (0.0.6)
-  - EasyKits/EasyPopup (0.0.6):
+  - EasyKits (0.0.7):
+    - EasyKits/EasyCarouseView (= 0.0.7)
+    - EasyKits/EasyExtension (= 0.0.7)
+    - EasyKits/EasyListView (= 0.0.7)
+    - EasyKits/EasyPopup (= 0.0.7)
+    - EasyKits/EasyResponder (= 0.0.7)
+    - EasyKits/EasySyncScroll (= 0.0.7)
+  - EasyKits/EasyCarouseView (0.0.7)
+  - EasyKits/EasyExtension (0.0.7)
+  - EasyKits/EasyListView (0.0.7)
+  - EasyKits/EasyPopup (0.0.7):
     - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.0.6)
-  - EasyKits/EasySyncScroll (0.0.6):
+  - EasyKits/EasyResponder (0.0.7)
+  - EasyKits/EasySyncScroll (0.0.7):
     - RxCocoa
     - RxSwift
+  - Kingfisher (4.10.1)
   - MJRefresh (3.5.0)
   - RxCocoa (6.0.0):
     - RxRelay (= 6.0.0)
@@ -24,10 +27,12 @@ PODS:
 
 DEPENDENCIES:
   - EasyKits (from `../`)
+  - Kingfisher
   - MJRefresh
 
 SPEC REPOS:
   trunk:
+    - Kingfisher
     - MJRefresh
     - RxCocoa
     - RxRelay
@@ -39,13 +44,14 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 14086f0e8f24f061e82c32fb968320eb7dce0f1e
+  EasyKits: 17640d7aec3cbbdc5844869c96d74206448c145e
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
   RxRelay: 8d593be109c06ea850df027351beba614b012ffb
   RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
 
-PODFILE CHECKSUM: ccbca77a3fe3485133742f361bc5da8ed1ea4876
+PODFILE CHECKSUM: f883b72112d6ad08b2dbfee0af8e49d687da7022
 
 COCOAPODS: 1.10.0

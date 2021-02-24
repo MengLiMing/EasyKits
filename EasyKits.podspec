@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EasyKits'
-  s.version          = '0.0.6'
+  s.version          = '0.0.7'
   s.summary          = '使用简单的工具集合'
   
   s.description      = <<-DESC
@@ -48,6 +48,11 @@ Pod::Spec.new do |s|
       ss.source_files = 'EasyKits/EasySyncScroll/*.swift'
       
       ss.frameworks = 'WebKit'
+  end
+  
+  # 轮播 - 支持左右 上下轮播
+  s.subspec "EasyCarouseView" do |ss|
+      ss.source_files = 'EasyKits/EasyCarouseView/*.swift'
   end
   
   # 一些日常使用的扩展

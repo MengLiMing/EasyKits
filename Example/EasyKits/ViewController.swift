@@ -20,17 +20,21 @@ class ViewController: UIViewController {
         case syncScroll
         /// 列表
         case listView
+        /// 轮播
+        case carouseView
         
         var title: String {
             switch self {
             case .popup:
-                return "EasyPopup"
+                return "EasyPopup - 一句话弹窗"
             case .responder:
-                return "EasyResponder"
+                return "EasyResponder - 事件传递"
             case .syncScroll:
-                return "EasySyncScroll"
+                return "EasySyncScroll - UIScrollView嵌套"
             case .listView:
-                return "EasyListView"
+                return "EasyListView - 数据驱动UITableView"
+            case .carouseView:
+                return "EasyCarouseView - 自定义轮播"
             }
         }
         
@@ -42,8 +46,10 @@ class ViewController: UIViewController {
                 return EasyResponder.self
             case .syncScroll:
                 return EasySyncScrollVC.self
-            default:
-                return nil
+            case .listView:
+                return EasyListViewVC.self
+            case .carouseView:
+                return EasyCarouseViewVC.self
             }
         }
     }
