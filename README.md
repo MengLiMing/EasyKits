@@ -34,6 +34,13 @@ pod 'EasyKits'
 |:---:|:---:|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/carouseView.gif)|
 
+## 线上项目效果
+|EasyListView+EasySegmentControl+EasyContainerView|
+|:---:|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_1.gif)|
+|EasyListView+EasySegmentControl|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_2.gif)|
+
 ## Author
 
 MengLiMing, 920459250@qq.com
