@@ -25,6 +25,7 @@ pod 'EasyKits'
 - EasyResponder：简单的事件传递策略，方便图层嵌套多层时的事件传递
 - EasyPopup: 协议实现简单弹窗
 - EasySyncScroll：快速实现UIScrollView嵌套，实现类似简书个人信息页面效果，低耦合 易使用
+- EasyCarouseView：轮播视图，支持横竖两个方向、自定义视图
 - EasySegmentControl：分类导航栏实现，可自定义任何样式的导航栏效果
 - EasyContainerView：横向滑动切换实现，支持最大显示个数
 
