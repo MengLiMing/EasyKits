@@ -1,18 +1,18 @@
 PODS:
-  - EasyKits (0.0.7):
-    - EasyKits/EasyCarouseView (= 0.0.7)
-    - EasyKits/EasyExtension (= 0.0.7)
-    - EasyKits/EasyListView (= 0.0.7)
-    - EasyKits/EasyPopup (= 0.0.7)
-    - EasyKits/EasyResponder (= 0.0.7)
-    - EasyKits/EasySyncScroll (= 0.0.7)
-  - EasyKits/EasyCarouseView (0.0.7)
-  - EasyKits/EasyExtension (0.0.7)
-  - EasyKits/EasyListView (0.0.7)
-  - EasyKits/EasyPopup (0.0.7):
+  - EasyKits (0.0.8):
+    - EasyKits/EasyCarouseView (= 0.0.8)
+    - EasyKits/EasyExtension (= 0.0.8)
+    - EasyKits/EasyListView (= 0.0.8)
+    - EasyKits/EasyPopup (= 0.0.8)
+    - EasyKits/EasyResponder (= 0.0.8)
+    - EasyKits/EasySyncScroll (= 0.0.8)
+  - EasyKits/EasyCarouseView (0.0.8)
+  - EasyKits/EasyExtension (0.0.8)
+  - EasyKits/EasyListView (0.0.8)
+  - EasyKits/EasyPopup (0.0.8):
     - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.0.7)
-  - EasyKits/EasySyncScroll (0.0.7):
+  - EasyKits/EasyResponder (0.0.8)
+  - EasyKits/EasySyncScroll (0.0.8):
     - RxCocoa
     - RxSwift
   - Kingfisher (4.10.1)
@@ -44,7 +44,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 17640d7aec3cbbdc5844869c96d74206448c145e
+  EasyKits: f44695e58ffa896e20713d4de4ec48173f9c5027
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e

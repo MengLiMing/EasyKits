@@ -37,4 +37,12 @@ public extension String {
         let right = self.index(startIndex, offsetBy: to)
         return String(self[left..<right])
     }
+    
+    var attribute: NSAttributedString {
+        return NSAttributedString(string: self)
+    }
+    
+    var mutableAttributes: NSMutableAttributedString {
+        return NSMutableAttributedString(string: self)
+    }
 }

@@ -23,6 +23,8 @@
 		95956D0A25E5EFEF0021FF3F /* EasyListViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D0925E5EFEF0021FF3F /* EasyListViewVC.swift */; };
 		95956D0F25E5FFC60021FF3F /* EasyCarouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D0E25E5FFC60021FF3F /* EasyCarouseCell.swift */; };
 		95956D1325E6011E0021FF3F /* EasyCarouseViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D1225E6011E0021FF3F /* EasyCarouseViewVC.swift */; };
+		95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */; };
+		95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956DA525E662C70021FF3F /* EasyListOtherCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		95956D0925E5EFEF0021FF3F /* EasyListViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyListViewVC.swift; sourceTree = "<group>"; };
 		95956D0E25E5FFC60021FF3F /* EasyCarouseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyCarouseCell.swift; sourceTree = "<group>"; };
 		95956D1225E6011E0021FF3F /* EasyCarouseViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyCarouseViewVC.swift; sourceTree = "<group>"; };
+		95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyListPriceCell.swift; sourceTree = "<group>"; };
+		95956DA525E662C70021FF3F /* EasyListOtherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyListOtherCell.swift; sourceTree = "<group>"; };
 		974E5CD7E748BAB3DEC0E2BD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				95956D0E25E5FFC60021FF3F /* EasyCarouseCell.swift */,
+				95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */,
+				95956DA525E662C70021FF3F /* EasyListOtherCell.swift */,
 			);
 			path = DemoCell;
 			sourceTree = "<group>";
@@ -333,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */,
 				95956D0F25E5FFC60021FF3F /* EasyCarouseCell.swift in Sources */,
 				95956AD525CCF03D0021FF3F /* ERBView.swift in Sources */,
 				95956AA025CCE3EE0021FF3F /* VCCell.swift in Sources */,
@@ -342,6 +349,7 @@
 				95956AD225CCF0330021FF3F /* ERAView.swift in Sources */,
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,
 				95956AD825CCF0460021FF3F /* ERCView.swift in Sources */,
+				95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */,
 				95956D0A25E5EFEF0021FF3F /* EasyListViewVC.swift in Sources */,
 				95956D1325E6011E0021FF3F /* EasyCarouseViewVC.swift in Sources */,
 				95956AA925CCE4310021FF3F /* EasyPopupVC.swift in Sources */,
