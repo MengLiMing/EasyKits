@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.swift_version = '5.0'
   
-  # 一句话实现弹窗逻辑
+  # 一行代码实现弹窗逻辑
   s.subspec "EasyPopup" do |ss|
     ss.dependency 'SnapKit', '~> 4.2.0'
     

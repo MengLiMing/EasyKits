@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         var title: String {
             switch self {
             case .popup:
-                return "EasyPopup - 一句话弹窗"
+                return "EasyPopup - 一行代码实现弹窗"
             case .responder:
                 return "EasyResponder - 事件传递"
             case .syncScroll:
