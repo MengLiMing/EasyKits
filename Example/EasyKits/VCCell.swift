@@ -37,7 +37,7 @@ class VCCell: EasyListViewCell {
     override func bindCell(cellModel: EasyListCellModel) {
         if cellModel.isEqual(self.cellModel) { return }
         super.bindCell(cellModel: cellModel)
-        self.contentLabel.text = data?.title
+        self.contentLabel.text = data?.data.title
     }
     
     override class func cellHeight(cellModel: EasyListCellModel) -> CGFloat {

@@ -25,6 +25,7 @@
 		95956D1325E6011E0021FF3F /* EasyCarouseViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D1225E6011E0021FF3F /* EasyCarouseViewVC.swift */; };
 		95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */; };
 		95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956DA525E662C70021FF3F /* EasyListOtherCell.swift */; };
+		95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		95956D1225E6011E0021FF3F /* EasyCarouseViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyCarouseViewVC.swift; sourceTree = "<group>"; };
 		95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyListPriceCell.swift; sourceTree = "<group>"; };
 		95956DA525E662C70021FF3F /* EasyListOtherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyListOtherCell.swift; sourceTree = "<group>"; };
+		95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySegmentedViewVC.swift; sourceTree = "<group>"; };
 		974E5CD7E748BAB3DEC0E2BD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		95956AA525CCE4110021FF3F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				95956E3125E7AC8C0021FF3F /* EasySegmentedView */,
 				95956D1125E6010C0021FF3F /* EasyCarouseView */,
 				95956D0825E5EFCD0021FF3F /* EasyListView */,
 				95956AE125E346E20021FF3F /* EasySyncScroll */,
@@ -196,6 +199,14 @@
 				95956D1225E6011E0021FF3F /* EasyCarouseViewVC.swift */,
 			);
 			path = EasyCarouseView;
+			sourceTree = "<group>";
+		};
+		95956E3125E7AC8C0021FF3F /* EasySegmentedView */ = {
+			isa = PBXGroup;
+			children = (
+				95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */,
+			);
+			path = EasySegmentedView;
 			sourceTree = "<group>";
 		};
 		BFA6738379BF8A72F9FC9D1E /* Pods */ = {
@@ -345,6 +356,7 @@
 				95956AA025CCE3EE0021FF3F /* VCCell.swift in Sources */,
 				95956AE925E348D80021FF3F /* EasySyncScrollVC.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				95956AD225CCF0330021FF3F /* ERAView.swift in Sources */,
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,

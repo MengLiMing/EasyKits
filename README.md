@@ -26,8 +26,8 @@ pod 'EasyKits'
 - EasyPopup: 协议实现简单弹窗
 - EasySyncScroll：快速实现UIScrollView嵌套，实现类似简书个人信息页面效果，低耦合 易使用
 - EasyCarouseView：轮播视图，支持横竖两个方向、自定义视图
-- EasySegmentControl：分类导航栏实现，可自定义任何样式的导航栏效果
-- EasyContainerView：横向滑动切换实现，支持最大显示个数
+- EasySegmentedView：分类导航栏实现，可自定义任何样式的导航栏效果
+- EasyPagingContainerView：横向滑动切换实现，支持最大显示个数
 
 ## DEMO演示
 |EasySyncScroll|EasyCarouseView|
@@ -37,10 +37,10 @@ pod 'EasyKits'
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easylistview.gif)|
 
 ## 部分组件线上项目效果
-|EasyListView+EasySegmentControl+EasyContainerView|
+|EasyListView+EasySegmentedView+EasyPagingContainerView|
 |:---:|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_1.gif)|
-|EasyListView+EasySegmentControl+EasyCarouseView|
+|EasyListView+EasySegmentedView+EasyCarouseView|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/app_2.gif)|
 
 ## Author

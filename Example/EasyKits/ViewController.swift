@@ -22,34 +22,23 @@ class ViewController: UIViewController {
         case listView
         /// 轮播
         case carouseView
+        /// segmentView
+        case segmentedView
         
-        var title: String {
+        var data: (title: String, vcType: UIViewController.Type?) {
             switch self {
             case .popup:
-                return "EasyPopup - 一行代码实现弹窗"
+                return ("EasyPopup - 一行代码实现弹窗", EasyPopupVC.self)
             case .responder:
-                return "EasyResponder - 事件传递"
+                return ("EasyResponder - 事件传递", EasyResponder.self)
             case .syncScroll:
-                return "EasySyncScroll - UIScrollView嵌套"
+                return ("EasySyncScroll - UIScrollView嵌套", EasySyncScrollVC.self)
             case .listView:
-                return "EasyListView - 数据驱动UITableView"
+                return ("EasyListView - 数据驱动UITableView", EasyListViewVC.self)
             case .carouseView:
-                return "EasyCarouseView - 自定义轮播"
-            }
-        }
-        
-        var demoVC: UIViewController.Type? {
-            switch self {
-            case .popup:
-                return EasyPopupVC.self
-            case .responder:
-                return EasyResponder.self
-            case .syncScroll:
-                return EasySyncScrollVC.self
-            case .listView:
-                return EasyListViewVC.self
-            case .carouseView:
-                return EasyCarouseViewVC.self
+                return ("EasyCarouseView - 自定义轮播", EasyCarouseViewVC.self)
+            case .segmentedView:
+                return ("EasySegmentedView - 易扩展、易自定义的分段选择器", EasySegmentedViewVC.self)
             }
         }
     }
@@ -79,7 +68,7 @@ class ViewController: UIViewController {
         sectionModels = Demo.allCases.map { item in
             let sectionModel = EasyListSectionModel()
             sectionModel.add(cellType: VCCell.self, data: item) {[weak self] (cellModel) in
-                guard let vcType = (cellModel.data as? Demo)?.demoVC else {
+                guard let vcType = (cellModel.data as? Demo)?.data.vcType else {
                     return
                 }
                 self?.navigationController?.pushViewController(vcType.init(), animated: true)
