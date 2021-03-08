@@ -39,3 +39,29 @@ public extension UIResponder {
         }
     }
 }
+
+
+protocol CellHandler {
+    func cellAction1()
+    
+    func cellAction2()
+}
+
+class Cell: UITableViewCell {
+    func action() {
+        self.delegate(CellHandler.self)?.cellAction1()
+    }
+}
+
+class VC: UIViewController {
+    
+}
+extension VC: CellHandler {
+    func cellAction1() {
+        print("cell的点击事件")
+    }
+    
+    func cellAction2() {
+        print("cell的点击事件")
+    }
+}

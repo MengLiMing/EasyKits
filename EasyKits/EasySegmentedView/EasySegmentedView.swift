@@ -58,22 +58,15 @@ public class EasySegmentedView: UIView {
     
     /// 当前指示器
     public var indicatorView: EasySegmentedIndicatorBaseView? {
-        willSet {
-            indicatorView?.removeFromSuperview()
-        }
         didSet {
-            guard let indicatorView = indicatorView else {
-                return
-            }
-            collectionView.addSubview(indicatorView)
-            indicatorView.selected(from: nil, to: self.itemFrame(selectedIndex), animation: false)
+            collectionView.indicatorView = indicatorView
         }
     }
     
-    public private(set) lazy var collectionView: UICollectionView = {
+    public private(set) lazy var collectionView: EasySegmentedCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let view = EasySegmentedCollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = .clear
@@ -121,7 +114,6 @@ public class EasySegmentedView: UIView {
             itemModels = self.dataSource?.segmentedItemModels(for: self) ?? []
             dataSource?.registerCellClass(in: self)
             self.changeSelectedIndex(to: defaultSelectedIndex)
-            self.reloadData()
         } else {
             if collectionView.frame != frame {
                 collectionView.frame = frame
@@ -132,14 +124,6 @@ public class EasySegmentedView: UIView {
     }
     
     // MARK: Public Method
-    public func reloadData() {
-        itemModels = self.dataSource?.segmentedItemModels(for: self) ?? []
-        dataSource?.registerCellClass(in: self)
-        changeSelectedIndex(to: selectedIndex)
-        collectionView.collectionViewLayout.invalidateLayout()
-        collectionView.reloadData()
-    }
-    
     //外部scrollView控制
     public func scroll(by scrollView: UIScrollView) {
         guard itemModels.count > 0 else {
@@ -195,6 +179,7 @@ public class EasySegmentedView: UIView {
                 let seletectMidx = selectedFrame.midX
                 let toMidx = toFrame.midX
                 let targetOffset = seletectMidx + (toMidx - seletectMidx) * abs(percent)
+                configIndicatorView()
                 self.indicatorView?.scroll(from: selectedFrame, to: toFrame, progress: abs(percent))
                 toMiddle(targetOffset, animated: false)
             }
@@ -261,11 +246,14 @@ public extension EasySegmentedView {
             self.selectedIndex = targetIndex
             toMiddle(targetIndex, animated: false)
         }
-        self.indicatorView?.config.sueperContentSize = CGSize(width: self.collectionContentWidth(), height: self.bounds.size.height)
-        self.indicatorView?.config.superBounds = self.collectionView.frame
-        self.indicatorView?.selected(from: nil, to: self.itemFrame(defaultSelectedIndex), animation: animation)
+        configIndicatorView()
+        self.indicatorView?.selected(to: self.itemFrame(defaultSelectedIndex), animation: animation)
     }
     
+    fileprivate func configIndicatorView() {
+        indicatorView?.superContentSize = CGSize(width: self.collectionContentWidth(), height: self.bounds.size.height)
+       indicatorView?.superBounds = self.collectionView.frame
+    }
     
     fileprivate func changeItem(to targetIndex: Int, progress: CGFloat) {
         refreshItemModel(at: targetIndex, percent: progress)

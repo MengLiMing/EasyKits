@@ -44,49 +44,15 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
         }
                 
         textLabel.text = itemModel.text
-        
-        textLabel.textColor = color(fromColor: itemModel.normalColor, toColor: itemModel.selectColor, percent: itemModel.percent)
+        textLabel.textColor = itemModel.normalColor.transfer(to: itemModel.selectColor, progress: itemModel.percent)
         textLabel.font = font(fromFont: itemModel.normalFont, toFont: itemModel.selectFont, percent: itemModel.percent)
         
     }
-    
-    //颜色变化
-    fileprivate func color(fromColor from: UIColor, toColor to: UIColor, percent: CGFloat) -> UIColor {
-        if from == to { return from }
-        //起始
-        var fromRed: CGFloat = 0
-        var fromGreen: CGFloat = 0
-        var fromBlue: CGFloat = 0
-        var fromAlpha: CGFloat = 0
-        
-        //结束
-        var toRed: CGFloat = 0
-        var toGreen: CGFloat = 0
-        var toBlue: CGFloat = 0
-        var toAlpha: CGFloat = 0
-        
-        if from.getRed(&fromRed, green: &fromGreen, blue: &fromBlue, alpha: &fromAlpha) &&
-            to.getRed(&toRed, green: &toGreen, blue: &toBlue, alpha: &toAlpha) {
-            
-            let resultRed = (toRed - fromRed) * percent + fromRed
-            let resultGreen = (toGreen - fromGreen) * percent + fromGreen
-            let resultBlue = (toBlue - fromBlue) * percent + fromBlue
-            let resultAlpha = (toAlpha - fromAlpha) * percent + fromAlpha
-            
-            return UIColor(red: resultRed, green: resultGreen, blue: resultBlue, alpha: resultAlpha)
-        }
-        
-        return to
-    }
-    
+
     //字体变化
     fileprivate func font(fromFont from: UIFont, toFont to: UIFont, percent: CGFloat) -> UIFont {
-        if from == to { return from }
-        let fromSize = from.pointSize
-        let toSize = to.pointSize
-        
-        let resultSize = (toSize - fromSize) * percent + fromSize
-        
+        /// 此处只是简单处理 需要特殊效果的可以自定义
+        let resultSize = from.pointSize.transfer(to: to.pointSize, by: percent)
         return percent <= 0.5 ? from.withSize(resultSize) : to.withSize(resultSize)
     }
 }

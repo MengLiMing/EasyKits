@@ -16,8 +16,12 @@ class EasySegmentedViewVC: UIViewController {
         v.dataSource = self
         v.delegate = self
         v.edgeInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        v.itemSpacing = 0
+        v.itemSpacing = 10
         v.defaultSelectedIndex = 8
+        let indicatorView = EasySegmentedIndicatorLineView(frame: .zero)
+        indicatorView.backgroundColor = .red
+        v.indicatorView = indicatorView
+        v.tapAnimationDuration = 0.1
         return v
     }()
     
@@ -25,12 +29,12 @@ class EasySegmentedViewVC: UIViewController {
     
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {
         return list.map { text in
-            let textWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)], context: nil).size.width
-            
+            var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)], context: nil).size.width
+            itemWidth = CGFloat(ceil(itemWidth))
+
             let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13), selectFont: UIFont.boldSystemFont(ofSize: 16))
-            let itemWidth = CGFloat(ceil(textWidth))
             model.contentWidth = itemWidth
-            model.dynamicWidth = itemWidth + 20
+            model.dynamicWidth = itemWidth*16/13
             return model
         }
     }()
