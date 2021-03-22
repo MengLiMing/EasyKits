@@ -9,8 +9,6 @@ import UIKit
 
 /// 指示器
 open class EasySegmentedIndicatorBaseView: UIView {
-    /// 所在父视图的contentSize
-    internal var superContentSize: CGSize = .zero
     /// 所在父视图的Bounces
     internal var superBounds: CGRect = .zero
         

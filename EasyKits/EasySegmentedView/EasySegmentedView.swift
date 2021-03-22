@@ -121,6 +121,7 @@ public class EasySegmentedView: UIView {
                 collectionView.reloadData()
             }
         }
+        configIndicatorView()
     }
     
     // MARK: Public Method
@@ -179,7 +180,6 @@ public class EasySegmentedView: UIView {
                 let seletectMidx = selectedFrame.midX
                 let toMidx = toFrame.midX
                 let targetOffset = seletectMidx + (toMidx - seletectMidx) * abs(percent)
-                configIndicatorView()
                 self.indicatorView?.scroll(from: selectedFrame, to: toFrame, progress: abs(percent))
                 toMiddle(targetOffset, animated: false)
             }
@@ -216,6 +216,7 @@ public extension EasySegmentedView {
     /// 改变选中下标
     /// - Parameter targetIndex: 目标下标
     func changeSelectedIndex(to targetIndex: Int, animation: Bool = false) {
+        configIndicatorView()
         if animation {
             progressMaker.stop()
             guard selectedIndex != targetIndex else {
@@ -237,6 +238,7 @@ public extension EasySegmentedView {
                 self.toMiddle(targetIndex, animated: true)
             }
             progressMaker.start()
+            self.indicatorView?.selected(to: self.itemFrame(whenSelectedAt: targetIndex), animation: animation)
         } else {
             changeItem(to: targetIndex, progress: 1)
             collectionView.reloadData()
@@ -245,13 +247,11 @@ public extension EasySegmentedView {
             }
             self.selectedIndex = targetIndex
             toMiddle(targetIndex, animated: false)
+            self.indicatorView?.selected(to: self.itemFrame(targetIndex), animation: animation)
         }
-        configIndicatorView()
-        self.indicatorView?.selected(to: self.itemFrame(defaultSelectedIndex), animation: animation)
     }
     
     fileprivate func configIndicatorView() {
-        indicatorView?.superContentSize = CGSize(width: self.collectionContentWidth(), height: self.bounds.size.height)
        indicatorView?.superBounds = self.collectionView.frame
     }
     
@@ -307,7 +307,7 @@ fileprivate extension EasySegmentedView {
         return self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? EasySegmentedBaseCell
     }
     
-    /// 获取item的frame
+    /// 获取item的frame - 实时
     func itemFrame(_ index: Int?) -> CGRect {
         guard let index = index else {
             return .zero
@@ -318,9 +318,21 @@ fileprivate extension EasySegmentedView {
             /// 如果cell不在可视区域内，则需要计算item的frame
             var x = edgeInset.left
             for (itemIndex, itemModel) in itemModels.enumerated() where itemIndex < index {
-                x += (itemModel.itemWidth + itemSpacing)
+                x += (itemModel.realWidth + itemSpacing)
             }
-            return CGRect(x: x, y: edgeInset.top, width: itemModel.itemWidth, height: collectionView.bounds.size.height - edgeInset.top - edgeInset.bottom)
+            return CGRect(x: x, y: edgeInset.top, width: itemModel.realWidth, height: collectionView.bounds.size.height - edgeInset.top - edgeInset.bottom)
+        }
+        return .zero
+    }
+    
+    /// 下标被选中时 item的frame
+    func itemFrame(whenSelectedAt index: Int) -> CGRect {
+        if let itemModel = self.itemModel(index) {
+            var x = edgeInset.left
+            for (itemIndex, itemModel) in itemModels.enumerated() where itemIndex < index {
+                x += (itemModel.startWidth + itemSpacing)
+            }
+            return CGRect(x: x, y: edgeInset.top, width: itemModel.endWidth, height: collectionView.bounds.size.height - edgeInset.top - edgeInset.bottom)
         }
         return .zero
     }
@@ -332,7 +344,7 @@ fileprivate extension EasySegmentedView {
             return self.collectionView.contentSize.width
         } else {
             return self.itemModels.reduce(edgeInset.left) {
-                $0 + $1.itemWidth + itemSpacing
+                $0 + $1.realWidth + itemSpacing
             } - itemSpacing + edgeInset.right
         }
     }
@@ -393,7 +405,7 @@ extension EasySegmentedView: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let model = itemModel(indexPath.row)
-        let itemWidth = model?.itemWidth ?? 0
+        let itemWidth = model?.realWidth ?? 0
         let itemHeight = collectionView.bounds.size.height - edgeInset.bottom - edgeInset.top
         return CGSize(width:  itemWidth, height: itemHeight)
     }

@@ -34,14 +34,23 @@ open class EasySegmentBaseItemModel {
     open var percent: CGFloat = 0 {
         didSet {
             if let dynamicWidth = self.dynamicWidth {
-                itemWidth = contentWidth.transfer(to: dynamicWidth, by: percent)
+                realWidth = startWidth.transfer(to: dynamicWidth, by: percent)
             }
         }
     }
-    /// itemWidth
-    lazy var itemWidth: CGFloat = {
-       return contentWidth.transfer(to: dynamicWidth ?? contentWidth, by: percent)
+    /// 当前宽度
+    lazy var realWidth: CGFloat = {
+       return startWidth.transfer(to: endWidth, by: percent)
     }()
+    
+    var startWidth: CGFloat {
+        return contentWidth
+    }
+    
+    var endWidth: CGFloat {
+        return dynamicWidth ?? contentWidth
+    }
+    
     /// 设置内容的宽度
     open var contentWidth: CGFloat = 0
     /// 动态宽度， 设置此值 则cell会动态变化宽度， 未设置则取 contentWidth
