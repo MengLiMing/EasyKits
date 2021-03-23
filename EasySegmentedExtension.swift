@@ -5,7 +5,7 @@
 //  Created by 孟利明 on 2021/3/5.
 //
 
-import Foundation
+import UIKit
 
 public extension Comparable where Self: SignedNumeric {
     func transfer(to: Self, by progress: Self) -> Self {

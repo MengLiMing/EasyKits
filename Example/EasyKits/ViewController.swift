@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(CGFloat.navBarAndStatusBarHeight)
+            maker.top.equalTo(UIScreen.navigationBarHeight)
             maker.left.right.bottom.equalTo(0)
         }
     }

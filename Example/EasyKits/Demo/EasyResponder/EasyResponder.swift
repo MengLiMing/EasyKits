@@ -18,7 +18,7 @@ class EasyResponder: UIViewController {
         view.addSubview(ac)
         ac.snp.makeConstraints { (maker) in
             maker.center.equalToSuperview()
-            maker.width.height.equalTo(CGFloat.screenWidth - 40)
+            maker.width.height.equalTo(UIScreen.screenWidth - 40)
         }
     }
 }

@@ -38,7 +38,7 @@ class DemoAlertView: UIView {
         self.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
-            maker.width.equalTo(CGFloat.screenWidth - 40)
+            maker.width.equalTo(UIScreen.screenWidth - 40)
             maker.height.equalTo(200)
         }
         

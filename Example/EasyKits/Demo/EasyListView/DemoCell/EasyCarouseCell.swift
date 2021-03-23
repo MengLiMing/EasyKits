@@ -67,7 +67,7 @@ class EasyCarouseCell: EasyListViewCell {
     
     /// 可以根据数据计算高度 - 会缓存高度
     override class func cellHeight(cellModel: EasyListCellModel) -> CGFloat {
-        return .screenWidth
+        return UIScreen.screenWidth
     }
 }
 

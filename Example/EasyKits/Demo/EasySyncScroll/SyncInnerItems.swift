@@ -15,7 +15,7 @@ class SyncInnerScrollView: UIScrollView, SyncInnerScrollProtocol {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
-        self.contentSize = CGSize(width: .screenWidth, height: 3000)
+        self.contentSize = CGSize(width: UIScreen.screenWidth, height: 3000)
         
         self.mj_header = MJRefreshNormalHeader.init(refreshingBlock: {[weak self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

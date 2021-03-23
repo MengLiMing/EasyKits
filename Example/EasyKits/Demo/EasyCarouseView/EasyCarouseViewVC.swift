@@ -27,7 +27,7 @@ class EasyCarouseViewVC: UIViewController {
         /// 图片轮播
         self.view.addSubview(carouseView1)
         carouseView1.snp.makeConstraints { (maker) in
-            maker.top.equalTo(CGFloat.navBarAndStatusBarHeight)
+            maker.top.equalTo(UIScreen.navigationBarHeight)
             maker.left.right.equalTo(0)
             maker.height.equalTo(150)
         }

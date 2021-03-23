@@ -46,7 +46,7 @@ class EasySyncScrollVC: UIViewController {
     }()
     
     /// 总高度
-    fileprivate let totalHeight: CGFloat = CGFloat.screenHeight - CGFloat.navBarAndStatusBarHeight
+    fileprivate let totalHeight: CGFloat = UIScreen.screenHeight - UIScreen.navigationBarHeight
     /// 导航栏高度
     fileprivate let segmentHeight: CGFloat = 60
     /// 横向切换高度
@@ -68,12 +68,12 @@ class EasySyncScrollVC: UIViewController {
         view.addSubview(outerScrollView)
         outerScrollView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalTo(0)
-            maker.top.equalTo(CGFloat.navBarAndStatusBarHeight)
+            maker.top.equalTo(UIScreen.navigationBarHeight)
         }
         outerScrollView.addSubview(headerView)
         headerView.snp.makeConstraints { (maker) in
             maker.left.equalTo(0)
-            maker.width.equalTo(CGFloat.screenWidth)
+            maker.width.equalTo(UIScreen.screenWidth)
             maker.top.equalTo(self.syncContext.maxOffsetY)
             maker.height.equalTo(60)
         }
@@ -82,7 +82,7 @@ class EasySyncScrollVC: UIViewController {
         containerView.snp.makeConstraints { (maker) in
             maker.left.equalTo(0)
             maker.top.equalTo(self.headerView.snp.bottom)
-            maker.width.equalTo(CGFloat.screenWidth)
+            maker.width.equalTo(UIScreen.screenWidth)
             maker.height.equalTo(self.totalHeight - self.segmentHeight)
         }
         self.changeMaxOffset()
@@ -112,11 +112,11 @@ class EasySyncScrollVC: UIViewController {
         /// 因为外部是使用的UIScrollView，所以改变头部高度 需要重新设置高度
         /// 实际开放中 如果头部高度不改变使用UIScrollView作为外部底层即可
         /// 如果头部高度会变化，如电商类首页 根据活动不同的投放配置 则可以考虑使用 UITableView、UICollectionView 具体参考EasyListView的电商类首页示例
-        self.outerScrollView.contentSize = CGSize(width: .screenWidth, height: totalHeight + maxOffsetY)
+        self.outerScrollView.contentSize = CGSize(width: UIScreen.screenWidth, height: totalHeight + maxOffsetY)
         headerView.snp.updateConstraints { (maker) in
             maker.top.equalTo(maxOffsetY)
         }
-        self.containerView.contentSize = CGSize(width: 3 * CGFloat.screenWidth, height: contentHeight)
+        self.containerView.contentSize = CGSize(width: 3 * UIScreen.screenWidth, height: contentHeight)
     }
 }
 
@@ -160,7 +160,7 @@ class SyncContainerView: UIScrollView, UIScrollViewDelegate {
     }()
     
     fileprivate func containerCurrentItems() -> AnyObject? {
-        let index = Int(self.contentOffset.x / CGFloat.screenWidth)
+        let index = Int(self.contentOffset.x / UIScreen.screenWidth)
         return self.containerItems.element(index)
     }
     
@@ -172,8 +172,8 @@ class SyncContainerView: UIScrollView, UIScrollViewDelegate {
         self.containerItems.enumerated().forEach { (index, item) in
             self.addSubview(item)
             item.snp.makeConstraints { (maker) in
-                maker.left.equalTo(CGFloat(index) * CGFloat.screenWidth)
-                maker.width.equalTo(CGFloat.screenWidth)
+                maker.left.equalTo(CGFloat(index) * UIScreen.screenWidth)
+                maker.width.equalTo(UIScreen.screenWidth)
                 maker.top.equalTo(0)
                 maker.height.equalTo(self.snp.height)
             }

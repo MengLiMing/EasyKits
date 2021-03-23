@@ -269,6 +269,7 @@
 		952FADF225F0C56F00BD175B /* EasySegmentedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FADF125F0C56F00BD175B /* EasySegmentedCollectionView.swift */; };
 		952FAF1625F2078A00BD175B /* EasySegmentedExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FAF1525F2078A00BD175B /* EasySegmentedExtension.swift */; };
 		952FAF2825F23A6900BD175B /* EasySegmentedIndicatorLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FAF2725F23A6900BD175B /* EasySegmentedIndicatorLineView.swift */; };
+		956DABB2260985CD0084759A /* UIScreen+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 956DABB1260985CD0084759A /* UIScreen+Ex.swift */; };
 		95704FF4CEDF4EBACE98927A0E336BD7 /* DelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373AB85E2A2EF90D3743B2C31901118 /* DelegateProxy.swift */; };
 		96851AB5EF8012C5AEFCF8156E9DC7F1 /* EasyPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E373464B80165D3E62B70176C3AAE92 /* EasyPopup.swift */; };
 		97D24F8BF7E1709D26EEC6D86CBC7AEA /* TailRecursiveSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDDF96847DF4538B7C1EAD823CF25E /* TailRecursiveSink.swift */; };
@@ -352,7 +353,6 @@
 		C69FD4662D84711D75C5DA149762FCB4 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DED4740432665D41849636A5F18BB9 /* Buffer.swift */; };
 		C79D4F0D0C79942AAD2B4F16D0766095 /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB4F5654BF864D872E1841E91FB6A4 /* CacheSerializer.swift */; };
 		C8F6F09A2F294727D77079C9A7BC6CAA /* RxCollectionViewReactiveArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FFBCE35D143CC4E807EF177CF7744C /* RxCollectionViewReactiveArrayDataSource.swift */; };
-		C9512C1967245AEB62A3760B0B164675 /* CGFloat+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC68E919A7EDC93340757DF0D888166F /* CGFloat+Ex.swift */; };
 		C9555843F61792AA8156438BAE51D7AF /* RxRelay-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8439CFA0644A7ABEE4CCB600E114007 /* RxRelay-dummy.m */; };
 		C98C183A0FCE2BD4116A5F44902F44E6 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169ED3478DAC2E43E47CE68D6B35CFC8 /* RxSwift.framework */; };
 		CA5FC57E97D083834C98AAA3945C79D6 /* PublishRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED26A50987B3E45FD385C3C1DA3D5B /* PublishRelay.swift */; };
@@ -813,6 +813,7 @@
 		952FAF1525F2078A00BD175B /* EasySegmentedExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySegmentedExtension.swift; sourceTree = "<group>"; };
 		952FAF2725F23A6900BD175B /* EasySegmentedIndicatorLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasySegmentedIndicatorLineView.swift; sourceTree = "<group>"; };
 		954543F99108B9E4A53A17825DBEFE8D /* MJRefreshNormalHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshNormalHeader.h; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.h; sourceTree = "<group>"; };
+		956DABB1260985CD0084759A /* UIScreen+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Ex.swift"; sourceTree = "<group>"; };
 		9600C84465BE0C18A9476F61CBEB23C7 /* RxTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxTarget.swift; path = RxCocoa/Common/RxTarget.swift; sourceTree = "<group>"; };
 		9630B823837A3AA04525A273ABA4065C /* SingleAsync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SingleAsync.swift; path = RxSwift/Observables/SingleAsync.swift; sourceTree = "<group>"; };
 		9658F9ED3C51A5A058DB9E9AECED15E4 /* ConstraintAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintAttributes.swift; path = Source/ConstraintAttributes.swift; sourceTree = "<group>"; };
@@ -890,7 +891,6 @@
 		BC078AD321A18CBAE317D73892205436 /* SerialDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SerialDisposable.swift; path = RxSwift/Disposables/SerialDisposable.swift; sourceTree = "<group>"; };
 		BC432FD48A5932251F1CAFBC4BF74894 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC6129DFCE2311A4F3570976028D2530 /* EasyListSectionModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EasyListSectionModel.swift; sourceTree = "<group>"; };
-		BC68E919A7EDC93340757DF0D888166F /* CGFloat+Ex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGFloat+Ex.swift"; path = "EasyKits/EasyExtension/CGFloat+Ex.swift"; sourceTree = "<group>"; };
 		BE126BB0884F0B1A0913D95674EA6C3A /* MJRefreshStateHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshStateHeader.h; path = MJRefresh/Custom/Header/MJRefreshStateHeader.h; sourceTree = "<group>"; };
 		BE58F53887E904E6741EA6CD628221AE /* SharedSequence+Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "SharedSequence+Operators.swift"; path = "RxCocoa/Traits/SharedSequence/SharedSequence+Operators.swift"; sourceTree = "<group>"; };
 		BF8EC19B9C6E6A31305E64DA3E24DBAC /* RxCocoa.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RxCocoa.modulemap; sourceTree = "<group>"; };
@@ -1576,10 +1576,10 @@
 			isa = PBXGroup;
 			children = (
 				8FF6D6ADC0839B012B5B9A8C0678E433 /* Array+Ex.swift */,
-				BC68E919A7EDC93340757DF0D888166F /* CGFloat+Ex.swift */,
 				6D5C633EACA02310B5625E0BD97D69FA /* NSMutableAttributedString+Ex.swift */,
 				9AF72AC105EC5D3429EBE3E61A6C6B04 /* String+Ex.swift */,
 				A7D51EB57F82F87380E12B6EC3934BDF /* UIColor+Ex.swift */,
+				956DABB1260985CD0084759A /* UIScreen+Ex.swift */,
 			);
 			name = EasyExtension;
 			sourceTree = "<group>";
@@ -2419,7 +2419,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0394F8E85A9313BDF77C867767A1F28 /* Array+Ex.swift in Sources */,
-				C9512C1967245AEB62A3760B0B164675 /* CGFloat+Ex.swift in Sources */,
 				ECBC03BB6169F0F18612402992FDEC7C /* EasyCarouseView.swift in Sources */,
 				6BCE9A64934209D9981C234BE5E24897 /* EasyKits-dummy.m in Sources */,
 				467DF31623D824672B03A964CEC7C097 /* EasyListCellModel.swift in Sources */,
@@ -2435,6 +2434,7 @@
 				952FAF1625F2078A00BD175B /* EasySegmentedExtension.swift in Sources */,
 				2113DCB5C07019C08ECF9F566A962905 /* EasyPagingContainerView.swift in Sources */,
 				96851AB5EF8012C5AEFCF8156E9DC7F1 /* EasyPopup.swift in Sources */,
+				956DABB2260985CD0084759A /* UIScreen+Ex.swift in Sources */,
 				47636BE70FD85EEE0FC8570C1EFD8014 /* EasySegmentedBaseCell.swift in Sources */,
 				872E0649BF1C971B894F5A047BE28CA3 /* EasySegmentedIndicatorBaseView.swift in Sources */,
 				E51DF8D34B5B9ECA1C37491396DA348B /* EasySegmentedProgressMaker.swift in Sources */,

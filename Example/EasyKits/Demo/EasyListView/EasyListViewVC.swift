@@ -37,7 +37,7 @@ class EasyListViewVC: UIViewController {
         view.addSubview(listView)
         listView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalTo(0)
-            maker.top.equalTo(CGFloat.navBarAndStatusBarHeight)
+            maker.top.equalTo(UIScreen.navigationBarHeight)
         }
         
         listView.mj_header = MJRefreshNormalHeader(refreshingBlock: {[weak self] in
