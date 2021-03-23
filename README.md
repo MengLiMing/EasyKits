@@ -33,8 +33,8 @@ pod 'EasyKits'
 |EasySyncScroll|EasyCarouseView|
 |:---:|:---:|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/carouseView.gif)|
-|EasyListView|
-|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easylistview.gif)|
+|EasyListView|EasySegmentedView|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easylistview.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easysegmentview.gif)|
 
 ## 部分组件线上项目效果
 |EasyListView+EasySegmentedView+EasyPagingContainerView|
