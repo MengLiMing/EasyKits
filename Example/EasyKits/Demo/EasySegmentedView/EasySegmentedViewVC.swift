@@ -17,7 +17,6 @@ class EasySegmentedViewVC: UIViewController {
         v.delegate = self
         v.edgeInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         v.itemSpacing = 10
-        v.defaultSelectedIndex = 8
         let indicatorView = EasySegmentedIndicatorLineView(frame: .zero)
         indicatorView.backgroundColor = .red
         v.indicatorView = indicatorView
@@ -43,7 +42,8 @@ class EasySegmentedViewVC: UIViewController {
         let view = EasyPagingContainerView(frame: .zero)
         view.containerDelegate = self
         view.containerDataSource = self
-        view.defaultSelectedIndex = 8
+        view.maxExistCount = 5
+        view.removeStrategy = .farthest
         return view
     }()
     
@@ -52,6 +52,8 @@ class EasySegmentedViewVC: UIViewController {
         title = "EasySegmentedView"
         view.backgroundColor = .white
         
+        segmentedView.defaultSelectedIndex = 8
+        containerView.defaultSelectedIndex = 8
         setSubviews()
     }
     
@@ -67,9 +69,7 @@ class EasySegmentedViewVC: UIViewController {
         containerView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalTo(0)
             maker.top.equalTo(self.segmentedView.snp.bottom)
-        }
-        
-        containerView.reloadData()
+        }        
     }
 }
 
@@ -101,11 +101,19 @@ extension EasySegmentedViewVC: EasyPagingContainerViewDelegate {
     func containerViewDidScroll(containerView: EasyPagingContainerView) {
         self.segmentedView.scroll(by: containerView)
     }
+    
+    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, addAt index: Int) {
+        print("添加: \(index)")
+    }
+    
+    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, removedAt index: Int) {
+        print("删除：\(index)")
+    }
 }
 
 extension EasySegmentedViewVC: EasyPagingContainerViewDataSource {
-    func containerView(_ containerView: EasyPagingContainerView, itemAtIndex index: Int) -> AnyObject? {
-        let view = UIView()
+    func containerView(_ containerView: EasyPagingContainerView, itemAt index: Int) -> EasyPagingContainerItem? {
+        let view = ItemView()
         view.backgroundColor = UIColor.random
         return view
     }
@@ -113,4 +121,17 @@ extension EasySegmentedViewVC: EasyPagingContainerViewDataSource {
     func numberOfItems(in containerView: EasyPagingContainerView) -> Int {
         return list.count
     }
+    
+    func containerView(_ containerView: EasyPagingContainerView, from fromIndex: Int, to toIndex: Int, percent: CGFloat) {
+        if abs(percent) > 0.1 {
+            containerView.addSubView(at: toIndex)
+        }
+    }
+    
+    func itemWillRemove(of containerView: EasyPagingContainerView, at index: Int) -> Bool {
+        index != 0
+    }
 }
+
+
+class ItemView: UIView, EasyPagingContainerItem {}
