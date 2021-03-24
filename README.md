@@ -26,7 +26,7 @@ pod 'EasyKits'
 - EasyPopup: 协议实现简单弹窗
 - EasySyncScroll：快速实现UIScrollView嵌套，实现类似简书个人信息页面效果，低耦合 易使用
 - EasyCarouseView：轮播视图，支持横竖两个方向、自定义视图
-- EasySegmentedView：分类导航栏实现，可自定义任何样式的导航栏效果
+- EasySegmentedView：分类导航栏实现，可自定义任何样式的导航栏效果(指示器和Item均可自定义)
 - EasyPagingContainerView：横向滑动切换实现，支持最大显示个数
 
 ## DEMO演示
