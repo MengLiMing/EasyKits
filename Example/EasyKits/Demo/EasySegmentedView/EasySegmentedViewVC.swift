@@ -123,9 +123,10 @@ extension EasySegmentedViewVC: EasyPagingContainerViewDataSource {
     }
     
     func containerView(_ containerView: EasyPagingContainerView, from fromIndex: Int, to toIndex: Int, percent: CGFloat) {
-        if abs(percent) > 0.1 {
-            containerView.addSubView(at: toIndex)
-        }
+//        if abs(percent) > 0.1 {
+//            containerView.addSubView(at: toIndex)
+//        }
+        containerView.addSubView(at: toIndex)
     }
     
     func itemWillRemove(of containerView: EasyPagingContainerView, at index: Int) -> Bool {
