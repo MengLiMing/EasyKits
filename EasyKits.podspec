@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.1.1'
+    s.version          = '0.1.2'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -62,8 +62,6 @@ Pod::Spec.new do |s|
     
     # 页面切换
     s.subspec "EasyPagingContainerView" do |ss|
-        ss.dependency 'SnapKit'
-        
         ss.source_files = 'EasyKits/EasyPagingContainerView/*.swift'
     end
     
