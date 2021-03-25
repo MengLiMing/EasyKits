@@ -63,6 +63,15 @@ public class EasySegmentedView: UIView {
         }
     }
     
+    var bounces: Bool {
+        set {
+            collectionView.bounces = newValue
+        }
+        get {
+            collectionView.bounces
+        }
+    }
+    
     public private(set) lazy var collectionView: EasySegmentedCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -107,13 +116,13 @@ public class EasySegmentedView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        configIndicatorView()
         let frame = CGRect(x: 0, y: 0, width: bounds.size.width, height: floor(bounds.size.height))
         if isFirstLayout {
             isFirstLayout = false
             collectionView.frame = frame
-            itemModels = self.dataSource?.segmentedItemModels(for: self) ?? []
-            dataSource?.registerCellClass(in: self)
-            self.changeSelectedIndex(to: defaultSelectedIndex)
+            refreshDataSource()
+            changeSelectedIndex(to: defaultSelectedIndex)
         } else {
             if collectionView.frame != frame {
                 collectionView.frame = frame
@@ -121,11 +130,25 @@ public class EasySegmentedView: UIView {
                 collectionView.reloadData()
             }
         }
-        configIndicatorView()
+    }
+    
+    fileprivate func refreshDataSource() {
+        itemModels = self.dataSource?.segmentedItemModels(for: self) ?? []
+        dataSource?.registerCellClass(in: self)
     }
     
     // MARK: Public Method
-    //外部scrollView控制
+    /// 刷新
+    /// - Parameter index: 刷新后选中 默认为0
+    public func reloadData(selectedAt index: Int = 0) {
+        refreshDataSource()
+        UIView.animate(withDuration: 0) {
+            self.collectionView.reloadData()
+        } completion: { _ in
+            self.changeSelectedIndex(to: index)
+        }
+    }
+
     public func scroll(by scrollView: UIScrollView) {
         guard itemModels.count > 0 else {
             return

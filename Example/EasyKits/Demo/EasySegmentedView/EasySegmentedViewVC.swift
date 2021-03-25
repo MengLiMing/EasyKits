@@ -23,19 +23,9 @@ class EasySegmentedViewVC: UIViewController {
         v.tapAnimationDuration = 0.1
         return v
     }()
-    
-    fileprivate let list = ["精选", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货"]
-    
+        
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {
-        return list.map { text in
-            var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)], context: nil).size.width
-            itemWidth = CGFloat(ceil(itemWidth))
-
-            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13), selectFont: UIFont.boldSystemFont(ofSize: 16))
-            model.contentWidth = itemWidth
-            model.dynamicWidth = itemWidth*16/13
-            return model
-        }
+        return createListModel(list: ["精选", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货"])
     }()
     
     fileprivate lazy var containerView: EasyPagingContainerView = {
@@ -55,6 +45,8 @@ class EasySegmentedViewVC: UIViewController {
         segmentedView.defaultSelectedIndex = 8
         containerView.defaultSelectedIndex = 8
         setSubviews()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "刷新", style: .plain, target: self, action: #selector(reloadData))
     }
     
     fileprivate func setSubviews() {
@@ -70,6 +62,25 @@ class EasySegmentedViewVC: UIViewController {
             maker.left.right.bottom.equalTo(0)
             maker.top.equalTo(self.segmentedView.snp.bottom)
         }        
+    }
+    
+    @objc fileprivate func reloadData() {
+        listModel = createListModel(list: ["精选", "日用百货", "话费充值", "蔬菜", "水果", "女装", "百货", "百货", "百货", "日用百货", "百货", "百货", "日用百货", "百货", "日用百货", "百货", "百货"])
+        let selectedIndex = Int.random(in: 0..<listModel.count)
+        segmentedView.reloadData(selectedAt: selectedIndex)
+        containerView.reloadData(selectedAt: selectedIndex)
+    }
+    
+    func createListModel(list: [String]) -> [EasySegmentedTextModel] {
+        list.map { text in
+            var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)], context: nil).size.width
+            itemWidth = CGFloat(ceil(itemWidth))
+
+            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13), selectFont: UIFont.boldSystemFont(ofSize: 16))
+            model.contentWidth = itemWidth
+            model.dynamicWidth = itemWidth*16/13
+            return model
+        }
     }
 }
 
@@ -114,12 +125,14 @@ extension EasySegmentedViewVC: EasyPagingContainerViewDelegate {
 extension EasySegmentedViewVC: EasyPagingContainerViewDataSource {
     func containerView(_ containerView: EasyPagingContainerView, itemAt index: Int) -> EasyPagingContainerItem? {
         let view = ItemView()
+        let model = listModel[index]
+        view.label.text = model.text
         view.backgroundColor = UIColor.random
         return view
     }
     
     func numberOfItems(in containerView: EasyPagingContainerView) -> Int {
-        return list.count
+        return listModel.count
     }
     
     func containerView(_ containerView: EasyPagingContainerView, from fromIndex: Int, to toIndex: Int, percent: CGFloat) {
@@ -135,4 +148,26 @@ extension EasySegmentedViewVC: EasyPagingContainerViewDataSource {
 }
 
 
-class ItemView: UIView, EasyPagingContainerItem {}
+class ItemView: UIView, EasyPagingContainerItem {
+    let label = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 40)
+        label.textAlignment = .center
+        self.addSubview(label)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        label.sizeToFit()
+        label.center = .init(x: bounds.width/2, y: bounds.height/2)
+    }
+}

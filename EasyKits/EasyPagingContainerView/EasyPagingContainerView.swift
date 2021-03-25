@@ -172,9 +172,11 @@ public class EasyPagingContainerView: UIScrollView {
     }
     
     // MARK: Public Method
-    public func reSetData() {
-        self.selectedIndex = 0
+    /// 刷新
+    /// - Parameter index: 刷新后选中 默认为0
+    public func reloadData(selectedAt index: Int = 0) {
         self.removeAllItem()
+        self.scroll(toIndex: index, animated: false)
     }
     
     public func item(atIndex index: Int) -> EasyPagingContainerItem? {
