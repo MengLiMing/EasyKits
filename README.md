@@ -45,7 +45,7 @@ pod 'EasyKits'
 
 ## Author
 
-MengLiMing, 920459250@qq.com
+MengLiMing, 13014795306@163.com
 
 ## License
 
