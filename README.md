@@ -15,10 +15,23 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 EasyKits is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
-
 ```ruby
 pod 'EasyKits'
 ```
+
+如果你不想整体使用，选择想要添加的功能添加进你的Podfile:
+```ruby
+pod 'EasyKits/EasySegmentedView'
+pod 'EasyKits/EasyPagingContainerView'
+
+pod 'EasyKits/EasyPopup'
+pod 'EasyKits/EasyResponder'
+pod 'EasyKits/EasyListView'
+pod 'EasyKits/EasySyncScroll'
+pod 'EasyKits/EasyCarouseView'
+pod 'EasyKits/EasyExtension'
+```
+
 
 ## 组件列表
 - EasyListView: 复杂列表的简单实现，可用于快速构建电商类首页、商品详情、朋友圈等复杂列表
