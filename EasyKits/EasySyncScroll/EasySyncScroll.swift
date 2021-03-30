@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 /// ScrollItem - 提供滚动视图
-public protocol SyncScrollItemProtocol: NSObjectProtocol {
+public protocol SyncScrollItemProtocol: class {
     var scrollView: UIScrollView { get }
 }
 extension SyncScrollItemProtocol where Self: UIScrollView {
@@ -49,19 +49,18 @@ public extension UIView {
 }
 
 /// 内部横向滑动的containerView需要遵循此协议
-public protocol SyncScrollContainerProtocol: NSObjectProtocol {
-    var items: [AnyObject?] { get }
-    var currentItem: AnyObject? { get }
+public protocol SyncScrollContainerProtocol: class {
+    /// containerItem滚动到顶部
+    func scrollAllContainerItemToTop()
 }
 
 public extension SyncScrollContainerProtocol {
-    /// 重置内部item偏移
-    func resetContentOffset() {
-        for item in self.items {
-            if let scrollItem = item as? SyncScrollItemProtocol  {
-                scrollItem.scrollView.contentOffset = .zero
-            }
+    func containerItemScrollToTop(_ scrollView: UIScrollView) {
+        var minY: CGFloat = -scrollView.contentInset.top
+        if #available(iOS 11.0, *) {
+            minY = -scrollView.adjustedContentInset.top
         }
+        scrollView.contentOffset = .init(x: 0, y: minY)
     }
 }
 
@@ -160,7 +159,7 @@ public final class SyncScrollContext {
             self.isHover.accept(true)
         } else {
             if self.isHover.value != false {
-                self.containerView?.resetContentOffset()
+                self.containerView?.scrollAllContainerItemToTop()
             }
             self.isHover.accept(false)
         }

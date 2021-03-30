@@ -131,14 +131,13 @@ extension SyncOuterScrollView: SyncOuterScrollProtocol, UIGestureRecognizerDeleg
 
 /// 简易的containerView
 extension SyncContainerView: SyncScrollContainerProtocol {
-    var items: [AnyObject?] {
-        return self.containerItems
+    func scrollAllContainerItemToTop() {
+        for item in self.containerItems {
+            if let scrollItem = item as? SyncScrollItemProtocol  {
+                self.containerItemScrollToTop(scrollItem.scrollView)
+            }
+        }
     }
-    
-    var currentItem: AnyObject? {
-        return containerCurrentItems()
-    }
-
 }
 
 class SyncContainerView: UIScrollView, UIScrollViewDelegate {

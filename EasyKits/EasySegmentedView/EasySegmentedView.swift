@@ -7,13 +7,13 @@
 
 import UIKit
 
-public protocol EasySegmentedViewDelegate: NSObjectProtocol {
+public protocol EasySegmentedViewDelegate: class {
     //点击
     func segmentedView(_ segmentedView: EasySegmentedView, didSelectedAtIndex index: Int, isSame: Bool)
 }
 
 
-public protocol EasySegmentedViewDataSource: NSObjectProtocol {
+public protocol EasySegmentedViewDataSource: class {
     /// 提供cell的注册
     /// - Parameter segmentedView: EasySegmentedView
     func registerCellClass(in segmentedView: EasySegmentedView)

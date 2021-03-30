@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: EasyListViewDataSource
-public protocol EasyListViewDataSource: NSObjectProtocol {
+public protocol EasyListViewDataSource: class {
     /// 每个分区对应的数据源
     func listView(_ listView: EasyListView, modelForSection section: Int) -> EasyListSectionModel?
     
@@ -17,7 +17,7 @@ public protocol EasyListViewDataSource: NSObjectProtocol {
 }
 
 // MARK: EasyListViewDelegate
-public protocol EasyListViewDelegate: NSObjectProtocol {
+public protocol EasyListViewDelegate: class {
     func listView(_ listView: EasyListView, didSelect cellModel: EasyListCellModel)
 }
 
