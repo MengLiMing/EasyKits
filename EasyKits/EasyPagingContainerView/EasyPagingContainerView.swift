@@ -26,9 +26,9 @@ public protocol EasyPagingContainerViewDelegate: class {
     /// 停止回调
     /// - Parameters:
     ///   - containerView: EasyPagingContainerView
+    ///   - item: 停止时的Item
     ///   - index: 停止的下标
-    func containerView(_ containerView: EasyPagingContainerView, stopAt index: Int)
-    
+    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, stopAt index: Int)
     
     /// 视图添加回调
     /// - Parameters:
@@ -49,7 +49,7 @@ public protocol EasyPagingContainerViewDelegate: class {
 public extension EasyPagingContainerViewDelegate {
     func containerViewDidScroll(containerView: EasyPagingContainerView) { }
     func containerView(_ containerView: EasyPagingContainerView, from fromIndex: Int, to toIndex: Int, percent: CGFloat) {}
-    func containerView(_ containerView: EasyPagingContainerView, stopAt index: Int) { }
+    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, stopAt index: Int) { }
     func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, addAt index: Int) { }
     func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, removedAt index: Int) { }
 }
@@ -188,8 +188,8 @@ public class EasyPagingContainerView: UIScrollView {
     }
     
     public func addSubView(at index: Int) {
-        self.containerDelegate?.containerView(self, stopAt: index)
-        if let _ = items[index] {
+        if let item = items[index] {
+            self.containerDelegate?.containerView(self, item: item, stopAt: index)
             return
         }
         guard let item = self.containerDataSource?.containerView(self, itemAt: index) else {
@@ -203,6 +203,8 @@ public class EasyPagingContainerView: UIScrollView {
         self.itemIndexs.append(index)
         
         self.containerDelegate?.containerView(self, item: item, addAt: index)
+        self.containerDelegate?.containerView(self, item: item, stopAt: index)
+
     }
     
     public func scroll(toIndex index: Int, animated: Bool = false) {
