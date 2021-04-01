@@ -10,21 +10,21 @@ import WebKit
 import RxSwift
 import RxCocoa
 
-/// ScrollItem - 提供滚动视图
-public protocol SyncScrollItemProtocol: class {
+
+public protocol SyncScrollProvider: class {
     var scrollView: UIScrollView { get }
 }
-extension SyncScrollItemProtocol where Self: UIScrollView {
+extension SyncScrollProvider where Self: UIScrollView {
     public var scrollView: UIScrollView { return self }
 }
-extension SyncScrollItemProtocol where Self: WKWebView {}
+extension SyncScrollProvider where Self: WKWebView {}
 
 
 /// 外部需要遵循此协议 - 外部需要重写UIGestureRecognizerDelegate： shouldRecognizeSimultaneouslyWith
-public protocol SyncOuterScrollProtocol: SyncScrollItemProtocol {
+public protocol SyncOuterScroll: SyncScrollProvider {
     func wrapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
 }
-public extension SyncOuterScrollProtocol {
+public extension SyncOuterScroll {
     /// 包装一层 - 无法通过协议扩展UIGestureRecognizerDelegate
     func wrapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         let isEqualView = gestureRecognizer.view?.isEqual(otherGestureRecognizer.view) ?? false
@@ -35,8 +35,16 @@ public extension SyncOuterScrollProtocol {
     }
 }
 
+/// inner提供者 提供内部协议实现的载体 可能是UIViewController
+public protocol SyncScrollInnerProvider {
+    var syncInner: SyncInnerScroll { get }
+}
+
 /// 内部需要遵循此协议
-public protocol SyncInnerScrollProtocol: SyncScrollItemProtocol {}
+public protocol SyncInnerScroll: SyncScrollProvider, SyncScrollInnerProvider {}
+public extension SyncInnerScroll {
+    var syncInner: SyncInnerScroll { self }
+}
 public extension UIView {
     var isInnerItem: Bool {
         if let scrollView = self as? UIScrollView {
@@ -44,7 +52,7 @@ public extension UIView {
                 return wkwebView.isInnerItem
             }
         }
-        return self is SyncInnerScrollProtocol
+        return self is SyncInnerScroll
     }
 }
 
@@ -56,11 +64,7 @@ public protocol SyncScrollContainerProtocol: class {
 
 public extension SyncScrollContainerProtocol {
     func containerItemScrollToTop(_ scrollView: UIScrollView) {
-        var minY: CGFloat = -scrollView.contentInset.top
-        if #available(iOS 11.0, *) {
-            minY = -scrollView.adjustedContentInset.top
-        }
-        scrollView.contentOffset = .init(x: 0, y: minY)
+        scrollView.contentOffset = .init(x: 0, y: scrollView.sync_minY)
     }
 }
 
@@ -105,7 +109,7 @@ public final class SyncScrollContext {
     
     /// 外部scrollView
     fileprivate var outerDisposeBag = DisposeBag()
-    public weak var outerItem: SyncOuterScrollProtocol? {
+    public weak var outerItem: SyncOuterScroll? {
         didSet {
             outerDisposeBag = DisposeBag()
             guard let outerItem = outerItem else {
@@ -135,7 +139,8 @@ public final class SyncScrollContext {
         }
         self.resetOuterBounces(contentOffset)
         
-        if innerOffset.y > 0 {/// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
+        /// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
+        if let innerItem = innerItem, innerOffset.y > innerItem.scrollView.sync_minY {
             outer.scrollView.contentOffset.y = maxOffsetY
         }
         outerOffset = outer.scrollView.contentOffset
@@ -171,7 +176,7 @@ public final class SyncScrollContext {
 
     /// Container内部Item
     fileprivate var innerDisposeBag = DisposeBag()
-    public weak var innerItem: SyncInnerScrollProtocol? {
+    public weak var innerItem: SyncInnerScroll? {
         didSet {
             self.innerDisposeBag = DisposeBag()
             guard let innerItem = innerItem else {
@@ -189,26 +194,44 @@ public final class SyncScrollContext {
     }
     
     fileprivate func innerOffsetChanged(_ contentOffset: CGPoint) {
-        guard let inner = innerItem else {
+        guard let inner = innerItem,
+              let outer = outerItem else {
             return
         }
         switch refreshType {
         case .inner:
             if outerOffset.y < maxOffsetY  {
-                if outerOffset.y > 0 {
-                    inner.scrollView.contentOffset.y = 0
+                if outerOffset.y > outer.scrollView.sync_minY {
+                    fixedScrollViewToMinY(inner.scrollView)
                 }
             }
         case .outer:
             if outerOffset.y < maxOffsetY {
-                inner.scrollView.contentOffset.y = 0
+                fixedScrollViewToMinY(inner.scrollView)
             }
         }
                     
         innerOffset = inner.scrollView.contentOffset
 
-        outerItem?.scrollView.scrollsToTop = contentOffset.y <= 0
-        innerItem?.scrollView.scrollsToTop = contentOffset.y > 0
+        outerItem?.scrollView.scrollsToTop = contentOffset.y <= inner.scrollView.sync_minY
+        innerItem?.scrollView.scrollsToTop = contentOffset.y > inner.scrollView.sync_minY
+    }
+    
+    fileprivate func fixedScrollViewToMinY(_ scrollView: UIScrollView?) {
+        guard let scrollView = scrollView else {
+            return
+        }
+        scrollView.contentOffset.y = scrollView.sync_minY
+    }
+}
+
+fileprivate extension UIScrollView {
+    var sync_minY: CGFloat {
+        var minY: CGFloat = -self.contentInset.top
+        if #available(iOS 11.0, *) {
+            minY = -self.adjustedContentInset.top
+        }
+        return minY
     }
 }
 

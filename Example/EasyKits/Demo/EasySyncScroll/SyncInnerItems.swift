@@ -11,7 +11,7 @@ import EasyKits
 import WebKit
 import MJRefresh
 
-class SyncInnerScrollView: UIScrollView, SyncInnerScrollProtocol {
+class SyncInnerScrollView: UIScrollView, SyncInnerScroll {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
@@ -29,7 +29,7 @@ class SyncInnerScrollView: UIScrollView, SyncInnerScrollProtocol {
     }
 }
 
-class SyncInnerWebView: WKWebView, SyncInnerScrollProtocol {
+class SyncInnerWebView: WKWebView, SyncInnerScroll {
     init() {
         super.init(frame: .zero, configuration: WKWebViewConfiguration())
         self.load(URLRequest(url: URL(string: "https://www.baidu.com")!))
@@ -47,7 +47,7 @@ class SyncInnerWebView: WKWebView, SyncInnerScrollProtocol {
 }
 
 class SyncInnerTableView: UITableView,
-                          SyncInnerScrollProtocol,
+                          SyncInnerScroll,
                           UITableViewDelegate,
                           UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -122,7 +122,7 @@ class EasySyncScrollVC: UIViewController {
 
 /// 外部scrollView
 class SyncOuterScrollView: UIScrollView { }
-extension SyncOuterScrollView: SyncOuterScrollProtocol, UIGestureRecognizerDelegate {
+extension SyncOuterScrollView: SyncOuterScroll, UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return self.wrapGestureRecognizer(gestureRecognizer, shouldRecognizeSimultaneouslyWith: otherGestureRecognizer)
     }
@@ -133,8 +133,8 @@ extension SyncOuterScrollView: SyncOuterScrollProtocol, UIGestureRecognizerDeleg
 extension SyncContainerView: SyncScrollContainerProtocol {
     func scrollAllContainerItemToTop() {
         for item in self.containerItems {
-            if let scrollItem = item as? SyncScrollItemProtocol  {
-                self.containerItemScrollToTop(scrollItem.scrollView)
+            if let scrollItem = item as? SyncScrollInnerProvider  {
+                self.containerItemScrollToTop(scrollItem.syncInner.scrollView)
             }
         }
     }
@@ -150,7 +150,7 @@ class SyncContainerView: UIScrollView, UIScrollViewDelegate {
         setSubviews()
     }
     
-    var customItemHandler: ((SyncInnerScrollProtocol?) -> Void)?
+    var customItemHandler: ((SyncInnerScroll?) -> Void)?
     
     fileprivate lazy var containerItems: [UIView] = {
         return [SyncInnerScrollView(frame: .zero),
@@ -188,7 +188,7 @@ class SyncContainerView: UIScrollView, UIScrollViewDelegate {
     }
     
     func customItemChange() {
-        let listView = self.containerCurrentItems() as? SyncInnerScrollProtocol
+        let listView = self.containerCurrentItems() as? SyncInnerScroll
         self.customItemHandler?(listView)
     }
 }
