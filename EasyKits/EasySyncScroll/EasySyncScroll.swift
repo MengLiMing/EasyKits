@@ -197,8 +197,6 @@ public final class SyncScrollContext {
             if outerOffset.y < maxOffsetY  {
                 if outerOffset.y > 0 {
                     inner.scrollView.contentOffset.y = 0
-                } else {
-                    inner.scrollView.contentOffset.y = min(0, contentOffset.y)
                 }
             }
         case .outer:

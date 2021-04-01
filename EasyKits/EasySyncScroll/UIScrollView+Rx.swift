@@ -12,13 +12,18 @@ import RxCocoa
 public extension Reactive where Base: UIScrollView {
     var kvo_contentSize: Observable<CGSize> {
         base.rx
-            .observe(CGSize.self, #keyPath(UIScrollView.contentSize))
+            .observeWeakly(CGSize.self, #keyPath(UIScrollView.contentSize))
             .compactMap { $0 }
     }
     
     var kvo_contentOffset: Observable<CGPoint> {
         base.rx
-            .observe(CGPoint.self, #keyPath(UIScrollView.contentOffset))
+            .observeWeakly(CGPoint.self, #keyPath(UIScrollView.contentOffset))
             .compactMap { $0 }
+    }
+    
+    var kvo_delegate: Observable<UIScrollViewDelegate?> {
+        base.rx
+            .observeWeakly(UIScrollViewDelegate.self, #keyPath(UIScrollView.delegate))
     }
 }

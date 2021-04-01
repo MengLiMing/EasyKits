@@ -1,22 +1,22 @@
 PODS:
-  - EasyKits (0.1.6):
-    - EasyKits/EasyCarouseView (= 0.1.6)
-    - EasyKits/EasyExtension (= 0.1.6)
-    - EasyKits/EasyListView (= 0.1.6)
-    - EasyKits/EasyPagingContainerView (= 0.1.6)
-    - EasyKits/EasyPopup (= 0.1.6)
-    - EasyKits/EasyResponder (= 0.1.6)
-    - EasyKits/EasySegmentedView (= 0.1.6)
-    - EasyKits/EasySyncScroll (= 0.1.6)
-  - EasyKits/EasyCarouseView (0.1.6)
-  - EasyKits/EasyExtension (0.1.6)
-  - EasyKits/EasyListView (0.1.6)
-  - EasyKits/EasyPagingContainerView (0.1.6)
-  - EasyKits/EasyPopup (0.1.6):
+  - EasyKits (0.1.7):
+    - EasyKits/EasyCarouseView (= 0.1.7)
+    - EasyKits/EasyExtension (= 0.1.7)
+    - EasyKits/EasyListView (= 0.1.7)
+    - EasyKits/EasyPagingContainerView (= 0.1.7)
+    - EasyKits/EasyPopup (= 0.1.7)
+    - EasyKits/EasyResponder (= 0.1.7)
+    - EasyKits/EasySegmentedView (= 0.1.7)
+    - EasyKits/EasySyncScroll (= 0.1.7)
+  - EasyKits/EasyCarouseView (0.1.7)
+  - EasyKits/EasyExtension (0.1.7)
+  - EasyKits/EasyListView (0.1.7)
+  - EasyKits/EasyPagingContainerView (0.1.7)
+  - EasyKits/EasyPopup (0.1.7):
     - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.1.6)
-  - EasyKits/EasySegmentedView (0.1.6)
-  - EasyKits/EasySyncScroll (0.1.6):
+  - EasyKits/EasyResponder (0.1.7)
+  - EasyKits/EasySegmentedView (0.1.7)
+  - EasyKits/EasySyncScroll (0.1.7):
     - RxCocoa
     - RxSwift
   - Kingfisher (4.10.1)
@@ -48,7 +48,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 78bd7908777b1c643e25f3fa7d5d4a717b6a5a3c
+  EasyKits: 795f7e90c34b6548a0a0042b1b90586a0eee4296
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
