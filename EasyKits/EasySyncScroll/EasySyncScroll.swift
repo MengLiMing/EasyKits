@@ -90,7 +90,7 @@ public final class SyncScrollContext {
     /// 悬停状态
     fileprivate var isHover = BehaviorRelay(value: false)
     
-    fileprivate var diposeBag = DisposeBag()
+    fileprivate var disposeBag = DisposeBag()
     
     public init(refreshType: RefreshType = .outer) {
         self.refreshType = refreshType
@@ -219,6 +219,6 @@ public extension SyncScrollContext {
     func hoverStatusChanged(_ handler: @escaping (Bool) -> Void) {
         self.isHoverChanged.drive(onNext: {
             handler($0)
-        }).disposed(by: diposeBag)
+        }).disposed(by: disposeBag)
     }
 }
