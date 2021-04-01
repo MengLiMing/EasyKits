@@ -91,7 +91,7 @@ public final class SyncScrollContext {
     fileprivate var isHover = BehaviorRelay(value: false)
     
     fileprivate var diposeBag = DisposeBag()
-
+    
     public init(refreshType: RefreshType = .outer) {
         self.refreshType = refreshType
     }
@@ -108,38 +108,39 @@ public final class SyncScrollContext {
     public weak var outerItem: SyncOuterScrollProtocol? {
         didSet {
             outerDisposeBag = DisposeBag()
-            outerItem?.scrollView.rx
-                .contentOffset
+            guard let outerItem = outerItem else {
+                return
+            }
+            outerItem.scrollView.rx
+                .kvo_contentOffset
                 .distinctUntilChanged()
-                .bind(to: outerOffsetChanged)
+                .subscribe(onNext: {[weak self] contentOffset in
+                    self?.outerOffsetChanged(contentOffset)
+                })
                 .disposed(by: outerDisposeBag)
             
-            outerItem?.scrollView.rx.contentSize
-                .asDriver()
+            outerItem.scrollView.rx
+                .kvo_contentSize
                 .distinctUntilChanged()
-                .drive(onNext: {[weak self] _ in
+                .subscribe(onNext: {[weak self] _ in
                     self?.changeHover()
                 })
                 .disposed(by: outerDisposeBag)
         }
     }
     
-    fileprivate var outerOffsetChanged: Binder<CGPoint> {
-        return Binder<CGPoint>(self) { base, contentOffset in
-            guard let outer = base.outerItem else {
-                return
-            }
-            self.resetOuterBounces(contentOffset)
-            
-            if base.innerOffset.y > 0 {/// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
-                outer.scrollView.contentOffset.y = base.maxOffsetY
-                base.outerOffset = outer.scrollView.contentOffset
-            } else {
-                base.outerOffset = contentOffset
-            }
-            
-            base.changeHover()
+    fileprivate func outerOffsetChanged(_ contentOffset: CGPoint) {
+        guard let outer = outerItem else {
+            return
         }
+        self.resetOuterBounces(contentOffset)
+        
+        if innerOffset.y > 0 {/// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
+            outer.scrollView.contentOffset.y = maxOffsetY
+        }
+        outerOffset = outer.scrollView.contentOffset
+
+        changeHover()
     }
     
     fileprivate func resetOuterBounces(_ contentOffset: CGPoint) {
@@ -173,43 +174,43 @@ public final class SyncScrollContext {
     public weak var innerItem: SyncInnerScrollProtocol? {
         didSet {
             self.innerDisposeBag = DisposeBag()
-            self.innerItem?.scrollView.rx
-                .contentOffset
+            guard let innerItem = innerItem else {
+                return
+            }
+            innerItem.scrollView.rx
+                .kvo_contentOffset
                 .distinctUntilChanged()
-                .bind(to: innerOffsetChanged)
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [weak self] contentOffset in
+                    self?.innerOffsetChanged(contentOffset)
+                })
                 .disposed(by: self.innerDisposeBag)
         }
     }
-    fileprivate var innerOffsetChanged: Binder<CGPoint> {
-        return Binder<CGPoint>(self) { base, contentOffset in
-            guard let inner = base.innerItem else {
-                return
-            }
-            switch base.refreshType {
-            case .inner:
-                if base.outerOffset.y < base.maxOffsetY  {
-                    if base.outerOffset.y > 0 {
-                        inner.scrollView.contentOffset.y = 0
-                        base.innerOffset = inner.scrollView.contentOffset
-                    } else {
-                        inner.scrollView.contentOffset.y = min(0, contentOffset.y)
-                        base.innerOffset = inner.scrollView.contentOffset
-                    }
-                } else {
-                    base.innerOffset = contentOffset
-                }
-            case .outer:
-                if base.outerOffset.y < base.maxOffsetY {
-                    inner.scrollView.contentOffset.y = 0
-                    base.innerOffset = inner.scrollView.contentOffset
-                } else {
-                    base.innerOffset = contentOffset
-                }
-            }
-
-            base.outerItem?.scrollView.scrollsToTop = contentOffset.y <= 0
-            base.innerItem?.scrollView.scrollsToTop = contentOffset.y > 0
+    
+    fileprivate func innerOffsetChanged(_ contentOffset: CGPoint) {
+        guard let inner = innerItem else {
+            return
         }
+        switch refreshType {
+        case .inner:
+            if outerOffset.y < maxOffsetY  {
+                if outerOffset.y > 0 {
+                    inner.scrollView.contentOffset.y = 0
+                } else {
+                    inner.scrollView.contentOffset.y = min(0, contentOffset.y)
+                }
+            }
+        case .outer:
+            if outerOffset.y < maxOffsetY {
+                inner.scrollView.contentOffset.y = 0
+            }
+        }
+                    
+        innerOffset = inner.scrollView.contentOffset
+
+        outerItem?.scrollView.scrollsToTop = contentOffset.y <= 0
+        innerItem?.scrollView.scrollsToTop = contentOffset.y > 0
     }
 }
 

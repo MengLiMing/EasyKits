@@ -10,10 +10,15 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIScrollView {
-    var contentSize: Driver<CGSize> {
-        return self.base.rx
-            .observeWeakly(CGSize.self, #keyPath(UIScrollView.contentSize))
-            .map { $0 ?? .zero }
-            .asDriver(onErrorJustReturn: .zero)
+    var kvo_contentSize: Observable<CGSize> {
+        base.rx
+            .observe(CGSize.self, #keyPath(UIScrollView.contentSize))
+            .compactMap { $0 }
+    }
+    
+    var kvo_contentOffset: Observable<CGPoint> {
+        base.rx
+            .observe(CGPoint.self, #keyPath(UIScrollView.contentOffset))
+            .compactMap { $0 }
     }
 }
