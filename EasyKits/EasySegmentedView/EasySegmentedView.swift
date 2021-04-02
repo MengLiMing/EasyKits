@@ -129,6 +129,7 @@ public class EasySegmentedView: UIView {
                 collectionView.collectionViewLayout.invalidateLayout()
                 collectionView.reloadData()
             }
+            changeSelectedIndex(to: selectedIndex)
         }
     }
     
@@ -182,10 +183,10 @@ public class EasySegmentedView: UIView {
             var toIndex: Int = currentIndex
             
             if percent < 0 && percent > -1 {//滑动向左
-                if self.selectedIndex == 0 { return }
+                if currentIndex == 0 { return }
                 toIndex = max(0, currentIndex - 1)
             } else if percent > 0 && percent < 1 {//滑动向右
-                if self.selectedIndex == maxIndex { return }
+                if currentIndex == maxIndex { return }
                 toIndex = min(maxIndex, currentIndex + 1)
             } else {//直接设置contentOffset 或 切换边缘 -2 -1 0 1 2
                 toIndex = min(maxIndex, currentIndex + Int(percent))
@@ -247,21 +248,16 @@ public extension EasySegmentedView {
                 return
             }
             progressMaker.progressHandler = {[weak self] progress in
-                guard let `self` = self else {
-                    return
-                }
-                self.changeItem(to: targetIndex, progress: progress)
+                self?.changeItem(to: targetIndex, progress: progress)
             }
             progressMaker.completedHandler = {[weak self] in
-                guard let `self` = self else {
-                    return
-                }
-                self.switchStyle = nil
-                self.selectedIndex = targetIndex
-                self.toMiddle(targetIndex, animated: true)
+                self?.switchStyle = nil
+                self?.selectedIndex = targetIndex
             }
             progressMaker.start()
-            self.indicatorView?.selected(to: self.itemFrame(whenSelectedAt: targetIndex), animation: animation)
+            let whenSelectedFrame = self.itemFrame(whenSelectedAt: targetIndex)
+            self.toMiddle(whenSelectedFrame.midX, animated: true)
+            self.indicatorView?.selected(to: whenSelectedFrame, animation: animation)
         } else {
             changeItem(to: targetIndex, progress: 1)
             collectionView.reloadData()

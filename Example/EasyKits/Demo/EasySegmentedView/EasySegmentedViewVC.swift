@@ -76,9 +76,10 @@ class EasySegmentedViewVC: UIViewController {
             var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)], context: nil).size.width
             itemWidth = CGFloat(ceil(itemWidth))
 
-            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13), selectFont: UIFont.boldSystemFont(ofSize: 16))
+            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13))
             model.contentWidth = itemWidth
             model.dynamicWidth = itemWidth*16/13
+            model.maxZoomScale = 16/13
             return model
         }
     }

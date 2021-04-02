@@ -27,12 +27,11 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
     // MARK: Private Method
     fileprivate func setSubviews() {
         addSubview(self.textLabel)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.textLabel.frame = contentView.bounds
+        self.textLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: self.textLabel, attribute: .centerX, relatedBy: .equal, toItem: self.contentView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: self.textLabel, attribute: .centerY, relatedBy: .equal, toItem: self.contentView, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
     }
     
     // MARK: Override Method
@@ -42,13 +41,25 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
         guard let itemModel = itemModel as? EasySegmentedTextModel else {
             return
         }
-                
+        
         textLabel.text = itemModel.text
         textLabel.textColor = itemModel.normalColor.transfer(to: itemModel.selectColor, progress: itemModel.percent)
-        textLabel.font = font(fromFont: itemModel.normalFont, toFont: itemModel.selectFont, percent: itemModel.percent)
-        
+        if let maxZoomScale = itemModel.maxZoomScale {
+            let maxFont = UIFont(descriptor: itemModel.normalFont.fontDescriptor, size: itemModel.normalFont.pointSize*maxZoomScale)
+            let baseScale = itemModel.normalFont.lineHeight/maxFont.lineHeight
+            textLabel.font = maxFont
+            let targetScale = CGFloat(1).transfer(to: maxZoomScale, by: itemModel.percent)
+            textLabel.transform = CGAffineTransform(scaleX: baseScale*targetScale, y: baseScale*targetScale)
+        } else {
+            /// 字体缩放不建议使用 withSize(_ fontSize: CGFloat) -> UIFont,UIFont混村会造成内存增加
+            if itemModel.percent >= 1 {
+                textLabel.font = itemModel.selectFont
+            } else {
+                textLabel.font = itemModel.normalFont
+            }
+        }
     }
-
+    
     //字体变化
     fileprivate func font(fromFont from: UIFont, toFont to: UIFont, percent: CGFloat) -> UIFont {
         /// 此处只是简单处理 需要特殊效果的可以自定义
@@ -70,17 +81,23 @@ open class EasySegmentedTextModel: EasySegmentBaseItemModel {
     public var selectColor: UIColor
     
     /// 默认的字体字号
-    public var normalFont: UIFont
+    public let normalFont: UIFont
     
     /// 选中的字体字号
-    public var selectFont: UIFont
-
+    public var selectFont: UIFont! {
+        didSet {
+            maxZoomScale = nil
+        }
+    }
     
-    public init(text: String, normalColor: UIColor, selectColor: UIColor, normalFont: UIFont, selectFont: UIFont) {
+    /// 字体缩放倍数
+    public var maxZoomScale: CGFloat?
+    
+    public init(text: String, normalColor: UIColor, selectColor: UIColor, normalFont: UIFont) {
         self.text = text
         self.normalColor = normalColor
         self.selectColor = selectColor
         self.normalFont = normalFont
-        self.selectFont = selectFont
+        self.selectFont = normalFont
     }
 }
