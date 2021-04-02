@@ -117,8 +117,10 @@ public final class SyncScrollContext {
             }
             outerItem.scrollView.rx
                 .kvo_contentOffset
+                .observe(on: MainScheduler.asyncInstance)
+                .asDriver(onErrorJustReturn: .zero)
                 .distinctUntilChanged()
-                .subscribe(onNext: {[weak self] contentOffset in
+                .drive(onNext: {[weak self] contentOffset in
                     self?.outerOffsetChanged(contentOffset)
                 })
                 .disposed(by: outerDisposeBag)
@@ -184,9 +186,10 @@ public final class SyncScrollContext {
             }
             innerItem.scrollView.rx
                 .kvo_contentOffset
+                .observe(on: MainScheduler.asyncInstance)
+                .asDriver(onErrorJustReturn: .zero)
                 .distinctUntilChanged()
-                .observe(on: MainScheduler.instance)
-                .subscribe(onNext: { [weak self] contentOffset in
+                .drive(onNext: { [weak self] contentOffset in
                     self?.innerOffsetChanged(contentOffset)
                 })
                 .disposed(by: self.innerDisposeBag)

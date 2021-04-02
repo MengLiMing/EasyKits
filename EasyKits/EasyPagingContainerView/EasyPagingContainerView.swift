@@ -102,7 +102,7 @@ public extension EasyPagingContainerItem where Self: UIViewController {
     }
 }
 
-public class EasyPagingContainerView: UIScrollView {
+public class EasyPagingContainerView: UIView {
     /// 删除
     public enum RemoveStrategy {
         /// 删除最早加入的
@@ -122,7 +122,7 @@ public class EasyPagingContainerView: UIScrollView {
     /// 当前加入的item
     public private(set) var items: [Int: EasyPagingContainerItem] = [:]
     /// 删除策略
-    public var removeStrategy: RemoveStrategy = .farthest
+    public var removeStrategy: RemoveStrategy = .earliest
     
     fileprivate var itemIndexs: [Int] = []
     fileprivate var isFirstLayout: Bool = true
@@ -137,35 +137,35 @@ public class EasyPagingContainerView: UIScrollView {
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public private(set) lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.bounces = false
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
+        return scrollView
+    }()
 
     // MARK: Private Method
     fileprivate func config() {
-        self.delegate = self
-        self.isPagingEnabled = true
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
-        self.bounces = false
-        if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
-        }
+        addSubview(scrollView)
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let dataSource = self.containerDataSource else {
-            return
-        }
-        let itemCount = dataSource.numberOfItems(in: self)
-        let targetSize = CGSize(width: CGFloat(itemCount) * bounds.size.width, height: bounds.size.height)
-        if targetSize == contentSize {
-            return
-        }
-        contentSize = targetSize
+        self.scrollView.frame = self.bounds
         if isFirstLayout {
             isFirstLayout = false
+            configScrollViewContenSize()
             scroll(toIndex: defaultSelectedIndex, animated: false)
         } else {
+            configScrollViewContenSize()
             resetItems()
             scroll(toIndex: selectedIndex, animated: false)
         }
@@ -175,6 +175,7 @@ public class EasyPagingContainerView: UIScrollView {
     /// 刷新
     /// - Parameter index: 刷新后选中 默认为0
     public func reloadData(selectedAt index: Int = 0) {
+        configScrollViewContenSize()
         self.removeAllItem()
         self.scroll(toIndex: index, animated: false)
     }
@@ -196,7 +197,7 @@ public class EasyPagingContainerView: UIScrollView {
             return
         }
         
-        self.addSubview(item.itemView)
+        self.scrollView.addSubview(item.itemView)
         item.itemView.frame = CGRect(x: CGFloat(index) * bounds.size.width, y: 0, width: bounds.size.width, height: bounds.size.height)
   
         self.items[index] = item
@@ -215,12 +216,17 @@ public class EasyPagingContainerView: UIScrollView {
         self.setContentOffset(CGPoint(x: contentOffset_x, y: 0), animated: animated)
     }
     
-    // MARK: Override Method
-    public override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        super.setContentOffset(contentOffset, animated: animated)
+    public func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+        self.scrollView.setContentOffset(contentOffset, animated: animated)
         if !animated {
             self.addSubview(at: contentOffset)
         }
+    }
+    
+    fileprivate func configScrollViewContenSize() {
+        let itemCount = containerDataSource?.numberOfItems(in: self) ?? 0
+        let targetSize = CGSize(width: CGFloat(itemCount) * bounds.size.width, height: bounds.size.height)
+        scrollView.contentSize = targetSize
     }
     
     fileprivate func addSubview(at contentOffset: CGPoint) {
@@ -261,8 +267,8 @@ fileprivate extension EasyPagingContainerView {
             self.containerDelegate?.containerView(self, item: item, removedAt: index)
         }
         
-        self.items = [:]
-        self.itemIndexs = []
+        self.items.removeAll()
+        self.itemIndexs.removeAll()
     }
     
     /// 检测是否需要删除
@@ -333,7 +339,7 @@ extension EasyPagingContainerView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.containerDelegate?.containerViewDidScroll(containerView: self)
 
-        guard let count = self.containerDataSource?.numberOfItems(in: self), self.contentSize.width > 0 else {
+        guard let count = self.containerDataSource?.numberOfItems(in: self), self.scrollView.contentSize.width > 0 else {
             return
         }
         let maxOffsetX = (CGFloat(count) * scrollView.frame.width)

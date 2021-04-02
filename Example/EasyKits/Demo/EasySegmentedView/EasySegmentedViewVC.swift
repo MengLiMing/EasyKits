@@ -110,7 +110,7 @@ extension EasySegmentedViewVC: EasySegmentedViewDataSource {
 
 extension EasySegmentedViewVC: EasyPagingContainerViewDelegate {
     func containerViewDidScroll(containerView: EasyPagingContainerView) {
-        self.segmentedView.scroll(by: containerView)
+        self.segmentedView.scroll(by: containerView.scrollView)
     }
     
     func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, addAt index: Int) {
