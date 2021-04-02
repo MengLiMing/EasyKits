@@ -44,12 +44,17 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
         
         textLabel.text = itemModel.text
         textLabel.textColor = itemModel.normalColor.transfer(to: itemModel.selectColor, progress: itemModel.percent)
-        if let maxZoomScale = itemModel.maxZoomScale {
+        fontAnimation(itemModel)
+    }
+    
+    fileprivate func fontAnimation(_ itemModel: EasySegmentedTextModel) {
+        if let maxZoomScale = itemModel.maxZoomScale, maxZoomScale != 1 {
             let maxFont = UIFont(descriptor: itemModel.normalFont.fontDescriptor, size: itemModel.normalFont.pointSize*maxZoomScale)
-            let baseScale = itemModel.normalFont.lineHeight/maxFont.lineHeight
+            /// 设置为最大字体 避免缩放模糊
             textLabel.font = maxFont
-            let targetScale = CGFloat(1).transfer(to: maxZoomScale, by: itemModel.percent)
-            textLabel.transform = CGAffineTransform(scaleX: baseScale*targetScale, y: baseScale*targetScale)
+            /// 所以渐变基准为maxFont.pointSize
+            let targetScale = itemModel.normalFont.pointSize.transfer(to: maxFont.pointSize, by: itemModel.percent) / maxFont.pointSize
+            textLabel.transform = CGAffineTransform(scaleX: targetScale, y: targetScale)
         } else {
             /// 字体缩放不建议使用 withSize(_ fontSize: CGFloat) -> UIFont,UIFont混村会造成内存增加
             if itemModel.percent >= 1 {
