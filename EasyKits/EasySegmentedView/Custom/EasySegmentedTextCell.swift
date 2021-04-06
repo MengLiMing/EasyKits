@@ -56,7 +56,7 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
             let targetScale = itemModel.normalFont.pointSize.transfer(to: maxFont.pointSize, by: itemModel.percent) / maxFont.pointSize
             textLabel.transform = CGAffineTransform(scaleX: targetScale, y: targetScale)
         } else {
-            /// 字体缩放不建议使用 withSize(_ fontSize: CGFloat) -> UIFont,UIFont混村会造成内存增加
+            /// 字体缩放不建议使用 withSize(_ fontSize: CGFloat) -> UIFont,UIFont会造成内存增加
             if itemModel.percent >= 1 {
                 textLabel.font = itemModel.selectFont
             } else {

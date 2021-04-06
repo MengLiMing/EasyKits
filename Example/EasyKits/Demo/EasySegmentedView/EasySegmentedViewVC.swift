@@ -32,8 +32,8 @@ class EasySegmentedViewVC: UIViewController {
         let view = EasyPagingContainerView(frame: .zero)
         view.containerDelegate = self
         view.containerDataSource = self
-        view.maxExistCount = 5
-        view.removeStrategy = .farthest
+//        view.maxExistCount = 5
+//        view.removeStrategy = .farthest
         return view
     }()
     
