@@ -80,6 +80,7 @@ class EasySegmentedViewVC: UIViewController {
             model.contentWidth = itemWidth
             model.dynamicWidth = itemWidth*16/13
             model.maxZoomScale = 16/13
+            model.maxStrokeWidth = -5
             return model
         }
     }

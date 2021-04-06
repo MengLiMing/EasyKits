@@ -379,8 +379,10 @@ fileprivate extension EasySegmentedView {
         itemModel.percent = percent
         let item = self.item(index)
         item?.refresh(itemModel)
-        /// 刷新宽度
-        collectionView.collectionViewLayout.invalidateLayout()
+        if itemModel.endWidth != itemModel.startWidth {
+            /// 刷新宽度
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 }
 

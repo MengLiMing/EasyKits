@@ -42,12 +42,25 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
             return
         }
         
-        textLabel.text = itemModel.text
         textLabel.textColor = itemModel.normalColor.transfer(to: itemModel.selectColor, progress: itemModel.percent)
-        fontAnimation(itemModel)
+        fontSizeAnimation(itemModel)
+        fontStrokeWidth(itemModel)
     }
     
-    fileprivate func fontAnimation(_ itemModel: EasySegmentedTextModel) {
+    /// 字体粗细
+    fileprivate func fontStrokeWidth(_ itemModel: EasySegmentedTextModel) {
+        let attributes = NSMutableAttributedString(string: itemModel.text)
+        var strokeWidth: CGFloat = 0
+        let minStrokeWidth: CGFloat = 0
+        if let maxStrokeWidth = itemModel.maxStrokeWidth {
+            strokeWidth = minStrokeWidth.transfer(to: maxStrokeWidth, by: itemModel.percent)
+        }
+        attributes.addAttribute(.strokeWidth, value: NSNumber(value: Double(strokeWidth)), range: NSMakeRange(0, itemModel.text.count))
+        textLabel.attributedText = attributes
+    }
+    
+    /// 字体大小
+    fileprivate func fontSizeAnimation(_ itemModel: EasySegmentedTextModel) {
         if let maxZoomScale = itemModel.maxZoomScale, maxZoomScale != 1 {
             let maxFont = UIFont(descriptor: itemModel.normalFont.fontDescriptor, size: itemModel.normalFont.pointSize*maxZoomScale)
             /// 设置为最大字体 避免缩放模糊
@@ -97,6 +110,9 @@ open class EasySegmentedTextModel: EasySegmentBaseItemModel {
     
     /// 字体缩放倍数
     public var maxZoomScale: CGFloat?
+    
+    /// 字体描边
+    public var maxStrokeWidth: CGFloat?
     
     public init(text: String, normalColor: UIColor, selectColor: UIColor, normalFont: UIFont) {
         self.text = text
