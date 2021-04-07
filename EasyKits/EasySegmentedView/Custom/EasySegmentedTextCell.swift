@@ -78,12 +78,12 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
         }
     }
     
-    //字体变化
-    fileprivate func font(fromFont from: UIFont, toFont to: UIFont, percent: CGFloat) -> UIFont {
-        /// 此处只是简单处理 需要特殊效果的可以自定义
-        let resultSize = from.pointSize.transfer(to: to.pointSize, by: percent)
-        return percent <= 0.5 ? from.withSize(resultSize) : to.withSize(resultSize)
-    }
+//    //字体变化
+//    fileprivate func font(fromFont from: UIFont, toFont to: UIFont, percent: CGFloat) -> UIFont {
+//        // 频繁调用 UIFont会造成内存增加
+//        let resultSize = from.pointSize.transfer(to: to.pointSize, by: percent)
+//        return percent <= 0.5 ? from.withSize(resultSize) : to.withSize(resultSize)
+//    }
 }
 
 
