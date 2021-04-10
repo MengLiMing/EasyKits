@@ -5,10 +5,9 @@
 //  Created by Ming on 2021/4/10.
 //
 
-import Foundation
 import RxSwift
 
-extension ObservableType {
+public extension ObservableType {
     /// 回顾历史元素
     /// - Returns: (old, new)
     func review() -> Observable<(Element?, Element)> {
