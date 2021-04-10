@@ -30,6 +30,7 @@ pod 'EasyKits/EasyListView'
 pod 'EasyKits/EasySyncScroll'
 pod 'EasyKits/EasyCarouseView'
 pod 'EasyKits/EasyExtension'
+pod 'EasyKits/EasyRxExtension'
 ```
 
 

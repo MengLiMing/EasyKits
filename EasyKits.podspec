@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.2.0'
+    s.version          = '0.2.1'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -68,6 +68,14 @@ Pod::Spec.new do |s|
     # 一些日常使用的扩展
     s.subspec "EasyExtension" do |ss|
         ss.source_files = 'EasyKits/EasyExtension/*.swift'
+    end
+    
+    # rx扩展
+    s.subspec "EasyRxExtension" do |ss|
+        ss.dependency 'RxSwift'
+        ss.dependency 'RxCocoa'
+        
+        ss.source_files = 'EasyKits/EasyRxExtension/*.swift'
     end
     
     
