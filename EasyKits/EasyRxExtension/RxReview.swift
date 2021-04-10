@@ -21,8 +21,8 @@ extension ObservableType {
     /// - Returns: ([old]，new)
     func review(_ count: Int) -> Observable<([Element], Element)> {
         if count <= 0 { return map { ([], $0) } }
-        return scan([]) { (old, new) -> [Element] in
-            old.suffix(count) + [new]
+        return scan([]) {
+            $0.suffix(count) + [$1]
         }.map {
             (Array($0[0..<$0.count-1]), $0[$0.count-1])
         }
