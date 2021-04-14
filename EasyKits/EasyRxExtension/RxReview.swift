@@ -26,4 +26,12 @@ public extension ObservableType {
             (Array($0[0..<$0.count-1]), $0[$0.count-1])
         }
     }
+    
+    /// 记一次scan使用，RxSwift有相应的操作符 enumerated
+    @available(*, unavailable)
+    func withIndex() -> Observable<(Int,Element)> {
+        scan(nil) {
+            (($0?.0 ?? -1) + 1, $1)
+        }.compactMap { $0 }
+    }
 }
