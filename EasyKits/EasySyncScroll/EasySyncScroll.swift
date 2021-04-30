@@ -56,13 +56,13 @@ public extension UIView {
     }
 }
 
-/// 内部横向滑动的containerView需要遵循此协议
-public protocol SyncScrollContainerProtocol: class {
+/// 横向滑动容器
+public protocol SyncScrollContainer: class {
     /// containerItem滚动到顶部
     func scrollAllContainerItemToTop()
 }
 
-public extension SyncScrollContainerProtocol {
+public extension SyncScrollContainer {
     func containerItemScrollToTop(_ scrollView: UIScrollView) {
         scrollView.contentOffset = .init(x: 0, y: scrollView.sync_minY)
     }
@@ -99,6 +99,9 @@ public final class SyncScrollContext {
     public init(refreshType: RefreshType = .outer) {
         self.refreshType = refreshType
     }
+    
+    /// ContainerView
+    public weak var containerView: SyncScrollContainer?
     
     /// 悬停状态改变
     public var isHoverChanged: Driver<Bool> {
@@ -172,9 +175,6 @@ public final class SyncScrollContext {
             self.isHover.accept(false)
         }
     }
-    
-    /// ContainerView
-    public weak var containerView: SyncScrollContainerProtocol?
 
     /// Container内部Item
     fileprivate var innerDisposeBag = DisposeBag()

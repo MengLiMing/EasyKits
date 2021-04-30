@@ -25,13 +25,13 @@ class EasySegmentedViewVC: UIViewController {
     }()
         
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {
-        return createListModel(list: ["精选", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货", "日用百货", "百货", "百货", "百货", "百货", "百货", "百货", "百货"])
+        return createListModel(list: ["精选", "百货", "食品", "母婴", "女装", "男装", "生活服务", "家电", "数码", "服饰", "护肤彩妆", "品质母婴", "汇吃美食"])
     }()
     
     fileprivate lazy var containerView: EasyPagingContainerView = {
         let view = EasyPagingContainerView(frame: .zero)
-        view.containerDelegate = self
-        view.containerDataSource = self
+        view.delegate = self
+        view.dataSource = self
 //        view.maxExistCount = 5
 //        view.removeStrategy = .farthest
         return view
@@ -65,7 +65,7 @@ class EasySegmentedViewVC: UIViewController {
     }
     
     @objc fileprivate func reloadData() {
-        listModel = createListModel(list: ["精选", "日用百货", "话费充值", "蔬菜", "水果", "女装", "百货", "百货", "百货", "日用百货", "百货", "百货", "日用百货", "百货", "日用百货", "百货", "百货"])
+        listModel = createListModel(list: ["精选", "日用百货", "话费充值", "食品", "母婴", "女装", "男装", "生活服务", "家电", "数码", "服饰", "护肤彩妆", "品质母婴", "汇吃美食"])
         let selectedIndex = Int.random(in: 0..<listModel.count)
         segmentedView.reloadData(selectedAt: selectedIndex)
         containerView.reloadData(selectedAt: selectedIndex)

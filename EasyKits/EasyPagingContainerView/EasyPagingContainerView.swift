@@ -20,22 +20,28 @@ public protocol EasyPagingContainerViewDelegate: class {
     ///   - from: from下标
     ///   - to: to下标
     ///   - percent: 滑动进度(可以根据进度，自行调用addSubview，选择添加view的时机，默认是滑动停止)
-    func containerView(_ containerView: EasyPagingContainerView, from fromIndex: Int, to toIndex: Int, percent: CGFloat)
-    
+    func containerView(_ containerView: EasyPagingContainerView,
+                       from fromIndex: Int,
+                       to toIndex: Int,
+                       percent: CGFloat)
     
     /// 停止回调
     /// - Parameters:
     ///   - containerView: EasyPagingContainerView
     ///   - item: 停止时的Item
     ///   - index: 停止的下标
-    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, stopAt index: Int)
+    func containerView(_ containerView: EasyPagingContainerView,
+                       item: EasyPagingContainerItem,
+                       stopAt index: Int)
     
     /// 视图添加回调
     /// - Parameters:
     ///   - containerView: EasyPagingContainerView
-    ///   - item: 添加的试图
+    ///   - item: 添加的视图
     ///   - index: 添加的下标
-    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, addAt index: Int)
+    func containerView(_ containerView: EasyPagingContainerView,
+                       item: EasyPagingContainerItem,
+                       addAt index: Int)
     
     
     /// 删除试图回调
@@ -43,7 +49,9 @@ public protocol EasyPagingContainerViewDelegate: class {
     ///   - containerView: EasyPagingContainerView
     ///   - item: 删除的item
     ///   - index: 删除的下标
-    func containerView(_ containerView: EasyPagingContainerView, item: EasyPagingContainerItem, removedAt index: Int)
+    func containerView(_ containerView: EasyPagingContainerView,
+                       item: EasyPagingContainerItem,
+                       removedAt index: Int)
 }
 
 public extension EasyPagingContainerViewDelegate {
@@ -64,13 +72,15 @@ public protocol EasyPagingContainerViewDataSource: class {
     /// - Parameters:
     ///   - containerView: EasyPagingContainerView
     ///   - index: 需要添加的下标
-    func containerView(_ containerView: EasyPagingContainerView, itemAt index: Int) -> EasyPagingContainerItem?
+    func containerView(_ containerView: EasyPagingContainerView,
+                       itemAt index: Int) -> EasyPagingContainerItem?
         
     /// 需要删除时，判断是否需要删除(如超过最大加载数量，而有些页面需要常驻)
     /// - Parameters:
     ///   - containerView: EasyPagingContainerView
     ///   - index: 将要删除的下标
-    func itemWillRemove(of containerView: EasyPagingContainerView, at index: Int) -> Bool
+    func itemWillRemove(of containerView: EasyPagingContainerView
+                        , at index: Int) -> Bool
 }
 
 public extension EasyPagingContainerViewDataSource {
@@ -102,7 +112,7 @@ public extension EasyPagingContainerItem where Self: UIViewController {
     }
 }
 
-public class EasyPagingContainerView: UIView {
+open class EasyPagingContainerView: UIView {
     /// 删除
     public enum RemoveStrategy {
         /// 删除最早加入的
@@ -111,8 +121,8 @@ public class EasyPagingContainerView: UIView {
         case farthest
     }
     
-    public weak var containerDelegate: EasyPagingContainerViewDelegate?
-    public weak var containerDataSource: EasyPagingContainerViewDataSource?
+    public weak var delegate: EasyPagingContainerViewDelegate?
+    public weak var dataSource: EasyPagingContainerViewDataSource?
     /// 默认下标
     public var defaultSelectedIndex: Int = 0
     /// 当前选中下标
@@ -123,6 +133,15 @@ public class EasyPagingContainerView: UIView {
     public private(set) var items: [Int: EasyPagingContainerItem] = [:]
     /// 删除策略
     public var removeStrategy: RemoveStrategy = .earliest
+    
+    public var gestureDelegate: EasyPagingContainerGestureRecognizerDelegate? {
+        set {
+            scrollView.gestureDelegate = newValue
+        }
+        get {
+            scrollView.gestureDelegate
+        }
+    }
     
     fileprivate var itemIndexs: [Int] = []
     fileprivate var isFirstLayout: Bool = true
@@ -138,8 +157,8 @@ public class EasyPagingContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public private(set) lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
+    public private(set) lazy var scrollView: ContainerScrollView = {
+        let scrollView = ContainerScrollView()
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.showsVerticalScrollIndicator = false
@@ -190,10 +209,10 @@ public class EasyPagingContainerView: UIView {
     
     public func addSubView(at index: Int) {
         if let item = items[index] {
-            self.containerDelegate?.containerView(self, item: item, stopAt: index)
+            self.delegate?.containerView(self, item: item, stopAt: index)
             return
         }
-        guard let item = self.containerDataSource?.containerView(self, itemAt: index) else {
+        guard let item = self.dataSource?.containerView(self, itemAt: index) else {
             return
         }
         
@@ -203,13 +222,13 @@ public class EasyPagingContainerView: UIView {
         self.items[index] = item
         self.itemIndexs.append(index)
         
-        self.containerDelegate?.containerView(self, item: item, addAt: index)
-        self.containerDelegate?.containerView(self, item: item, stopAt: index)
+        self.delegate?.containerView(self, item: item, addAt: index)
+        self.delegate?.containerView(self, item: item, stopAt: index)
 
     }
     
     public func scroll(toIndex index: Int, animated: Bool = false) {
-        guard let count = self.containerDataSource?.numberOfItems(in: self), index < count else {
+        guard let count = self.dataSource?.numberOfItems(in: self), index < count else {
             return
         }
         let contentOffset_x = CGFloat(index) * self.frame.width
@@ -224,7 +243,7 @@ public class EasyPagingContainerView: UIView {
     }
     
     fileprivate func configScrollViewContenSize() {
-        let itemCount = containerDataSource?.numberOfItems(in: self) ?? 0
+        let itemCount = dataSource?.numberOfItems(in: self) ?? 0
         let targetSize = CGSize(width: CGFloat(itemCount) * bounds.size.width, height: bounds.size.height)
         scrollView.contentSize = targetSize
     }
@@ -264,7 +283,7 @@ fileprivate extension EasyPagingContainerView {
                 vc.view.removeFromSuperview()
                 vc.removeFromParent()
             }
-            self.containerDelegate?.containerView(self, item: item, removedAt: index)
+            self.delegate?.containerView(self, item: item, removedAt: index)
         }
         
         self.items.removeAll()
@@ -285,7 +304,7 @@ fileprivate extension EasyPagingContainerView {
     func removeEarliestItem() {
         guard maxExistCount > 0,
               itemIndexs.count > self.maxExistCount,
-              let dataSource = self.containerDataSource else {
+              let dataSource = self.dataSource else {
             return
         }
         for (index, itemIndex) in itemIndexs.enumerated() where itemIndex != selectedIndex && dataSource.itemWillRemove(of: self, at: itemIndex) {
@@ -299,7 +318,7 @@ fileprivate extension EasyPagingContainerView {
     func removeFarthestItem() {
         guard maxExistCount > 0,
               itemIndexs.count > self.maxExistCount,
-              let dataSource = self.containerDataSource else {
+              let dataSource = self.dataSource else {
             return
         }
         
@@ -330,16 +349,16 @@ fileprivate extension EasyPagingContainerView {
         item.itemView.removeFromSuperview()
         item.itemViewController?.removeFromParent()
 
-        self.containerDelegate?.containerView(self, item: item, removedAt: index)
+        self.delegate?.containerView(self, item: item, removedAt: index)
         self.items[index] = nil
     }
 }
 
 extension EasyPagingContainerView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.containerDelegate?.containerViewDidScroll(containerView: self)
+        self.delegate?.containerViewDidScroll(containerView: self)
 
-        guard let count = self.containerDataSource?.numberOfItems(in: self), self.scrollView.contentSize.width > 0 else {
+        guard let count = self.dataSource?.numberOfItems(in: self), self.scrollView.contentSize.width > 0 else {
             return
         }
         let maxOffsetX = (CGFloat(count) * scrollView.frame.width)
@@ -360,7 +379,7 @@ extension EasyPagingContainerView: UIScrollViewDelegate {
             percent = percent < 0 ? -1 : 1
             self.selectedIndex = toIndex
         }
-        self.containerDelegate?.containerView(self, from: selectedIndex, to: toIndex, percent: percent)
+        self.delegate?.containerView(self, from: selectedIndex, to: toIndex, percent: percent)
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -372,3 +391,30 @@ extension EasyPagingContainerView: UIScrollViewDelegate {
     }
 }
 
+
+public protocol EasyPagingContainerGestureRecognizerDelegate: class {
+    func easyPagingContainerScrollView(_ scrollView: UIScrollView,
+                                       gestureRecognizerShouldBegin gestureRecognizer: UIGestureRecognizer) -> Bool
+    
+    func easyPagingContainerScrollView(_ scrollView: UIScrollView,
+                                       gestureRecognizer: UIGestureRecognizer,
+                                       shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
+}
+
+public extension EasyPagingContainerGestureRecognizerDelegate {
+    func easyPagingContainerScrollView(_ scrollView: UIScrollView, gestureRecognizerShouldBegin gestureRecognizer: UIGestureRecognizer) -> Bool { return true }
+    
+    func easyPagingContainerScrollView(_ scrollView: UIScrollView, gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool { return false }
+}
+
+public class ContainerScrollView: UIScrollView, UIGestureRecognizerDelegate {
+    public weak var gestureDelegate: EasyPagingContainerGestureRecognizerDelegate?
+
+    public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        gestureDelegate?.easyPagingContainerScrollView(self, gestureRecognizerShouldBegin: gestureRecognizer) ?? true
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        gestureDelegate?.easyPagingContainerScrollView(self, gestureRecognizer: gestureRecognizer, shouldRecognizeSimultaneouslyWith: otherGestureRecognizer) ?? false
+    }
+}

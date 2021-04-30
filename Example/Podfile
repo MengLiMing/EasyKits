@@ -6,4 +6,5 @@ target 'EasyKits_Example' do
   pod 'EasyKits', :path => '../'
   pod 'MJRefresh'
   pod 'Kingfisher'
+  pod 'Then'
 end

@@ -24,7 +24,10 @@ class ViewController: UIViewController {
         case carouseView
         /// segmentView
         case segmentedView
-        
+        /// 嵌套使用
+        case nest1
+        case nest2
+
         var data: (title: String, vcType: UIViewController.Type?) {
             switch self {
             case .popup:
@@ -39,6 +42,10 @@ class ViewController: UIViewController {
                 return ("EasyCarouseView - 自定义轮播", EasyCarouseViewVC.self)
             case .segmentedView:
                 return ("EasySegmentedView - 易扩展、易自定义的分段选择器", EasySegmentedViewVC.self)
+            case .nest1:
+                return ("嵌套使用", NestContainerListVC.self)
+            case .nest2:
+                return ("嵌套使用", NestSyncContainerListVC.self)
             }
         }
     }
