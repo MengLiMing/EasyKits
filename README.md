@@ -49,6 +49,8 @@ pod 'EasyKits/EasyRxExtension'
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/syncScroll.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/carouseView.gif)|
 |EasyListView|EasySegmentedView|
 |![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easylistview.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/easysegmentview.gif)|
+|Nest|SyncNest|
+|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/nestScroll.gif)|![](https://raw.githubusercontent.com/MengLiMing/EasyKits/master/demo_gif/nestSyncScroll.gif)|
 
 ## 部分组件线上项目效果
 |EasyListView+EasySegmentedView+EasyPagingContainerView|
