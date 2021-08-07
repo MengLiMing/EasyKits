@@ -15,8 +15,8 @@ class EasySegmentedViewVC: UIViewController {
         let v = EasySegmentedView(frame: .zero)
         v.dataSource = self
         v.delegate = self
-        v.edgeInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        v.itemSpacing = 10
+        v.edgeInset = UIEdgeInsets(top: 0, left: 13.5, bottom: 0, right: 13.5)
+        v.itemSpacing = 28
         let indicatorView = EasySegmentedIndicatorLineView(frame: .zero)
         indicatorView.backgroundColor = .red
         v.indicatorView = indicatorView
@@ -41,9 +41,7 @@ class EasySegmentedViewVC: UIViewController {
         super.viewDidLoad()
         title = "EasySegmentedView"
         view.backgroundColor = .white
-        
-        segmentedView.defaultSelectedIndex = 8
-        containerView.defaultSelectedIndex = 8
+
         setSubviews()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "刷新", style: .plain, target: self, action: #selector(reloadData))
@@ -65,7 +63,7 @@ class EasySegmentedViewVC: UIViewController {
     }
     
     @objc fileprivate func reloadData() {
-        listModel = createListModel(list: ["精选", "日用百货", "话费充值", "食品", "母婴", "女装", "男装", "生活服务", "家电", "数码", "服饰", "护肤彩妆", "品质母婴", "汇吃美食"])
+        listModel = createListModel(list: ["精选精选精选精选精选精选精选", "百货百货百货", "百货百货百货百货", "百货百货百货百货百货百货"])
         let selectedIndex = Int.random(in: 0..<listModel.count)
         segmentedView.reloadData(selectedAt: selectedIndex)
         containerView.reloadData(selectedAt: selectedIndex)
@@ -73,14 +71,12 @@ class EasySegmentedViewVC: UIViewController {
     
     func createListModel(list: [String]) -> [EasySegmentedTextModel] {
         list.map { text in
-            var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)], context: nil).size.width
+            var itemWidth = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 16)], context: nil).size.width
             itemWidth = CGFloat(ceil(itemWidth))
 
-            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13))
+            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, font: UIFont.systemFont(ofSize: 16))
             model.contentWidth = itemWidth
-            model.dynamicWidth = itemWidth*16/13
-            model.maxZoomScale = 16/13
-            model.maxStrokeWidth = -5
+            model.maxStrokeWidth = -2
             return model
         }
     }

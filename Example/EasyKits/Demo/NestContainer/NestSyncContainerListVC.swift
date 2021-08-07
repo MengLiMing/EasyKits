@@ -104,7 +104,7 @@ class NestSyncContainerListVC: UIViewController {
     
     func createListModel(list: [String]) -> [EasySegmentedTextModel] {
         list.map { text in
-            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, normalFont: UIFont.systemFont(ofSize: 13))
+            let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, font: UIFont.systemFont(ofSize: 13))
             model.contentWidth = UIScreen.screenWidth / CGFloat(list.count)
             model.maxZoomScale = 16/13
             model.maxStrokeWidth = -5

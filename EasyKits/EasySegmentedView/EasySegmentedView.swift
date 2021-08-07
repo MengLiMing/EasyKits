@@ -7,13 +7,13 @@
 
 import UIKit
 
-public protocol EasySegmentedViewDelegate: class {
+public protocol EasySegmentedViewDelegate: AnyObject {
     //点击
     func segmentedView(_ segmentedView: EasySegmentedView, didSelectedAtIndex index: Int, isSame: Bool)
 }
 
 
-public protocol EasySegmentedViewDataSource: class {
+public protocol EasySegmentedViewDataSource: AnyObject {
     /// 提供cell的注册
     /// - Parameter segmentedView: EasySegmentedView
     func registerCellClass(in segmentedView: EasySegmentedView)
@@ -59,11 +59,15 @@ public class EasySegmentedView: UIView {
     /// 当前指示器
     public var indicatorView: EasySegmentedIndicatorBaseView? {
         didSet {
-            collectionView.indicatorView = indicatorView
+            oldValue?.removeFromSuperview()
+            guard let indicatorView = indicatorView else {
+                return
+            }
+            collectionView.addSubview(indicatorView)
         }
     }
     
-    var bounces: Bool {
+    public var bounces: Bool {
         set {
             collectionView.bounces = newValue
         }
@@ -72,10 +76,10 @@ public class EasySegmentedView: UIView {
         }
     }
     
-    public private(set) lazy var collectionView: EasySegmentedCollectionView = {
+    public private(set) lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let view = EasySegmentedCollectionView(frame: .zero, collectionViewLayout: layout)
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = .clear
@@ -89,7 +93,7 @@ public class EasySegmentedView: UIView {
     }()
     
     fileprivate lazy var progressMaker: EasySegmentedProgressMaker = {
-       return EasySegmentedProgressMaker(duration: tapAnimationDuration)
+        return EasySegmentedProgressMaker(duration: tapAnimationDuration)
     }()
     
     
@@ -143,13 +147,14 @@ public class EasySegmentedView: UIView {
     /// - Parameter index: 刷新后选中 默认为0
     public func reloadData(selectedAt index: Int = 0) {
         refreshDataSource()
+        let index = max(0, min(itemModels.count - 1, index))
         UIView.animate(withDuration: 0) {
             self.collectionView.reloadData()
         } completion: { _ in
             self.changeSelectedIndex(to: index)
         }
     }
-
+    
     public func scroll(by scrollView: UIScrollView) {
         guard itemModels.count > 0 else {
             return
@@ -167,7 +172,7 @@ public class EasySegmentedView: UIView {
             self.progressMaker.stop()
             
             self.switchStyle = .scroll
-                        
+            
             //过滤前后继续滑动
             if (self.selectedIndex == 0 && contentOffsetX == 0) || (self.selectedIndex == maxIndex && contentOffsetX == maxOffsetX) {
                 self.switchStyle = nil
@@ -224,7 +229,7 @@ public extension EasySegmentedView {
     func register<T: EasySegmentedBaseCell>(cellWithClass name: T.Type) {
         collectionView.register(T.self, forCellWithReuseIdentifier: String(describing: name))
     }
-
+    
     /// 获取重用cell
     /// - Parameters:
     ///   - name: EasySegmentedBaseCell子类.self
@@ -271,7 +276,11 @@ public extension EasySegmentedView {
     }
     
     fileprivate func configIndicatorView() {
-       indicatorView?.superBounds = self.collectionView.frame
+        guard let indicatorView = indicatorView else {
+            return
+        }
+        indicatorView.superBounds = self.collectionView.frame
+        indicatorView.isHidden = itemModels.count == 0
     }
     
     fileprivate func changeItem(to targetIndex: Int, progress: CGFloat) {
@@ -397,25 +406,29 @@ extension EasySegmentedView: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = self.dataSource?.segmentedView(self, itemViewAtIndex: indexPath.row) {
-            let model = itemModel(indexPath.row)
-            cell.refresh(model)
-            return cell
-        } else {
-            return UICollectionViewCell(frame: .zero)
+        guard let cell = self.dataSource?.segmentedView(self, itemViewAtIndex: indexPath.row) else {
+            return .init(frame: .zero)
         }
+        return cell
     }
 }
 
 extension EasySegmentedView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        /// 滑动切换中 不能点击
-        if switchStyle == .scroll { return }
+        if switchStyle != nil { return }
         self.switchStyle = .tap
         let targetIndex = indexPath.row
         let oldIndex = self.selectedIndex
         changeSelectedIndex(to: targetIndex, animation: isTapNeedAnimation)
         self.delegate?.segmentedView(self, didSelectedAtIndex: targetIndex, isSame: targetIndex == oldIndex)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? EasySegmentedBaseCell,
+              let itemModel = itemModel(indexPath.row) else {
+            return
+        }
+        cell.refresh(itemModel)
     }
 }
 

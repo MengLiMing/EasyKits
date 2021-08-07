@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-public protocol SyncScrollProvider: class {
+public protocol SyncScrollProvider: AnyObject {
     var scrollView: UIScrollView { get }
 }
 extension SyncScrollProvider where Self: UIScrollView {
@@ -57,7 +57,7 @@ public extension UIView {
 }
 
 /// 横向滑动容器
-public protocol SyncScrollContainer: class {
+public protocol SyncScrollContainer: AnyObject {
     /// containerItem滚动到顶部
     func scrollAllContainerItemToTop()
 }
