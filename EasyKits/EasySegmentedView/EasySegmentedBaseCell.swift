@@ -55,4 +55,6 @@ open class EasySegmentBaseItemModel {
     open var contentWidth: CGFloat = 0
     /// 动态宽度， 设置此值 则cell会动态变化宽度， 未设置则取 contentWidth
     open var dynamicWidth: CGFloat?
+    
+    public init() { }
 }
