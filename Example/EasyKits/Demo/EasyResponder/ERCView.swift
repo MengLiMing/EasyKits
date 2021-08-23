@@ -12,7 +12,7 @@ import EasyKits
 protocol ERCViewTapHandler {
     func cTaped()
 }
-class ERCView: UIControl {
+class ERCView: UIControl, ResponderDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .blue

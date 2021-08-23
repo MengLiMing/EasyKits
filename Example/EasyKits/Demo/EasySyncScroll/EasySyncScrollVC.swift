@@ -131,10 +131,10 @@ extension SyncOuterScrollView: SyncOuterScroll, UIGestureRecognizerDelegate {
 
 /// 简易的containerView
 extension SyncContainerView: SyncScrollContainer {
-    func scrollAllContainerItemToTop() {
+    func resetContainerItems(_ resetItem: (SyncInnerScroll) -> ()) {
         for item in self.containerItems {
             if let scrollItem = item as? SyncScrollInnerProvider  {
-                self.containerItemScrollToTop(scrollItem.syncInner.scrollView)
+                resetItem(scrollItem.syncInner)
             }
         }
     }

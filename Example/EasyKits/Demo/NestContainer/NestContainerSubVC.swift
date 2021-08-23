@@ -117,14 +117,4 @@ extension NestContainerSubVC: EasyPagingContainerViewDelegate, EasyPagingContain
         guard let inner = item as? SyncScrollInnerProvider else { return }
         stopAt?(inner.syncInner)
     }
-    
-    
-}
-
-extension NestContainerSubVC {
-    func scrollSubItemToTop() {
-        self.containerView.items.values.forEach { item in
-            (item as? NestContainerItemVC)?.scrollToTop()
-        }
-    }
 }

@@ -6,67 +6,8 @@
 //
 
 import UIKit
-import WebKit
 import RxSwift
 import RxCocoa
-
-
-public protocol SyncScrollProvider: AnyObject {
-    var scrollView: UIScrollView { get }
-}
-extension SyncScrollProvider where Self: UIScrollView {
-    public var scrollView: UIScrollView { return self }
-}
-extension SyncScrollProvider where Self: WKWebView {}
-
-
-/// 外部需要遵循此协议 - 外部需要重写UIGestureRecognizerDelegate： shouldRecognizeSimultaneouslyWith
-public protocol SyncOuterScroll: SyncScrollProvider {
-    func wrapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
-}
-public extension SyncOuterScroll {
-    /// 包装一层 - 无法通过协议扩展UIGestureRecognizerDelegate
-    func wrapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        let isEqualView = gestureRecognizer.view?.isEqual(otherGestureRecognizer.view) ?? false
-        if otherGestureRecognizer.view?.isInnerItem == true || isEqualView {
-            return true
-        }
-        return false
-    }
-}
-
-/// inner提供者 提供内部协议实现的载体 可能是UIViewController
-public protocol SyncScrollInnerProvider {
-    var syncInner: SyncInnerScroll { get }
-}
-
-/// 内部需要遵循此协议
-public protocol SyncInnerScroll: SyncScrollProvider, SyncScrollInnerProvider {}
-public extension SyncInnerScroll {
-    var syncInner: SyncInnerScroll { self }
-}
-public extension UIView {
-    var isInnerItem: Bool {
-        if let scrollView = self as? UIScrollView {
-            if let wkwebView = scrollView.superview as? WKWebView {
-                return wkwebView.isInnerItem
-            }
-        }
-        return self is SyncInnerScroll
-    }
-}
-
-/// 横向滑动容器
-public protocol SyncScrollContainer: AnyObject {
-    /// containerItem滚动到顶部
-    func scrollAllContainerItemToTop()
-}
-
-public extension SyncScrollContainer {
-    func containerItemScrollToTop(_ scrollView: UIScrollView) {
-        scrollView.contentOffset = .init(x: 0, y: scrollView.sync_minY)
-    }
-}
 
 /// 内外scrollView的上下文
 public final class SyncScrollContext {
@@ -170,7 +111,9 @@ public final class SyncScrollContext {
             self.isHover.accept(true)
         } else {
             if self.isHover.value != false {
-                self.containerView?.scrollAllContainerItemToTop()
+                self.containerView?.resetContainerItems({ item in
+                    item.scrollView.contentOffset = .init(x: 0, y: item.scrollView.sync_minY)
+                })
             }
             self.isHover.accept(false)
         }
@@ -225,24 +168,5 @@ public final class SyncScrollContext {
             return
         }
         scrollView.contentOffset.y = scrollView.sync_minY
-    }
-}
-
-fileprivate extension UIScrollView {
-    var sync_minY: CGFloat {
-        var minY: CGFloat = -self.contentInset.top
-        if #available(iOS 11.0, *) {
-            minY = -self.adjustedContentInset.top
-        }
-        return minY
-    }
-}
-
-/// 非Rx使用
-public extension SyncScrollContext {
-    func hoverStatusChanged(_ handler: @escaping (Bool) -> Void) {
-        self.isHoverChanged.drive(onNext: {
-            handler($0)
-        }).disposed(by: disposeBag)
     }
 }

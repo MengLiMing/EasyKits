@@ -1,5 +1,5 @@
 //
-//  UIScrollView+Rx.swift
+//  UIScrollView+SyncScroll.swift
 //  EasyKit
 //
 //  Created by 孟利明 on 2021/2/4.
@@ -25,5 +25,16 @@ public extension Reactive where Base: UIScrollView {
     var kvo_delegate: Observable<UIScrollViewDelegate?> {
         base.rx
             .observeWeakly(UIScrollViewDelegate.self, #keyPath(UIScrollView.delegate))
+    }
+}
+
+
+extension UIScrollView {
+    var sync_minY: CGFloat {
+        var minY: CGFloat = -self.contentInset.top
+        if #available(iOS 11.0, *) {
+            minY = -self.adjustedContentInset.top
+        }
+        return minY
     }
 }

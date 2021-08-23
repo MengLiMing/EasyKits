@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol EasyCarouseViewDataSource: class {
+public protocol EasyCarouseViewDataSource: AnyObject {
     /// 自定义cell
     /// - Parameters:
     ///   - carouseView: 轮播view
@@ -19,7 +19,7 @@ public protocol EasyCarouseViewDataSource: class {
     func numberOfItems(in caroueView: EasyCarouseView) -> Int
 }
 
-public protocol EasyCarouseViewDelegate: class {
+public protocol EasyCarouseViewDelegate: AnyObject {
     /// 点击下标
     func carouseView(_ carouseView: EasyCarouseView, selectedAt index: Int)
     /// 下标改变回调

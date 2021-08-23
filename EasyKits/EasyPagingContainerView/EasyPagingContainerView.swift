@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: EasyPagingContainerViewDelegate
-public protocol EasyPagingContainerViewDelegate: class {
+public protocol EasyPagingContainerViewDelegate: AnyObject {
     
     /// 滑动回调
     /// - Parameter containerView: 配合EasySegmentedView使用简单
@@ -63,7 +63,7 @@ public extension EasyPagingContainerViewDelegate {
 }
 
 // MARK: EasyPagingContainerViewDataSource
-public protocol EasyPagingContainerViewDataSource: class {
+public protocol EasyPagingContainerViewDataSource: AnyObject {
     /// 数据源数量
     /// - Parameter containerView: EasyPagingContainerView
     func numberOfItems(in containerView: EasyPagingContainerView) -> Int
@@ -208,11 +208,8 @@ open class EasyPagingContainerView: UIView {
     }
     
     public func addSubView(at index: Int) {
-        if let item = items[index] {
-            self.delegate?.containerView(self, item: item, stopAt: index)
-            return
-        }
-        guard let item = self.dataSource?.containerView(self, itemAt: index) else {
+        guard items[index] == nil,
+              let item = self.dataSource?.containerView(self, itemAt: index) else {
             return
         }
         
@@ -383,16 +380,23 @@ extension EasyPagingContainerView: UIScrollViewDelegate {
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.addSubview(at: scrollView.contentOffset)
+        self.scrollViewEndScroll(scrollView)
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.scrollViewEndScroll(scrollView)
+    }
+    
+    fileprivate func scrollViewEndScroll(_ scrollView: UIScrollView) {
         self.addSubview(at: scrollView.contentOffset)
+        if let item = items[selectedIndex] {
+            self.delegate?.containerView(self, item: item, stopAt: selectedIndex)
+        }
     }
 }
 
 
-public protocol EasyPagingContainerGestureRecognizerDelegate: class {
+public protocol EasyPagingContainerGestureRecognizerDelegate: AnyObject {
     func easyPagingContainerScrollView(_ scrollView: UIScrollView,
                                        gestureRecognizerShouldBegin gestureRecognizer: UIGestureRecognizer) -> Bool
     

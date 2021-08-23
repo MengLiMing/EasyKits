@@ -8,6 +8,7 @@
 
 import UIKit
 import EasyKits
+import RxSwift
 
 extension NestContainerItemVC: EasyPagingContainerItem { }
 extension NestContainerItemVC: SyncScrollInnerProvider {
@@ -17,6 +18,8 @@ extension NestContainerItemVC: SyncScrollInnerProvider {
 }
 class InnerScroll: UIScrollView, SyncInnerScroll { }
 class NestContainerItemVC: UIViewController {
+    let disposeBag = DisposeBag()
+    
     override var title: String? {
         didSet {
             label.text = title
@@ -45,12 +48,5 @@ class NestContainerItemVC: UIViewController {
             maker.centerX.equalToSuperview()
             maker.top.equalTo(100)
         }
-    }
-}
-
-
-extension NestContainerItemVC {
-    func scrollToTop() {
-        self.scrollView.contentOffset = .zero
     }
 }

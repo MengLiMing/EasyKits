@@ -12,11 +12,16 @@ import EasyKits
 
 /// 以下代码只是简单示例
 class OuterContainer: EasyPagingContainerView, SyncScrollContainer {
-    func scrollAllContainerItemToTop() {
-        self.items.values
-            .map { $0 as? NestContainerSubVC }
-            .forEach { $0?.scrollSubItemToTop() }
-        
+    func resetContainerItems(_ resetItem: (SyncInnerScroll) -> ()) {
+        self.items.values.forEach {
+            if let subVC = $0 as? NestContainerSubVC {
+                subVC.containerView.items.values.forEach { item in
+                    if let itemVC = item as? NestContainerItemVC {
+                        resetItem(itemVC.syncInner)
+                    }
+                }
+            }
+        }
     }
 }
 class OuterScrollView: UIScrollView, SyncOuterScroll, UIGestureRecognizerDelegate {
@@ -49,7 +54,7 @@ class NestSyncContainerListVC: UIViewController {
     
     fileprivate let syncContext = SyncScrollContext(refreshType: .outer)
     
-    let containerView = EasyPagingContainerView(frame: .zero)
+    let containerView = OuterContainer(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +71,7 @@ class NestSyncContainerListVC: UIViewController {
         
         syncContext.maxOffsetY = 300
         syncContext.outerItem = scrollView
+        syncContext.containerView = containerView
         
         segmentView.delegate = self
         segmentView.dataSource = self

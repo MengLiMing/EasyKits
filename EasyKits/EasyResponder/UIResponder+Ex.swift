@@ -7,14 +7,27 @@
 
 import UIKit
 
-public extension UIResponder {
-    
-    /// 单一层级事件响应
-    /// - Parameter type: 点击事件代理Type Protocol.self
-    /// - Returns: 响应事件的实例
-    func delegate<T>(_ type: T.Type) -> T? {
+public protocol ResponderDelegate {}
+
+fileprivate struct ResponderDelegateKey {
+    static var delegate = "responder_delegate"
+}
+
+public extension ResponderDelegate where Self: UIResponder {
+    /// 响应链查找遵循T的UIResponder
+    /// - Parameters:
+    ///   - type: 类型
+    ///   - isNeedCache: 是否需要缓存，如果视图层级会发生变化则不要保存
+    /// - Returns:遵循T的UIResponder
+    func delegate<T>(_ type: T.Type = T.self, isNeedCache: Bool = true) -> T? {
+        if isNeedCache,
+           let weakWrapper = objc_getAssociatedObject(self, &ResponderDelegateKey.delegate) as? WeakWrapper<UIResponder>,
+           let delegate = weakWrapper.obj as? T {
+            return delegate
+        }
+        
         var result: T?
-        var nextResponder: UIResponder? = self.next
+        var nextResponder = next
         while nextResponder != nil {
             if let delegate = nextResponder as? T {
                 result = delegate
@@ -22,46 +35,22 @@ public extension UIResponder {
             }
             nextResponder = nextResponder?.next
         }
+        
+        if isNeedCache,
+           let result = result as? UIResponder {
+            objc_setAssociatedObject(self, &ResponderDelegateKey.delegate, WeakWrapper(result), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
         return result
     }
-    
-    /// 多层级响应同一事件
-    /// - Parameters:
-    ///   - type: type: 点击事件代理Type Protocol.self
-    ///   - handler: 响应
-    func delegate<T>(_ type: T.Type, handler: @escaping (T) -> Void) {
-        var nextResponder: UIResponder? = self.next
-        while nextResponder != nil {
-            if let delegate = nextResponder as? T {
-                handler(delegate)
-            }
-            nextResponder = nextResponder?.next
-        }
-    }
 }
 
-
-protocol CellHandler {
-    func cellAction1()
-    
-    func cellAction2()
-}
-
-class Cell: UITableViewCell {
-    func action() {
-        self.delegate(CellHandler.self)?.cellAction1()
-    }
-}
-
-class VC: UIViewController {
-    
-}
-extension VC: CellHandler {
-    func cellAction1() {
-        print("cell的点击事件")
-    }
-    
-    func cellAction2() {
-        print("cell的点击事件")
-    }
-}
+// Demo
+//protocol Action {
+//    func login()
+//}
+//
+//class View: UIView, DelegateProvider {
+//    var delegate: Action? {
+//        return self.delegate()
+//    }
+//}

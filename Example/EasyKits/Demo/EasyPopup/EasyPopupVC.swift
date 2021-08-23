@@ -18,12 +18,19 @@ class EasyPopupVC: UIViewController {
     let alertV = DemoAlertView()
      
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        alertV.show(.bottomToCenter)
+        alertV.show()
     }
 }
 
-extension DemoAlertView: EasyPopupProtocol { }
+extension DemoAlertView: ViewTransferAnimatorProvider { }
 class DemoAlertView: UIView {
+    func transferAnimator() -> ViewAnimationProdiver {
+        return CustomViewAnimation(animation: .normal,
+                                   startPosition: .outer(.bottom),
+                                   endPosition: .inner(.center),
+                                   transfers: [])
+    }
+    
     fileprivate lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -41,12 +48,6 @@ class DemoAlertView: UIView {
             maker.width.equalTo(UIScreen.screenWidth - 40)
             maker.height.equalTo(200)
         }
-        
-        self.coverView.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
-    }
-    
-    @objc fileprivate func dismiss() {
-        self.dismiss(.none, transfers: [.alpha(from: 1, to: 0), .zoom(from: 1, to: 0.5)], animation: .default(0.3), completion: nil)
     }
     
     required init?(coder: NSCoder) {

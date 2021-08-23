@@ -13,7 +13,7 @@ protocol ERBViewTapHandler {
     func bTaped(_ view: ERBView)
 }
 
-class ERBView: UIControl {
+class ERBView: UIControl, ResponderDelegate {
     private let bV = ERCView()
     
     override init(frame: CGRect) {
