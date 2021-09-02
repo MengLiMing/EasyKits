@@ -45,7 +45,6 @@ class NestSyncContainerListVC: UIViewController {
             $0.viewHeight = 4
             $0.layer.cornerRadius = 2
         }
-        $0.tapAnimationDuration = 0.1
     }
     
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {

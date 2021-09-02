@@ -8,18 +8,17 @@
 import Foundation
 
 final class EasySegmentedProgressMaker {
-    fileprivate var duration: TimeInterval
+    var duration: TimeInterval = 0
     var progressHandler: ((CGFloat)->())?
     var completedHandler: (()->())?
     fileprivate var displayLink: CADisplayLink?
     
     private var lastTime: TimeInterval = 0
 
-    init(duration: TimeInterval) {
-        self.duration = duration
-    }
-    
     func start() {
+        guard duration > 0 else {
+            return
+        }
         stop()
         displayLink = CADisplayLink(target: self, selector: #selector(displayLinkHandler(sender:)))
         displayLink?.add(to: .main, forMode: .common)

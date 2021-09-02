@@ -17,7 +17,7 @@ class NestContainerSubVC: UIViewController {
         $0.indicatorView = EasySegmentedIndicatorLineView(frame: .zero).then {
             $0.backgroundColor = .red
         }
-        $0.tapAnimationDuration = 0.1
+        $0.tapAnimation = .normal(0.1)
     }
     
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {

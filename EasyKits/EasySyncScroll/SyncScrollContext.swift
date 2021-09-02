@@ -27,7 +27,14 @@ public final class SyncScrollContext {
         }
     }
     /// 最大偏移 - 悬停时的偏移量
-    public var maxOffsetY: CGFloat = 0
+    public var maxOffsetY: CGFloat = 0 {
+        didSet {
+            guard let outerItem = self.outerItem else {
+                return
+            }
+            self.resetOuterBounces(outerItem.scrollView.contentOffset)
+        }
+    }
     /// 外部偏移
     fileprivate var outerOffset: CGPoint = .zero
     /// 内部偏移
@@ -85,11 +92,13 @@ public final class SyncScrollContext {
         }
         self.resetOuterBounces(contentOffset)
         
-        /// container内部scrollView的偏移>0 外部偏移量保持为最大偏移
-        if let innerItem = innerItem, innerOffset.y > innerItem.scrollView.sync_minY {
+        if let innerItem = innerItem,
+           innerOffset.y > innerItem.scrollView.sync_minY {
             outer.scrollView.contentOffset.y = maxOffsetY
+            outerOffset = outer.scrollView.contentOffset
+        } else {
+            outerOffset = contentOffset
         }
-        outerOffset = outer.scrollView.contentOffset
 
         changeHover()
     }

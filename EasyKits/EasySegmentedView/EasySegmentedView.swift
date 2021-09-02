@@ -30,12 +30,32 @@ public protocol EasySegmentedViewDataSource: AnyObject {
     func segmentedView(_ segmentedView: EasySegmentedView, itemViewAtIndex index: Int) -> EasySegmentedBaseCell
 }
 
-/// 分段切换 风格
+/// 当前切换的方式
 enum EasySegmentedSwitchStyle {
     /// 外部scrollView滚动 外部滚动中不能点击
     case scroll
     /// 点击切换 点击不响应滚动逻辑
     case tap
+}
+
+public enum EasySegmentedTapAnimation {
+    /// 默认动画 time为0 不支持动画
+    case normal(TimeInterval)
+    /// 点击无动画 依赖其他scrollView滚动
+    case byScroll
+    
+    public static let normal = EasySegmentedTapAnimation.normal(0.2)
+    
+    public static let none = EasySegmentedTapAnimation.normal(0)
+    
+    public var duration: TimeInterval {
+        switch self {
+        case .normal(let duration):
+            return duration
+        case .byScroll:
+            return 0
+        }
+    }
 }
 
 public class EasySegmentedView: UIView {
@@ -49,10 +69,8 @@ public class EasySegmentedView: UIView {
     public var itemSpacing: CGFloat = 0
     /// 内边距
     public var edgeInset: UIEdgeInsets = .zero
-    /// 点击切换是否需要动画 默认为 true
-    public var isTapNeedAnimation: Bool = true
-    /// 点击动画的动画时间 isNeedSwitchAnimation 为true时生效
-    public var tapAnimationDuration: TimeInterval = 0.2
+    /// 点击切换的动画
+    public var tapAnimation: EasySegmentedTapAnimation = .normal
     /// 当前下标
     public private(set) var selectedIndex: Int = 0
     
@@ -92,10 +110,7 @@ public class EasySegmentedView: UIView {
         return view
     }()
     
-    fileprivate lazy var progressMaker: EasySegmentedProgressMaker = {
-        return EasySegmentedProgressMaker(duration: tapAnimationDuration)
-    }()
-    
+    fileprivate lazy var progressMaker: EasySegmentedProgressMaker = .init()
     
     fileprivate var isFirstLayout: Bool = true
     /// 数据源 - 保存数据源，避免外部重复计算数据
@@ -156,9 +171,13 @@ public class EasySegmentedView: UIView {
     }
     
     public func scroll(by scrollView: UIScrollView) {
-        guard itemModels.count > 0 else {
+        guard itemModels.count > 0, (self.switchStyle == nil || self.switchStyle == .scroll) else {
             return
         }
+        
+        self.progressMaker.stop()
+        self.switchStyle = .scroll
+        
         //最大下标
         let maxIndex = itemModels.count - 1
         //最大偏移
@@ -166,52 +185,44 @@ public class EasySegmentedView: UIView {
         //修正contentOffsetx
         let contentOffsetX = max(0, min(scrollView.contentOffset.x, maxOffsetX))
         
-        /// 点击不走 滑动切换
-        if self.switchStyle != .tap {
-            /// 点击之后 立即滑动 需要将点击动画停止
-            self.progressMaker.stop()
+        //过滤前后继续滑动
+        if (self.selectedIndex == 0 && contentOffsetX == 0) || (self.selectedIndex == maxIndex && contentOffsetX == maxOffsetX) {
+            self.switchStyle = nil
+            return
+        }
+        
+        /// 当前下标
+        let currentIndex = self.selectedIndex
+        
+        //百分比
+        var percent = (contentOffsetX - CGFloat(currentIndex) * scrollView.frame.width)/scrollView.frame.width
+        
+        var toIndex: Int = currentIndex
+        
+        if percent < 0 && percent > -1 {//滑动向左
+            if currentIndex == 0 { return }
+            toIndex = max(0, currentIndex - 1)
+        } else if percent > 0 && percent < 1 {//滑动向右
+            if currentIndex == maxIndex { return }
+            toIndex = min(maxIndex, currentIndex + 1)
+        } else {//直接设置contentOffset 或 切换边缘 -2 -1 0 1 2
+            toIndex = min(maxIndex, currentIndex + Int(percent))
+            percent = percent < 0 ? -1 : 1
+            self.selectedIndex = toIndex
+        }
+        
+        if currentIndex != toIndex {
+            refreshItemModel(at: currentIndex, percent: 1 - abs(percent))
+            refreshItemModel(at: toIndex, percent: abs(percent))
             
-            self.switchStyle = .scroll
-            
-            //过滤前后继续滑动
-            if (self.selectedIndex == 0 && contentOffsetX == 0) || (self.selectedIndex == maxIndex && contentOffsetX == maxOffsetX) {
-                self.switchStyle = nil
-                return
-            }
-            
-            /// 当前下标
-            let currentIndex = self.selectedIndex
-            
-            //百分比
-            var percent = (contentOffsetX - CGFloat(currentIndex) * scrollView.frame.width)/scrollView.frame.width
-            
-            var toIndex: Int = currentIndex
-            
-            if percent < 0 && percent > -1 {//滑动向左
-                if currentIndex == 0 { return }
-                toIndex = max(0, currentIndex - 1)
-            } else if percent > 0 && percent < 1 {//滑动向右
-                if currentIndex == maxIndex { return }
-                toIndex = min(maxIndex, currentIndex + 1)
-            } else {//直接设置contentOffset 或 切换边缘 -2 -1 0 1 2
-                toIndex = min(maxIndex, currentIndex + Int(percent))
-                percent = percent < 0 ? -1 : 1
-                self.selectedIndex = toIndex
-            }
-            
-            if currentIndex != toIndex {
-                refreshItemModel(at: currentIndex, percent: 1 - abs(percent))
-                refreshItemModel(at: toIndex, percent: abs(percent))
-                
-                /// 跟随外部置中
-                let selectedFrame = itemFrame(currentIndex)
-                let toFrame = itemFrame(toIndex)
-                let seletectMidx = selectedFrame.midX
-                let toMidx = toFrame.midX
-                let targetOffset = seletectMidx + (toMidx - seletectMidx) * abs(percent)
-                self.indicatorView?.scroll(from: selectedFrame, to: toFrame, progress: abs(percent))
-                toMiddle(targetOffset, animated: false)
-            }
+            /// 跟随外部置中
+            let selectedFrame = itemFrame(currentIndex)
+            let toFrame = itemFrame(toIndex)
+            let seletectMidx = selectedFrame.midX
+            let toMidx = toFrame.midX
+            let targetOffset = seletectMidx + (toMidx - seletectMidx) * abs(percent)
+            self.indicatorView?.scroll(from: selectedFrame, to: toFrame, progress: abs(percent))
+            toMiddle(targetOffset, animated: false)
         }
         
         let index = Int(scrollView.contentOffset.x / scrollView.frame.width)
@@ -242,37 +253,40 @@ public extension EasySegmentedView {
         return cell
     }
     
-    /// 改变选中下标
-    /// - Parameter targetIndex: 目标下标
-    func changeSelectedIndex(to targetIndex: Int, animation: Bool = false) {
+    fileprivate func changeSelectedIndex(to targetIndex: Int) {
         configIndicatorView()
-        if animation {
-            progressMaker.stop()
-            guard selectedIndex != targetIndex else {
-                self.switchStyle = nil
-                return
-            }
-            progressMaker.progressHandler = {[weak self] progress in
-                self?.changeItem(to: targetIndex, progress: progress)
-            }
-            progressMaker.completedHandler = {[weak self] in
-                self?.switchStyle = nil
-                self?.selectedIndex = targetIndex
-            }
-            progressMaker.start()
-            let whenSelectedFrame = self.itemFrame(whenSelectedAt: targetIndex)
-            self.toMiddle(whenSelectedFrame.midX, animated: true)
-            self.indicatorView?.selected(to: whenSelectedFrame, animation: animation)
-        } else {
-            changeItem(to: targetIndex, progress: 1)
-            collectionView.reloadData()
-            if self.selectedIndex == targetIndex {
-                self.switchStyle = nil
-            }
-            self.selectedIndex = targetIndex
-            toMiddle(targetIndex, animated: false)
-            self.indicatorView?.selected(to: self.itemFrame(targetIndex), animation: animation)
+        changeItem(to: targetIndex, progress: 1)
+        collectionView.reloadData()
+        self.selectedIndex = targetIndex
+        toMiddle(targetIndex, animated: self.switchStyle == .tap)
+        self.switchStyle = nil
+        self.indicatorView?.selected(to: self.itemFrame(targetIndex), animation: false)
+    }
+    
+    fileprivate func tapAnimation(to targetIndex: Int, duration: TimeInterval) {
+        guard duration > 0 else {
+            changeSelectedIndex(to: targetIndex)
+            return
         }
+        progressMaker.stop()
+        guard selectedIndex != targetIndex else {
+            self.switchStyle = nil
+            return
+        }
+        configIndicatorView()
+        progressMaker.duration = duration
+        let currentFrame = self.itemFrame(selectedIndex)
+        let whenSelectedFrame = self.itemFrame(whenSelectedAt: targetIndex)
+        progressMaker.progressHandler = {[weak self] progress in
+            self?.changeItem(to: targetIndex, progress: progress)
+            self?.indicatorView?.scroll(from: currentFrame, to: whenSelectedFrame, progress: progress)
+        }
+        progressMaker.completedHandler = {[weak self] in
+            self?.switchStyle = nil
+            self?.selectedIndex = targetIndex
+        }
+        progressMaker.start()
+        self.toMiddle(whenSelectedFrame.midX, animated: true)
     }
     
     fileprivate func configIndicatorView() {
@@ -415,11 +429,20 @@ extension EasySegmentedView: UICollectionViewDataSource {
 
 extension EasySegmentedView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if switchStyle != nil { return }
-        self.switchStyle = .tap
-        let targetIndex = indexPath.row
+        guard switchStyle == nil else {
+            return
+        }
+
         let oldIndex = self.selectedIndex
-        changeSelectedIndex(to: targetIndex, animation: isTapNeedAnimation)
+        let targetIndex = indexPath.row
+
+        switch tapAnimation {
+        case .normal(let duration):
+            self.switchStyle = .tap
+            tapAnimation(to: targetIndex, duration: duration)
+        case .byScroll:
+            break
+        }
         self.delegate?.segmentedView(self, didSelectedAtIndex: targetIndex, isSame: targetIndex == oldIndex)
     }
     

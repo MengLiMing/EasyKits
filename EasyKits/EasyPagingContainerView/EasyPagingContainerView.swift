@@ -235,7 +235,7 @@ open class EasyPagingContainerView: UIView {
     public func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
         self.scrollView.setContentOffset(contentOffset, animated: animated)
         if !animated {
-            self.addSubview(at: contentOffset)
+            self.scrollViewEndScroll(self.scrollView)
         }
     }
     
@@ -388,10 +388,10 @@ extension EasyPagingContainerView: UIScrollViewDelegate {
     }
     
     fileprivate func scrollViewEndScroll(_ scrollView: UIScrollView) {
-        self.addSubview(at: scrollView.contentOffset)
         if let item = items[selectedIndex] {
             self.delegate?.containerView(self, item: item, stopAt: selectedIndex)
         }
+        self.addSubview(at: scrollView.contentOffset)
     }
 }
 

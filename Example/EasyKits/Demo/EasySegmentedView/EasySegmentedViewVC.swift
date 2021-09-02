@@ -15,17 +15,16 @@ class EasySegmentedViewVC: UIViewController {
         let v = EasySegmentedView(frame: .zero)
         v.dataSource = self
         v.delegate = self
-        v.edgeInset = UIEdgeInsets(top: 0, left: 13.5, bottom: 0, right: 13.5)
-        v.itemSpacing = 28
         let indicatorView = EasySegmentedIndicatorLineView(frame: .zero)
         indicatorView.backgroundColor = .red
+        indicatorView.lineWidth = .fixed(20)
         v.indicatorView = indicatorView
-        v.tapAnimationDuration = 0.1
+        v.tapAnimation = .byScroll
         return v
     }()
         
     fileprivate lazy var listModel: [EasySegmentedTextModel] = {
-        return createListModel(list: ["精选", "百货", "食品", "母婴", "女装", "男装", "生活服务", "家电", "数码", "服饰", "护肤彩妆", "品质母婴", "汇吃美食"])
+        return createListModel(list: ["精选", "百货"])
     }()
     
     fileprivate lazy var containerView: EasyPagingContainerView = {
@@ -75,7 +74,7 @@ class EasySegmentedViewVC: UIViewController {
             itemWidth = CGFloat(ceil(itemWidth))
 
             let model = EasySegmentedTextModel(text: text, normalColor: .black, selectColor: .red, font: UIFont.systemFont(ofSize: 16))
-            model.contentWidth = itemWidth
+            model.contentWidth = self.view.frame.size.width/2
             model.maxStrokeWidth = -2
             return model
         }
@@ -85,7 +84,7 @@ class EasySegmentedViewVC: UIViewController {
 extension EasySegmentedViewVC: EasySegmentedViewDelegate {
     func segmentedView(_ segmentedView: EasySegmentedView, didSelectedAtIndex index: Int, isSame: Bool) {
         if isSame == false {
-            containerView.scroll(toIndex: index, animated: false)
+            containerView.scroll(toIndex: index, animated: true)
         }
     }
 }
