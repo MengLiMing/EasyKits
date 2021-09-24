@@ -26,7 +26,7 @@ public final class SyncScrollContext {
             }
         }
     }
-    /// 最大偏移 - 悬停时的偏移量
+    /// 最大偏移 - 悬停时的偏移量 精度问题 设置时可以向下取整
     public var maxOffsetY: CGFloat = 0 {
         didSet {
             guard let outerItem = self.outerItem else {

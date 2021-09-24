@@ -13,6 +13,7 @@ class VCCell: EasyListViewCell {
     fileprivate lazy var contentLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
         return label
     }()
     

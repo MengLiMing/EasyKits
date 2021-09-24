@@ -26,7 +26,7 @@ open class EasySegmentedTextCell: EasySegmentedBaseCell {
     
     // MARK: Private Method
     fileprivate func setSubviews() {
-        addSubview(self.textLabel)
+        contentView.addSubview(textLabel)
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: self.textLabel, attribute: .centerX, relatedBy: .equal, toItem: self.contentView, attribute: .centerX, multiplier: 1, constant: 0),
