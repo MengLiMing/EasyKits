@@ -55,12 +55,12 @@ open class ListBindingBaseSectionController: ListBindingSectionController<ListBa
     
     open override func didSelectItem(at index: Int) {
         super.didSelectItem(at: index)
-        
         guard let object = object,
-              let item = object.items.element(index) else {
-            return
-        }
-        
+              index >= 0,
+              object.items.count > index else {
+                  return
+              }
+        let item = object.items[index]
         item.selectedItem(section: object, index: index)
     }
 }
@@ -108,7 +108,8 @@ extension ListBindingBaseSectionController: ListSupplementaryViewSource {
         return .zero
     }
 }
- extension ListBindingBaseSectionController: ListBindingSectionControllerDataSource {
+
+extension ListBindingBaseSectionController: ListBindingSectionControllerDataSource {
     public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, viewModelsFor object: Any) -> [ListDiffable] {
         self.object?.items ?? []
     }
