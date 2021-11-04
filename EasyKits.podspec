@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.2.7'
+    s.version          = '0.3.0'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -78,6 +78,15 @@ Pod::Spec.new do |s|
         ss.source_files = 'EasyKits/EasyRxExtension/*.swift'
     end
     
+    # IGListKit+RxSwift封装
+    s.subspec "EasyIGListKit" do |ss|
+        ss.dependency 'RxSwift'
+        ss.dependency 'RxCocoa'
+        ss.dependency 'IGListKit'
+        ss.dependency 'Then'
+
+        ss.source_files = 'EasyKits/EasyIGListKit/*.swift'
+    end
     
     s.frameworks = 'UIKit'
     

@@ -1,28 +1,37 @@
 PODS:
-  - EasyKits (0.2.7):
-    - EasyKits/EasyCarouseView (= 0.2.7)
-    - EasyKits/EasyExtension (= 0.2.7)
-    - EasyKits/EasyListView (= 0.2.7)
-    - EasyKits/EasyPagingContainerView (= 0.2.7)
-    - EasyKits/EasyPopup (= 0.2.7)
-    - EasyKits/EasyResponder (= 0.2.7)
-    - EasyKits/EasyRxExtension (= 0.2.7)
-    - EasyKits/EasySegmentedView (= 0.2.7)
-    - EasyKits/EasySyncScroll (= 0.2.7)
-  - EasyKits/EasyCarouseView (0.2.7)
-  - EasyKits/EasyExtension (0.2.7)
-  - EasyKits/EasyListView (0.2.7)
-  - EasyKits/EasyPagingContainerView (0.2.7)
-  - EasyKits/EasyPopup (0.2.7):
+  - EasyKits (0.3.0):
+    - EasyKits/EasyCarouseView (= 0.3.0)
+    - EasyKits/EasyExtension (= 0.3.0)
+    - EasyKits/EasyIGListKit (= 0.3.0)
+    - EasyKits/EasyListView (= 0.3.0)
+    - EasyKits/EasyPagingContainerView (= 0.3.0)
+    - EasyKits/EasyPopup (= 0.3.0)
+    - EasyKits/EasyResponder (= 0.3.0)
+    - EasyKits/EasyRxExtension (= 0.3.0)
+    - EasyKits/EasySegmentedView (= 0.3.0)
+    - EasyKits/EasySyncScroll (= 0.3.0)
+  - EasyKits/EasyCarouseView (0.3.0)
+  - EasyKits/EasyExtension (0.3.0)
+  - EasyKits/EasyIGListKit (0.3.0):
+    - IGListKit
+    - RxCocoa
+    - RxSwift
+    - Then
+  - EasyKits/EasyListView (0.3.0)
+  - EasyKits/EasyPagingContainerView (0.3.0)
+  - EasyKits/EasyPopup (0.3.0):
     - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.2.7)
-  - EasyKits/EasyRxExtension (0.2.7):
+  - EasyKits/EasyResponder (0.3.0)
+  - EasyKits/EasyRxExtension (0.3.0):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasySegmentedView (0.2.7)
-  - EasyKits/EasySyncScroll (0.2.7):
+  - EasyKits/EasySegmentedView (0.3.0)
+  - EasyKits/EasySyncScroll (0.3.0):
     - RxCocoa
     - RxSwift
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - Kingfisher (4.10.1)
   - MJRefresh (3.5.0)
   - RxCocoa (6.0.0):
@@ -42,6 +51,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - IGListDiffKit
+    - IGListKit
     - Kingfisher
     - MJRefresh
     - RxCocoa
@@ -55,7 +66,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: dae0b0940fd0147943602f4445e6080628b67dc0
+  EasyKits: 7d7e4d34b583bdb9dc1bccad3abd6864618c48f8
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
@@ -66,4 +79,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f9b59fd8bcd095fa8f2c3743f2d885e7dfe7a469
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

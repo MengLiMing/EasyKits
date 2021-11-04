@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         /// 嵌套使用
         case nest1
         case nest2
+        /// IGListKit
+        case iglist
 
         var data: (title: String, vcType: UIViewController.Type?) {
             switch self {
@@ -46,6 +48,8 @@ class ViewController: UIViewController {
                 return ("嵌套使用", NestContainerListVC.self)
             case .nest2:
                 return ("嵌套使用", NestSyncContainerListVC.self)
+            case .iglist:
+                return ("EasyIGList", EasyIGListVC.self)
             }
         }
     }

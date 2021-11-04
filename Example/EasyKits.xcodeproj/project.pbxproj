@@ -30,6 +30,7 @@
 		95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */; };
 		95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956DA525E662C70021FF3F /* EasyListOtherCell.swift */; };
 		95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */; };
+		F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46DB4D82733734000C94414 /* EasyIGListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F46DB4D82733734000C94414 /* EasyIGListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyIGListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 		95956AA525CCE4110021FF3F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				F46DB4D72733732100C94414 /* EasyIGList */,
 				950BBA97263A7F8500408C55 /* NestContainer */,
 				95956E3125E7AC8C0021FF3F /* EasySegmentedView */,
 				95956D1125E6010C0021FF3F /* EasyCarouseView */,
@@ -240,6 +243,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F46DB4D72733732100C94414 /* EasyIGList */ = {
+			isa = PBXGroup;
+			children = (
+				F46DB4D82733734000C94414 /* EasyIGListVC.swift */,
+			);
+			path = EasyIGList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,6 +330,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EasyKits_Example/Pods-EasyKits_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EasyKits/EasyKits.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListDiffKit/IGListDiffKit.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -330,6 +343,8 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyKits.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListDiffKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -386,6 +401,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				95956AD225CCF0330021FF3F /* ERAView.swift in Sources */,
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,
+				F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */,
 				95956AD825CCF0460021FF3F /* ERCView.swift in Sources */,
 				95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */,
 				95956D0A25E5EFEF0021FF3F /* EasyListViewVC.swift in Sources */,

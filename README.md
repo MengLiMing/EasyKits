@@ -26,7 +26,11 @@ pod 'EasyKits/EasyPagingContainerView'
 
 pod 'EasyKits/EasyPopup'
 pod 'EasyKits/EasyResponder'
+
+/// 下方数据驱动列表可二选一
 pod 'EasyKits/EasyListView'
+pod 'EasyKits/EasyIGListKit'
+
 pod 'EasyKits/EasySyncScroll'
 pod 'EasyKits/EasyCarouseView'
 pod 'EasyKits/EasyExtension'
@@ -35,7 +39,8 @@ pod 'EasyKits/EasyRxExtension'
 
 
 ## 组件列表
-- EasyListView: 复杂列表的简单实现，可用于快速构建电商类首页、商品详情、朋友圈等复杂列表
+- EasyListView: 复杂列表的简单实现，可用于快速构建电商类首页、商品详情、朋友圈等复杂列表 - 可以使用EasyIGListKit替换
+- EasyIGListKit：对IGList+RxSwift的封装，使用更简单，适用于MVVM，降低IGListKit学习成本
 - EasyResponder：简单的事件传递策略，方便图层嵌套多层时的事件传递
 - EasyPopup: 协议实现简单弹窗
 - EasySyncScroll：快速实现UIScrollView嵌套，实现类似简书个人信息页面效果，低耦合 易使用
