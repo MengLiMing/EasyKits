@@ -33,15 +33,15 @@ PODS:
   - IGListDiffKit (4.0.0)
   - IGListKit (4.0.0):
     - IGListDiffKit (= 4.0.0)
-  - Kingfisher (4.10.1)
-  - MJRefresh (3.5.0)
-  - RxCocoa (6.0.0):
-    - RxRelay (= 6.0.0)
-    - RxSwift (= 6.0.0)
-  - RxRelay (6.0.0):
-    - RxSwift (= 6.0.0)
-  - RxSwift (6.0.0)
-  - SnapKit (4.2.0)
+  - Kingfisher (6.3.1)
+  - MJRefresh (3.7.2)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
+  - SnapKit (5.0.1)
   - Then (2.7.0)
 
 DEPENDENCIES:
@@ -67,17 +67,17 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 33f92b440ac321796a6bb7c9cf4d8b05ea8e29ba
+  EasyKits: bb96b9a7c9eb17e7614caecbcdcd298307491c23
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
-  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
-  RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
-  RxRelay: 8d593be109c06ea850df027351beba614b012ffb
-  RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
+  MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: f9b59fd8bcd095fa8f2c3743f2d885e7dfe7a469
+PODFILE CHECKSUM: b545631d32af2939526d2081b104bbabd49e62af
 
 COCOAPODS: 1.11.2

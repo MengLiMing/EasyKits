@@ -89,7 +89,7 @@ private extension UIView {
     func observerRectChange() {
         layoutSubviewsDisposeBag = DisposeBag()
         self.rx.layoutSubviews
-            .takeUntil(self.rx.deallocated)
+            .take(until: self.rx.deallocated)
             .subscribe(onNext: {[weak self] in
                 self?.latestRect = self?.bounds
             })
