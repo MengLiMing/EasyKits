@@ -1,32 +1,33 @@
 PODS:
-  - EasyKits (0.3.0):
-    - EasyKits/EasyCarouseView (= 0.3.0)
-    - EasyKits/EasyExtension (= 0.3.0)
-    - EasyKits/EasyIGListKit (= 0.3.0)
-    - EasyKits/EasyListView (= 0.3.0)
-    - EasyKits/EasyPagingContainerView (= 0.3.0)
-    - EasyKits/EasyPopup (= 0.3.0)
-    - EasyKits/EasyResponder (= 0.3.0)
-    - EasyKits/EasyRxExtension (= 0.3.0)
-    - EasyKits/EasySegmentedView (= 0.3.0)
-    - EasyKits/EasySyncScroll (= 0.3.0)
-  - EasyKits/EasyCarouseView (0.3.0)
-  - EasyKits/EasyExtension (0.3.0)
-  - EasyKits/EasyIGListKit (0.3.0):
+  - EasyKits (0.3.1):
+    - EasyKits/EasyCarouseView (= 0.3.1)
+    - EasyKits/EasyExtension (= 0.3.1)
+    - EasyKits/EasyIGListKit (= 0.3.1)
+    - EasyKits/EasyListView (= 0.3.1)
+    - EasyKits/EasyPagingContainerView (= 0.3.1)
+    - EasyKits/EasyPopup (= 0.3.1)
+    - EasyKits/EasyResponder (= 0.3.1)
+    - EasyKits/EasyRxExtension (= 0.3.1)
+    - EasyKits/EasySegmentedView (= 0.3.1)
+    - EasyKits/EasySyncScroll (= 0.3.1)
+  - EasyKits/EasyCarouseView (0.3.1)
+  - EasyKits/EasyExtension (0.3.1)
+  - EasyKits/EasyIGListKit (0.3.1):
     - IGListKit
     - RxCocoa
     - RxSwift
+    - SnapKit
     - Then
-  - EasyKits/EasyListView (0.3.0)
-  - EasyKits/EasyPagingContainerView (0.3.0)
-  - EasyKits/EasyPopup (0.3.0):
-    - SnapKit (~> 4.2.0)
-  - EasyKits/EasyResponder (0.3.0)
-  - EasyKits/EasyRxExtension (0.3.0):
+  - EasyKits/EasyListView (0.3.1)
+  - EasyKits/EasyPagingContainerView (0.3.1)
+  - EasyKits/EasyPopup (0.3.1):
+    - SnapKit
+  - EasyKits/EasyResponder (0.3.1)
+  - EasyKits/EasyRxExtension (0.3.1):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasySegmentedView (0.3.0)
-  - EasyKits/EasySyncScroll (0.3.0):
+  - EasyKits/EasySegmentedView (0.3.1)
+  - EasyKits/EasySyncScroll (0.3.1):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -66,7 +67,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 7d7e4d34b583bdb9dc1bccad3abd6864618c48f8
+  EasyKits: 33f92b440ac321796a6bb7c9cf4d8b05ea8e29ba
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0

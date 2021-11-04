@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.3.0'
+    s.version          = '0.3.1'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
     
     # 一行代码实现弹窗逻辑
     s.subspec "EasyPopup" do |ss|
-        ss.dependency 'SnapKit', '~> 4.2.0'
+        ss.dependency 'SnapKit'
         
         ss.source_files = 'EasyKits/EasyPopup/*.swift'
     end
@@ -84,6 +84,7 @@ Pod::Spec.new do |s|
         ss.dependency 'RxCocoa'
         ss.dependency 'IGListKit'
         ss.dependency 'Then'
+        ss.dependency 'SnapKit'
 
         ss.source_files = 'EasyKits/EasyIGListKit/*.swift'
     end
