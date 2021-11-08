@@ -34,7 +34,7 @@ public class ListEmptyItem: ListBaseItemDataType,
     }
 }
 
-class ListEmptyCell: ListBaseCollectionCell<ListEmptyItem> {
+class ListEmptyCell: ListSeparatorBindableDataCell<ListEmptyItem> {
     override func bindData(_ data: ListEmptyItem) {
         super.bindData(data)
         contentView.backgroundColor = data.bgColor

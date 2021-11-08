@@ -81,7 +81,7 @@ class NestSyncContainerListVC: UIViewController {
         if #available(iOS 11.0, *) {
             scrollView.contentInsetAdjustmentBehavior = .never
         }
-        scrollView.contentSize = CGSize(width: UIScreen.screenWidth, height: UIScreen.screenHeight - UIScreen.navigationBarHeight + 300)
+        scrollView.contentSize = CGSize(width: UIScreen.screenWidth, height: UIScreen.screenHeight - UIScreen.navigationHeight + 300)
         [headView, segmentView, containerView].forEach { scrollView.addSubview($0) }
         headView.snp.makeConstraints { (maker) in
             maker.leading.top.equalTo(0)
@@ -98,7 +98,7 @@ class NestSyncContainerListVC: UIViewController {
         containerView.snp.makeConstraints { (maker) in
             maker.leading.width.equalTo(self.headView)
             maker.top.equalTo(self.segmentView.snp.bottom)
-            maker.height.equalTo(UIScreen.screenHeight - UIScreen.navigationBarHeight - 50)
+            maker.height.equalTo(UIScreen.screenHeight - UIScreen.navigationHeight - 50)
         }
         
         self.navigationItem.rightBarButtonItems = [
@@ -134,7 +134,7 @@ class NestSyncContainerListVC: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.scrollView.layoutIfNeeded()
         } completion: { _ in
-            self.scrollView.contentSize = CGSize(width: UIScreen.screenWidth, height: UIScreen.screenHeight - UIScreen.navigationBarHeight + height)
+            self.scrollView.contentSize = CGSize(width: UIScreen.screenWidth, height: UIScreen.screenHeight - UIScreen.navigationHeight + height)
             self.syncContext.maxOffsetY = height
         }
     }

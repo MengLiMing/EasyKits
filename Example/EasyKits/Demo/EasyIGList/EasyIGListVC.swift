@@ -2,7 +2,7 @@
 //  EasyIGListVC.swift
 //  EasyKits_Example
 //
-//  Created by zkkj on 2021/11/4.
+//  Created by Ming on 2021/11/4.
 //  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
@@ -106,7 +106,7 @@ class Item1: ListBaseItemDataType,
     var separatorStyle: ListItemSeparatorStyle = .bottom()
 }
 
-class Item1Cell: ListBaseCollectionCell<Item1> {
+class Item1Cell: ListSeparatorBindableDataCell<Item1> {
     let label = UILabel().then {
         $0.textColor = .black
         $0.textAlignment = .center

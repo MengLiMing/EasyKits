@@ -1,6 +1,6 @@
 {
   "name": "EasyKits",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "summary": "使用简单的工具集合",
   "description": "开源日常开发中常用的简单工具，目标-使用简单，后续不断完善",
   "homepage": "https://github.com/MengLiMing/EasyKits",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/MengLiMing/EasyKits.git",
-    "tag": "0.3.2"
+    "tag": "0.3.3"
   },
   "platforms": {
     "ios": "10.0"
@@ -65,10 +65,6 @@
     },
     {
       "name": "EasyExtension",
-      "source_files": "EasyKits/EasyExtension/*.swift"
-    },
-    {
-      "name": "EasyRxExtension",
       "dependencies": {
         "RxSwift": [
 
@@ -77,7 +73,7 @@
 
         ]
       },
-      "source_files": "EasyKits/EasyRxExtension/*.swift"
+      "source_files": "EasyKits/EasyExtension/**/*"
     },
     {
       "name": "EasyIGListKit",
@@ -98,6 +94,9 @@
 
         ],
         "EasyKits/EasyResponder": [
+
+        ],
+        "EasyKits/EasyExtension": [
 
         ]
       },

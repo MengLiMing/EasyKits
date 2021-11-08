@@ -46,7 +46,7 @@ class EasySyncScrollVC: UIViewController {
     }()
     
     /// 总高度
-    fileprivate let totalHeight: CGFloat = UIScreen.screenHeight - UIScreen.navigationBarHeight
+    fileprivate let totalHeight: CGFloat = UIScreen.screenHeight - UIScreen.navigationHeight
     /// 导航栏高度
     fileprivate let segmentHeight: CGFloat = 60
     /// 横向切换高度
@@ -68,7 +68,7 @@ class EasySyncScrollVC: UIViewController {
         view.addSubview(outerScrollView)
         outerScrollView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalTo(0)
-            maker.top.equalTo(UIScreen.navigationBarHeight)
+            maker.top.equalTo(UIScreen.navigationHeight)
         }
         outerScrollView.addSubview(headerView)
         headerView.snp.makeConstraints { (maker) in

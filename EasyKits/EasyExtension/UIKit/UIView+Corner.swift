@@ -2,7 +2,7 @@
 //  UIView+Corner.swift
 //  Demo
 //
-//  Created by zkkj on 2021/11/2.
+//  Created by Ming on 2021/11/2.
 //
 
 import UIKit
@@ -13,10 +13,12 @@ public extension UIView {
     var corner: CornerConfig {
         set {
             let oldValue = objc_getAssociatedObject(self, &AssociatedKey.view_corner_radiusConfig_key) as? CornerConfig
+            objc_setAssociatedObject(self, &AssociatedKey.view_corner_radiusConfig_key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             if let oldValue = oldValue,
                oldValue != newValue {
                 latestRect = nil
             }
+            observerRectChange()
         }
         
         get {
@@ -89,7 +91,7 @@ private extension UIView {
     func observerRectChange() {
         layoutSubviewsDisposeBag = DisposeBag()
         self.rx.layoutSubviews
-            .take(until: self.rx.deallocated)
+            .takeUntil(self.rx.deallocated)
             .subscribe(onNext: {[weak self] in
                 self?.latestRect = self?.bounds
             })
@@ -105,7 +107,7 @@ public extension Reactive where Base: UIView {
     }
 }
 
-public struct CornerConfig: Equatable {
+public class CornerConfig: Equatable {
     public let topLeft: CGFloat
     public let topRight: CGFloat
     public let bottomLeft: CGFloat

@@ -16,7 +16,7 @@ class EasyListPriceCell: EasyListViewCell {
     }()
     
     fileprivate lazy var titleLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 10)
         label.text = "券后价"
@@ -24,7 +24,7 @@ class EasyListPriceCell: EasyListViewCell {
     }()
     
     fileprivate lazy var priceLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         return label
     }()
     
@@ -69,26 +69,20 @@ class EasyListPriceCell: EasyListViewCell {
     }
     
     fileprivate func priceAttr() -> NSAttributedString {
-        let resultAttri = "￥".mutableAttributes
-            .setFont(UIFont.systemFont(ofSize: 18, weight: .medium))
-            .setFontColor(.white)
+        return "￥".attributes {
+            $0.font(UIFont.systemFont(ofSize: 18, weight: .medium))
+                .textColor(UIColor.white)
+        } + "24.5".attributes {
+            $0.font(UIFont.systemFont(ofSize: 24, weight: .medium))
+                .textColor(UIColor.white)
+        } + "  ".attribute
+        + "¥29.9".attributes {
+            $0.font(UIFont.systemFont(ofSize: 14))
+                .textColor(UIColor.hex("#eeeeee"))
+                .strikethrough(.styleSingle, color: UIColor.hex("#eeeeee"))
+                .baselineOffset(1)
+        }
         
-        let afterAttri = "24.5".mutableAttributes
-            .setFont(UIFont.systemFont(ofSize: 24, weight: .medium))
-            .setFontColor(.white)
-        
-        resultAttri.append(afterAttri)
-        
-        let space = NSAttributedString(string: "  ")
-        resultAttri.append(space)
-        
-        let originAttri = "¥29.9".mutableAttributes
-            .setFont(UIFont.systemFont(ofSize: 14))
-            .setFontColor(UIColor.hex("#eeeeee"))
-            .setStrikeThrough(strikethroughColor: UIColor.hex("#eeeeee"))
-            .setBaselineOffset(NSNumber(value: Float(1)))
-        resultAttri.append(originAttri)
-        return resultAttri
     }
     
     override class func cellHeight(cellModel: EasyListCellModel) -> CGFloat {

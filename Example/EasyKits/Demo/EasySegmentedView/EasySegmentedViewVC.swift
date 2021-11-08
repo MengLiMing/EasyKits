@@ -50,7 +50,7 @@ class EasySegmentedViewVC: UIViewController {
         view.addSubview(segmentedView)
         segmentedView.snp.makeConstraints { (maker) in
             maker.left.right.equalTo(0)
-            maker.top.equalTo(UIScreen.navigationBarHeight)
+            maker.top.equalTo(UIScreen.navigationHeight)
             maker.height.equalTo(60)
         }
         

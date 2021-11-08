@@ -2,7 +2,7 @@
 //  ListSectionController+Ex.swift
 //  EasyKits
 //
-//  Created by zkkj on 2021/11/4.
+//  Created by Ming on 2021/11/4.
 //
 
 import Foundation

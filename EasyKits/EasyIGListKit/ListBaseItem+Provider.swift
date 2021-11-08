@@ -2,7 +2,7 @@
 //  ListBaseItem+Provider.swift
 //  EasyKits
 //
-//  Created by zkkj on 2021/11/4.
+//  Created by Ming on 2021/11/4.
 //
 
 import Foundation
@@ -21,6 +21,10 @@ public protocol ListBaseItemTypeProvider {
     var itemType: ListBindableCell.Type { get }
 }
 
+
+public protocol ListBaseItemCornerProvider {
+    var corner: CornerConfig { get set }
+}
 
 // MARK: 提供点击事件
 public protocol ListBaseItemSelectionHandlerProvider: AnyObject {

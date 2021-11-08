@@ -52,6 +52,10 @@ open class EasyListView: UITableView {
         self.estimatedSectionFooterHeight = 0
         self.estimatedSectionHeaderHeight = 0
         
+        if #available(iOS 15, *) {
+            self.sectionHeaderTopPadding = 0
+        }
+        
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
         }

@@ -93,7 +93,7 @@ extension ListBindingBaseSectionController: ListSupplementaryViewSource {
             view?.bindViewModel(footer)
         }
         
-        return view ?? ListBindableCell()
+        return view ?? LisetBaseCollectionCell()
     }
     
     public func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
@@ -115,7 +115,7 @@ extension ListBindingBaseSectionController: ListBindingSectionControllerDataSour
     }
     
     public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
-        guard let viewModel = viewModel as? ListBaseItem else { return ListBindableCell() }
+        guard let viewModel = viewModel as? ListBaseItem else { return LisetBaseCollectionCell() }
         viewModel.itemStyle = .cell(index)
         return collectionContext!.dequeueReusableCell(of: viewModel.itemType, for: self, at: index) as! (UICollectionViewCell & ListBindable)
     }
