@@ -1,19 +1,19 @@
 PODS:
-  - EasyKits (0.3.3):
-    - EasyKits/EasyCarouseView (= 0.3.3)
-    - EasyKits/EasyExtension (= 0.3.3)
-    - EasyKits/EasyIGListKit (= 0.3.3)
-    - EasyKits/EasyListView (= 0.3.3)
-    - EasyKits/EasyPagingContainerView (= 0.3.3)
-    - EasyKits/EasyPopup (= 0.3.3)
-    - EasyKits/EasyResponder (= 0.3.3)
-    - EasyKits/EasySegmentedView (= 0.3.3)
-    - EasyKits/EasySyncScroll (= 0.3.3)
-  - EasyKits/EasyCarouseView (0.3.3)
-  - EasyKits/EasyExtension (0.3.3):
+  - EasyKits (0.3.5):
+    - EasyKits/EasyCarouseView (= 0.3.5)
+    - EasyKits/EasyExtension (= 0.3.5)
+    - EasyKits/EasyIGListKit (= 0.3.5)
+    - EasyKits/EasyListView (= 0.3.5)
+    - EasyKits/EasyPagingContainerView (= 0.3.5)
+    - EasyKits/EasyPopup (= 0.3.5)
+    - EasyKits/EasyResponder (= 0.3.5)
+    - EasyKits/EasySegmentedView (= 0.3.5)
+    - EasyKits/EasySyncScroll (= 0.3.5)
+  - EasyKits/EasyCarouseView (0.3.5)
+  - EasyKits/EasyExtension (0.3.5):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyIGListKit (0.3.3):
+  - EasyKits/EasyIGListKit (0.3.5):
     - EasyKits/EasyExtension
     - EasyKits/EasyResponder
     - IGListKit
@@ -21,13 +21,13 @@ PODS:
     - RxSwift
     - SnapKit
     - Then
-  - EasyKits/EasyListView (0.3.3)
-  - EasyKits/EasyPagingContainerView (0.3.3)
-  - EasyKits/EasyPopup (0.3.3):
+  - EasyKits/EasyListView (0.3.5)
+  - EasyKits/EasyPagingContainerView (0.3.5)
+  - EasyKits/EasyPopup (0.3.5):
     - SnapKit
-  - EasyKits/EasyResponder (0.3.3)
-  - EasyKits/EasySegmentedView (0.3.3)
-  - EasyKits/EasySyncScroll (0.3.3):
+  - EasyKits/EasyResponder (0.3.5)
+  - EasyKits/EasySegmentedView (0.3.5)
+  - EasyKits/EasySyncScroll (0.3.5):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -67,7 +67,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: 91732426c791ed97de9b2a9b2a78a80b052a5457
+  EasyKits: c39e120d5416d4ce90555cfc53b2811086be7ed0
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74

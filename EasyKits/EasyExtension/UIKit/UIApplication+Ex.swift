@@ -9,21 +9,22 @@ import UIKit
 
 public extension UIApplication {
     /// 获取keywindow
-    class var window: UIWindow? {
-        if #available(iOS 13.0, *) {
+    class var appKeyWindow: UIWindow? {
+        if #available(iOS 13.0, *),
+           UIApplication.shared.responds(to: #selector(getter: connectedScenes)) {
             return UIApplication
                 .shared
                 .connectedScenes
+                .filter { $0.activationState == .foregroundActive }
                 .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-                .first { $0.isKeyWindow }
-        } else {
-            return UIApplication.shared.keyWindow
+                .first { $0.isKeyWindow } ?? UIApplication.shared.delegate?.window ?? nil
         }
+        return UIApplication.shared.keyWindow
     }
     
     @available(iOS 13.0, *)
     class var statusBarManager: UIStatusBarManager? {
-        return UIApplication.shared.delegate?.window??.windowScene?.statusBarManager
+        return appKeyWindow?.windowScene?.statusBarManager
     }
     
     class func `open`(_ urlString: String?, completion: ((Bool) -> Void)? = nil) {

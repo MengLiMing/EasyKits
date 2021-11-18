@@ -41,7 +41,7 @@ public extension UIScreen {
     
     static var topOffset: CGFloat {
         if #available(iOS 11, *),
-           let window = UIApplication.shared.delegate?.window ?? UIApplication.window {
+           let window = UIApplication.appKeyWindow {
             return window.safeAreaInsets.top
         }
         
@@ -50,7 +50,7 @@ public extension UIScreen {
     
     static var bottomOffset: CGFloat {
         if #available(iOS 11, *),
-           let window = UIApplication.shared.delegate?.window ?? UIApplication.window {
+           let window = UIApplication.appKeyWindow {
             return window.safeAreaInsets.bottom
         }
         return 0
