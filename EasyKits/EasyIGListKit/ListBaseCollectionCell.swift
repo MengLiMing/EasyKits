@@ -8,6 +8,7 @@
 import Foundation
 import SnapKit
 import IGListKit
+import RxSwift
 
 /// 基础绑定数据 cell
 public protocol ListBindableCell: ListBindable where Self: UICollectionViewCell { }
@@ -52,3 +53,23 @@ open class LisetBaseCollectionCell: UICollectionViewCell, ListBindableCell {
     }
 }
 
+open class ListBaseBindableDataCell<T: ListBaseItemDataType>: LisetBaseCollectionCell {
+    open var data: T? {
+        return listItem?.data as? T
+    }
+    
+    open var bindDisposeBag = DisposeBag()
+    
+    open override func bindListItem(_ listItem: ListBaseItem) {
+        super.bindListItem(listItem)
+        if let data = self.data {
+            bindDisposeBag = DisposeBag()
+            bindData(data)
+        }
+    }
+    
+    /// 子类重写此方法 绑定数据
+    open func bindData(_ data: T) {
+        
+    }
+}
