@@ -18,15 +18,6 @@ public class ListBaseItem: ListDiffable,
                     ListBaseItemTypeProvider,
                     ListBaseItemSizeProvider,
                     Then {
-    public enum ItemStyle {
-        /// header
-        case header
-        /// footer
-        case footer
-        /// cell - row
-        case cell(Int)
-    }
-    
     public let data: ListBaseItemDataType
     
     public init(data: ListBaseItemDataType) {
@@ -35,9 +26,7 @@ public class ListBaseItem: ListDiffable,
     
     /// 如果需要重新计算高度 设置此值为nil
     public var itemSize: CGSize? = nil
-    
-    public var itemStyle: ItemStyle?
-    
+        
     public var itemType: ListBindableCell.Type {
         return data.itemType
     }
@@ -77,15 +66,5 @@ public class ListBaseItem: ListDiffable,
     
     public func copySelf() -> ListBaseItem {
         return ListBaseItem(data: data)
-    }
-}
-
-public extension ListBaseItem {
-    var row: Int? {
-        guard let itemStype = self.itemStyle,
-              case .cell(let value) = itemStype else {
-            return nil
-        }
-        return value
     }
 }

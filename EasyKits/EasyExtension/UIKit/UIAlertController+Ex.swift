@@ -56,7 +56,7 @@ public extension UIAlertController {
     }
 }
 
-extension Reactive where Base: UIAlertController {
+public extension Reactive where Base: UIAlertController {
     static func show<T>(from: UIViewController?,
                  title: String?,
                  message: String?,

@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 extension ListBaseSection: Then { }
-open class ListBaseSection: ListDiffable, ListBindingBaseSectionReloadProvider {
+open class ListBaseSection: ListDiffable, ListBindingBaseSectionAPIProvider {
     open  var items: [ListBaseItem] = []
     
     open  var insets: UIEdgeInsets = .zero
@@ -25,8 +25,6 @@ open class ListBaseSection: ListDiffable, ListBindingBaseSectionReloadProvider {
     
     open  var footer: ListBaseItem?
     
-    open  var section: Int?
-
     open func diffIdentifier() -> NSObjectProtocol {
         return ObjectIdentifier(self).debugDescription as NSString
     }

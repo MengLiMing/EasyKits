@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 public protocol EasyCarouseViewDataSource: AnyObject {
     /// 自定义cell
@@ -24,8 +26,6 @@ public protocol EasyCarouseViewDelegate: AnyObject {
     func carouseView(_ carouseView: EasyCarouseView, selectedAt index: Int)
     /// 下标改变回调
     func carouseView(_ carouseView: EasyCarouseView, indexChanged index: Int)
-    /// 滑动scale回调
-    func carouseView(_ carouseView: EasyCarouseView, from fromIndex: Int, to toIndex: Int, scale: CGFloat)
 }
 
 public extension EasyCarouseViewDelegate {
@@ -33,12 +33,10 @@ public extension EasyCarouseViewDelegate {
     func carouseView(_ carouseView: EasyCarouseView, selectedAt index: Int) { }
     /// 下标改变回调
     func carouseView(_ carouseView: EasyCarouseView, indexChanged index: Int) { }
-    /// 滑动scale回调
-    func carouseView(_ carouseView: EasyCarouseView, from fromIndex: Int, to toIndex: Int, scale: CGFloat) { }
 }
 
 /// 轮播 - 支持自定义view
-open class EasyCarouseView: UICollectionView {
+open class EasyCarouseView: UIView {
     /// 方向
     public enum Direction {
         case horizontal
@@ -54,97 +52,100 @@ open class EasyCarouseView: UICollectionView {
         }
     }
     
+    public enum Status {
+        /// 默认
+        case none
+        /// 循环
+        case loop
+        /// 自动滚动 (秒，是否顺时针)
+        case auto(Int,Bool)
+        
+        /// 顺时针
+        public static func auto(_ second: Int) -> Status {
+            .auto(3, true)
+        }
+    }
+    
     public weak var carouseDataSource: EasyCarouseViewDataSource?
     
-    public weak var carouseDelegate: EasyCarouseViewDelegate? {
-        didSet {
-            /// 首次下标
-            self.changePageIndex()
-        }
-    }
+    public weak var carouseDelegate: EasyCarouseViewDelegate?
     
-    public var cycleTime: TimeInterval = 3 {
+    public var status: Status = .none {
         didSet {
-            setupTimer()
+            reloadData()
         }
     }
+
+    public private(set) lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.bounces = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.scrollsToTop = false
+        collectionView.isPagingEnabled = false
+        backgroundColor = .clear
+        collectionView.backgroundColor = .clear
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
+        collectionView.autoresizingMask = [
+            .flexibleWidth,
+            .flexibleHeight
+        ]
+        return collectionView
+    }()
+    
+    private let flowLayout: EasyCarouseViewLayout
     
     public private(set) var direction: Direction
 
+    fileprivate var timeDisposeBag = DisposeBag()
+    
     /// isLoop == true时 扩大的倍数
-    fileprivate let multiple: Int = 100
-    
-    fileprivate weak var timer: Timer?
-    
+    fileprivate let multiple: Int = 100000
+        
     fileprivate var totalItemsCount: Int = 0
+        
+    private let itemWidthScale: CGFloat
+    private let itemHeightScale: CGFloat
     
-    fileprivate weak var flowLayout: UICollectionViewFlowLayout?
+    private var currentIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     
-    /// 上一次滚动的偏移
-    fileprivate var lastTimeOffset: CGFloat = 0
-    
-    /// 循环
-    public var isLoop: Bool = true {
-        didSet {
-            if oldValue != self.isLoop {
-                resetScrollView()
-            }
-        }
-    }
-    
-    /// 自动
-    public var isAuto: Bool = true {
-        didSet {
-            if oldValue != self.isAuto {
-                /// 自动必定循环
-                if self.isAuto {
-                    self.isLoop = true
-                } else {
-                    invalidateTimer()
-                }
-            }
-        }
-    }
-    
-    public init(direction: Direction) {
+    /// 初始化方法
+    /// - Parameters:
+    ///   - direction: 滚动方向
+    ///   - transformScale: 缩放比例最小值 0-1
+    ///   - alphaScale: 透明多改变最小值 0-1
+    ///   - itemSpace: 间距
+    ///   - itemWidthScale: 0-1 cell的宽 = itemWidthScale * collectionView.width
+    ///   - itemHeightScale: 0-1 cell的高 = itemHeightScale * collectionView.height
+    public init(direction: Direction,
+                transformScale: CGFloat = 1,
+                alphaScale: CGFloat = 1,
+                itemSpace: CGFloat = 0,
+                itemWidthScale: CGFloat = 1,
+                itemHeightScale: CGFloat = 1) {
+        self.itemWidthScale = max(0, min(1, itemWidthScale))
+        self.itemHeightScale = max(0, min(1, itemHeightScale))
         self.direction = direction
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = self.direction.scrollDirection
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.sectionInset = .zero
-        super.init(frame: .zero, collectionViewLayout: layout)
-        self.flowLayout = layout
-        self.delegate = self
-        self.dataSource = self
-        self.bounces = false
-        self.isPagingEnabled = true
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
-        self.scrollsToTop = false
-        self.backgroundColor = .clear
-        if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
-        }
+        self.flowLayout = EasyCarouseViewLayout(transformScale: transformScale,
+                                           alphaScale: alphaScale,
+                                           itemSpace: itemSpace)
+        flowLayout.scrollDirection = self.direction.scrollDirection
+        super.init(frame: .zero)
+        
+        setupUI()
     }
     
+    @available(*, unavailable)
     required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
     
-    public func resetScrollView() {
-        self.totalItemsCount = sourceCount * (self.isLoop ? multiple : 1)
-        if totalItemsCount > 1 {
-            self.isScrollEnabled = true
-        } else {
-            self.isScrollEnabled = false
-            self.isAuto = false
-        }
-        super.reloadData()
-        self.changePageIndex()
-        if isAuto {
-            setupTimer()
-        }
+    private func setupUI() {
+        addSubview(collectionView)
     }
     
     fileprivate var sourceCount: Int {
@@ -152,76 +153,133 @@ open class EasyCarouseView: UICollectionView {
     }
     
     fileprivate func scroll(to index: Int) {
-        self.safeScrollToItem(at: IndexPath(row: index, section: 0), at: UICollectionView.ScrollPosition.init(rawValue: 0), animated: true)
+        self.safeScrollToItem(at: IndexPath(row: index, section: 0),
+                              animated: true)
     }
     
-    fileprivate func safeScrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool) {
+    fileprivate func safeScrollToItem(at indexPath: IndexPath, animated: Bool) {
         guard indexPath.item >= 0 &&
                 indexPath.section >= 0 &&
-                indexPath.section < numberOfSections &&
-                indexPath.item < numberOfItems(inSection: indexPath.section) else {
+                indexPath.section < collectionView.numberOfSections &&
+                indexPath.item < collectionView.numberOfItems(inSection: indexPath.section) else {
             return
         }
-        scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+        var position: UICollectionView.ScrollPosition
+        switch self.direction {
+        case .vertical:
+            position = .centeredVertically
+        case .horizontal:
+            position = .centeredHorizontally
+        }
+        currentIndexPath = indexPath
+        collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
     }
     
     fileprivate func judgeScrollView(by contentOffset: CGPoint) {
         guard isLoop && totalItemsCount > 0 else {
             return
         }
-        var targetIndex: Int?
-        switch direction {
-        case .horizontal:
-            if contentOffset.x <= 0 {
-                targetIndex = sourceCount * Int(multiple/2)
-            } else if contentOffset.x >= contentSize.width - self.frame.size.width {
-                targetIndex = sourceCount * Int(multiple/2) + sourceCount - 1
-            }
-        case .vertical:
-            if contentOffset.y <= 0 {
-                targetIndex = sourceCount * Int(multiple/2)
-            } else if contentOffset.y >= contentSize.height - self.frame.size.height {
-                targetIndex = sourceCount * Int(multiple/2) + sourceCount - 1
+        var targetIndexPath: IndexPath? = nil
+        
+        if currentIndexPath.row >= (multiple - 1) * sourceCount {
+            targetIndexPath = IndexPath(row: multiple * sourceCount / 2, section: 0)
+        } else if currentIndexPath.row == sourceCount - 1 {
+            targetIndexPath = IndexPath(row: multiple * sourceCount / 2 + (sourceCount - 1), section: 0)
+        }
+        if let targetIndexPath = targetIndexPath {
+            DispatchQueue.main.async {
+                self.safeScrollToItem(at: targetIndexPath, animated: false)
             }
         }
-        if let targetIndex = targetIndex {
-            self.safeScrollToItem(at: IndexPath(row: targetIndex, section: 0), at: UICollectionView.ScrollPosition.init(rawValue: 0), animated: false)
+    }
+    public func reloadData() {
+        self.totalItemsCount = sourceCount * (self.isLoop ? multiple : 1)
+        if totalItemsCount > 1 {
+            collectionView.isScrollEnabled = true
+        } else {
+            collectionView.isScrollEnabled = false
         }
+        collectionView.reloadData()
+        if isAuto {
+            setupTimer()
+        }
+        if isLoop {
+            self.safeScrollToItem(at: .init(row: multiple * sourceCount / 2, section: 0), animated: false)
+        } else {
+            self.safeScrollToItem(at: .init(row: 0, section: 0), animated: false)
+        }
+        self.initCurrentRow()
     }
     
     // MARK: override
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.flowLayout?.itemSize = self.frame.size
-        self.judgeScrollView(by: contentOffset)
-    }
-    
-    public override func reloadData() {
-        self.resetScrollView()
-    }
-    
-    public override func willMove(toSuperview newSuperview: UIView?) {
-        /// 移除
-        if newSuperview == nil {
-            self.invalidateTimer()
+
+        let targetSize = CGSize(width: itemWidthScale * self.bounds.size.width,
+                                height: itemHeightScale * self.bounds.size.height)
+        if targetSize != self.flowLayout.itemSize {
+            let hInset = (frame.size.width - targetSize.width)/2
+            let vInset = (frame.size.height - targetSize.height)/2
+            self.flowLayout.sectionInset = .init(top: vInset, left: hInset, bottom: vInset, right: hInset)
+
+            self.flowLayout.itemSize = targetSize
+            
+            reloadData()
         }
-        super.willMove(toSuperview: newSuperview)
+    }
+}
+
+fileprivate extension EasyCarouseView {
+    /// 是否循环
+    private var isLoop: Bool {
+        switch status {
+        case .none:
+            return false
+        case .loop:
+            return true
+        case .auto:
+            return true
+        }
     }
     
-    deinit {
-        self.delegate = nil
-        self.dataSource = nil
+    /// 是否自动
+    private var isAuto: Bool {
+        switch status {
+        case .none:
+            return false
+        case .loop:
+            return false
+        case .auto:
+            return true
+        }
+    }
+    
+    /// 是否顺时针
+    private var isClockwise: Bool {
+        switch status {
+        case .none:
+            return false
+        case .loop:
+            return false
+        case .auto(_, let isClockwise):
+            return isClockwise
+        }
+    }
+    
+    /// 自动滚动时间间隔
+    private var autoSeconds: Int {
+        switch status {
+        case .none:
+            return 0
+        case .loop:
+            return 0
+        case .auto(let second, _):
+            return second
+        }
     }
 }
 
 public extension EasyCarouseView {
-    func currentPage() -> Int {
-        let offsetIndex = self.currentRow()
-        let pageIndex = self.pageIndex(by: offsetIndex)
-        return pageIndex
-    }
-    
     /// indexPath 转下标
     func pageIndex(by indexPath: IndexPath) -> Int {
         return self.pageIndex(by: indexPath.row)
@@ -234,21 +292,50 @@ public extension EasyCarouseView {
         return row % sourceCount
     }
     
-    func currentRow() -> Int {
-        if self.frame.size.width == 0 || self.frame.size.height == 0 {
-            return 0
-        }
-        guard let layout = self.flowLayout else {
-            return 0
+    /// 获取滑动过程中的IndexPath值
+    func scrollingIndexPath() -> IndexPath {
+        let center = CGPoint(x: collectionView.contentOffset.x + bounds.size.width/2, y: collectionView.contentOffset.y + bounds.size.height/2)
+        guard let indexPath = collectionView.indexPathForItem(at: center) else {
+            /// 间距可能为 - 此时可能是滑动到了间距的地方 取可见区域内item距离中心最近的item
+            let indexPaths = collectionView.indexPathsForVisibleItems
+            if indexPaths.count == 0 {
+                return .init(row: 0, section: 0)
+            } else if indexPaths.count % 2 == 0 {
+                let rightIndex = indexPaths.count/2
+                let leftIndex = rightIndex - 1
+                guard let leftCell = collectionView.cellForItem(at: indexPaths[leftIndex]),
+                      let rightCell = collectionView.cellForItem(at: indexPaths[rightIndex]) else {
+                          return .init(row: 0, section: 0)
+                      }
+                var targetIndex: Int
+                switch direction {
+                case .horizontal:
+                    let centerX = collectionView.contentOffset.x + bounds.size.width/2
+                    if abs(centerX - leftCell.center.x) < abs(centerX - rightCell.center.x) {
+                        targetIndex = leftIndex
+                    } else {
+                        targetIndex = rightIndex
+                    }
+                case .vertical:
+                    let centerY = collectionView.contentOffset.y + bounds.size.height/2
+                    if abs(centerY - leftCell.center.y) < abs(centerY - rightCell.center.y) {
+                        targetIndex = leftIndex
+                    } else {
+                        targetIndex = rightIndex
+                    }
+                }
+                return indexPaths[targetIndex]
+            } else {
+                let centerIndex: Int = indexPaths.count/2
+                return indexPaths[centerIndex]
+            }
         }
         
-        var index = 0
-        if direction == .horizontal {
-            index = Int((self.contentOffset.x + layout.itemSize.width * 0.5)/layout.itemSize.width)
-        } else {
-            index = Int((self.contentOffset.y + layout.itemSize.height * 0.5)/layout.itemSize.height)
-        }
-        return index
+        return indexPath
+    }
+    
+    func currentRow() -> Int {
+        currentIndexPath.row
     }
     
     /// 暂停
@@ -264,6 +351,7 @@ public extension EasyCarouseView {
             setupTimer()
         }
     }
+    
 }
 
 /// Timer
@@ -272,143 +360,92 @@ fileprivate extension EasyCarouseView {
         if isAuto == false { return }
         if totalItemsCount == 0 { return }
         let currentIndex = self.currentRow()
-        let targetIndex = currentIndex + 1
+        let targetIndex: Int
+        if isClockwise {
+            targetIndex = currentIndex + 1
+        } else {
+            targetIndex = currentIndex - 1
+        }
         self.scroll(to: targetIndex)
     }
     
     func setupTimer() {
+        guard isAuto else {
+            return
+        }
         invalidateTimer()
-        let createTimer = Timer.scheduledTimer(timeInterval: cycleTime, target: self, selector: #selector(automaticScroll), userInfo: nil, repeats: true)
-        timer = createTimer
-        RunLoop.main.add(createTimer, forMode: .common)
+        let second = autoSeconds
+        guard second > 0 else {
+            return
+        }
+        Observable<Int>
+            .interval(.seconds(second), scheduler: MainScheduler.instance)
+            .take(until: rx.deallocated)
+            .subscribe(onNext: { [weak self] _ in
+                self?.automaticScroll()
+            })
+            .disposed(by: timeDisposeBag)
     }
     
     func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
+        timeDisposeBag = DisposeBag()
     }
 }
 
 extension EasyCarouseView {
-    fileprivate func changePageIndex() {
+    fileprivate func initCurrentRow() {
         if sourceCount == 0 { return }
         let offsetIndex = self.currentRow()
         let pageIndex = self.pageIndex(by: offsetIndex)
         self.carouseDelegate?.carouseView(self, indexChanged: pageIndex)
     }
-    
-    fileprivate func changeScale() {
-        switch self.direction {
-        case .horizontal:
-            changeScaleH()
-        case .vertical:
-            changeScaleV()
-        }
-    }
-    
-    fileprivate func changeScaleH() {
-        guard self.frame.size.width > 0, sourceCount > 0 else {
-            return
-        }
-        let isToRight = self.contentOffset.x > lastTimeOffset
-        let index = Int(self.contentOffset.x / self.frame.size.width)
-        /// 相对下标
-        let relativeIndex = index % sourceCount
-        /// 相对偏移
-        let relativeOffSetX = self.contentOffset.x - CGFloat(index) * self.frame.size.width
-        /// scale
-        var scale = relativeOffSetX / self.frame.size.width
-        
-        var toIndex: Int!
-        var fromIndex: Int!
-        
-        if isToRight {
-            fromIndex = relativeIndex
-            if scale == 0 {
-                fromIndex -= 1
-                scale = 1
-            }
-            toIndex = fromIndex + 1
-            if toIndex >= sourceCount {
-                toIndex -= sourceCount
-            }
-        } else {
-            fromIndex = relativeIndex - 1
-            toIndex = relativeIndex
-            scale = 1 - scale
-        }
-        fromIndex = correct(index: fromIndex)
-        toIndex = correct(index: toIndex)
-        self.carouseDelegate?.carouseView(self, from: fromIndex, to: toIndex, scale: scale)
-        
-        lastTimeOffset = self.contentOffset.x
-    }
-    
-    fileprivate func changeScaleV() {
-        guard self.frame.size.height > 0, sourceCount > 0 else {
-            return
-        }
-        let isTopBottom = self.contentOffset.y > lastTimeOffset
-        let index = Int(self.contentOffset.y / self.frame.size.height)
-        /// 相对下标
-        let relativeIndex = index % sourceCount
-        /// 相对偏移
-        let relativeOffSetX = self.contentOffset.y - CGFloat(index) * self.frame.size.height
-        /// scale
-        var scale = relativeOffSetX / self.frame.size.height
-        
-        var toIndex: Int!
-        var fromIndex: Int!
-        
-        if isTopBottom {
-            fromIndex = relativeIndex
-            if scale == 0 {
-                fromIndex -= 1
-                scale = 1
-            }
-            toIndex = fromIndex + 1
-            if toIndex >= sourceCount {
-                toIndex -= sourceCount
-            }
-        } else {
-            fromIndex = relativeIndex - 1
-            toIndex = relativeIndex
-            scale = 1 - scale
-        }
-        fromIndex = correct(index: fromIndex)
-        toIndex = correct(index: toIndex)
-        self.carouseDelegate?.carouseView(self, from: fromIndex, to: toIndex, scale: scale)
-        lastTimeOffset = self.contentOffset.y
-    }
-    
-    /// 矫正index
-    fileprivate func correct(index: Int) -> Int {
-        if index < 0 {
-            return index + sourceCount
-        }
-        if index >= sourceCount {
-            return index - sourceCount
-        }
-        return index
-    }
 }
 
 extension EasyCarouseView: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.changePageIndex()
-        self.changeScale()
+        let scrollIndexPath = scrollingIndexPath()
+        let pageIndex = pageIndex(by: scrollIndexPath)
+        self.carouseDelegate?.carouseView(self, indexChanged: pageIndex)
     }
     
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if isAuto {
-            setupTimer()
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        setupTimer()
+
+        var velocityForward: CGFloat
+        switch self.flowLayout.scrollDirection {
+        case .horizontal:
+            velocityForward = velocity.x
+        case .vertical:
+            velocityForward = velocity.y
+        }
+
+        if velocityForward > 0 {
+            currentIndexPath.row += 1
+        } else if velocityForward < 0 {
+            currentIndexPath.row -= 1
+        } else {
+            currentIndexPath = scrollingIndexPath()
+        }
+        DispatchQueue.main.async {
+            self.safeScrollToItem(at: self.currentIndexPath, animated: true)
         }
     }
     
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        scrollViewEndScroll(scrollView)
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewEndScroll(scrollView)
+    }
+    
+    
+    fileprivate func scrollViewEndScroll(_ scrollView: UIScrollView) {
+        judgeScrollView(by: scrollView.contentOffset)
+    }
+
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if isAuto {
-            invalidateTimer()
-        }
+        invalidateTimer()
     }
 }
 

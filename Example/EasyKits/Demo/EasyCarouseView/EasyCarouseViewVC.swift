@@ -9,12 +9,31 @@
 import UIKit
 import EasyKits
 import Kingfisher
+import Then
 
 class EasyCarouseViewVC: UIViewController {
-    fileprivate let carouseView1 = CarouseImageView(direction: .horizontal)
-    fileprivate let carouseView2 = CarouseImageView(direction: .vertical)
-    fileprivate let carouseView3 = CustomCarouseView()
-    fileprivate let carouseView4 = NewsCarouseView()
+    fileprivate let carouseView1 = CarouseImageView(
+        direction: .horizontal,
+        transformScale: 0.9,
+        alphaScale: 0.3,
+        itemSpace: 10,
+        itemWidthScale: 0.8,
+        itemHeightScale: 1).then {
+            $0.carouseView.status = .auto(3, false)
+        }
+    fileprivate let carouseView2 = CarouseImageView(
+        direction: .vertical,
+        transformScale: 0.9,
+        alphaScale: 0.3,
+        itemSpace: 0,
+        itemWidthScale: 1,
+        itemHeightScale: 0.8)
+    fileprivate let carouseView3 = CustomCarouseView().then {
+        $0.status = .loop
+    }
+    fileprivate let carouseView4 = NewsCarouseView().then {
+        $0.status = .auto(4, true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,11 +77,17 @@ class EasyCarouseViewVC: UIViewController {
 
 /// 图片轮播
 class CarouseImageView: UIView, EasyCarouseViewDelegate, EasyCarouseViewDataSource {
-    fileprivate lazy var carouseView: EasyCarouseView = {
-        let v = EasyCarouseView(direction: direction)
+    lazy var carouseView: EasyCarouseView = {
+        let v = EasyCarouseView(direction: direction,
+                                transformScale: transformScale,
+                                alphaScale: alpha,
+                                itemSpace: itemSpace,
+                                itemWidthScale: itemWidthScale,
+                                itemHeightScale: itemHeightScale)
+        v.status = .auto(3)
         v.carouseDataSource = self
         v.carouseDelegate = self
-        v.register(ImageCell.self, forCellWithReuseIdentifier: "cell")
+        v.collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "cell")
         return v
     }()
     
@@ -103,19 +128,56 @@ class CarouseImageView: UIView, EasyCarouseViewDelegate, EasyCarouseViewDataSour
     
     fileprivate let direction: EasyCarouseView.Direction
     
-    init(direction: EasyCarouseView.Direction) {
+    let transformScale: CGFloat
+    let alphaScale: CGFloat
+    let itemSpace: CGFloat
+    let itemWidthScale: CGFloat
+    let itemHeightScale: CGFloat
+    
+    init(direction: EasyCarouseView.Direction,
+         transformScale: CGFloat = 1,
+         alphaScale: CGFloat = 1,
+         itemSpace: CGFloat = 0,
+         itemWidthScale: CGFloat = 1,
+         itemHeightScale: CGFloat = 1) {
         self.direction = direction
+        self.transformScale = transformScale
+        self.alphaScale = alphaScale
+        self.itemSpace = itemSpace
+        self.itemWidthScale = itemWidthScale
+        self.itemHeightScale = itemHeightScale
         super.init(frame: .zero)
+        
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1
+        
         self.addSubview(carouseView)
         carouseView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
         
         self.addSubview(numLabel)
         numLabel.snp.makeConstraints { (maker) in
             maker.right.equalTo(-10)
             maker.bottom.equalTo(-10)
             maker.height.equalTo(22)
+        }
+        
+        addSubview(UIView().then {
+            $0.backgroundColor = .red
+        }) { maker in
+            maker.leading.trailing.equalTo(0)
+            maker.centerY.equalToSuperview()
+            maker.height.equalTo(1)
+        }
+        
+        addSubview(UIView().then {
+            $0.backgroundColor = .red
+        }) { maker in
+            maker.top.bottom.equalTo(0)
+            maker.centerX.equalToSuperview()
+            maker.width.equalTo(1)
         }
     }
     
@@ -124,8 +186,8 @@ class CarouseImageView: UIView, EasyCarouseViewDelegate, EasyCarouseViewDataSour
     }
     
     func carouseView(_ carouseView: EasyCarouseView, cellForItemAt indexPath: IndexPath, itemIndex: Int) -> UICollectionViewCell {
-        let cell = carouseView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
-            ImageCell
+        let cell = carouseView.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
+        ImageCell
         cell.imageView.kf.setImage(with: URL(string: images.element(itemIndex) ?? ""))
         return cell
     }
@@ -144,7 +206,7 @@ class CustomCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseVi
     class CustomCarouseCell: UICollectionViewCell {
         fileprivate let l1: UILabel =  UILabel()
         let l2: UILabel =  UILabel()
-
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.backgroundColor = .gray
@@ -167,11 +229,11 @@ class CustomCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseVi
     }
     
     init() {
-        super.init(direction: .horizontal)
-        self.isAuto = false
+        super.init(direction: .horizontal, transformScale: 0.9, alphaScale: 0.4, itemSpace: 5, itemWidthScale: 0.85, itemHeightScale: 1)
+        self.status = .none
         self.carouseDataSource = self
         self.carouseDelegate = self
-        self.register(CustomCarouseCell.self, forCellWithReuseIdentifier: "cell")
+        self.collectionView.register(CustomCarouseCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     required init?(coder: NSCoder) {
@@ -179,8 +241,8 @@ class CustomCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseVi
     }
     
     func carouseView(_ carouseView: EasyCarouseView, cellForItemAt indexPath: IndexPath, itemIndex: Int) -> UICollectionViewCell {
-        let cell = carouseView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
-            CustomCarouseCell
+        let cell = carouseView.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
+        CustomCarouseCell
         cell.l2.text = "下标：\(itemIndex)"
         return cell
     }
@@ -194,19 +256,19 @@ class CustomCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseVi
 class NewsCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseViewDataSource {
     class CustomCarouseCell: UICollectionViewCell {
         fileprivate lazy var bgView: UIView = {
-           let view = UIView()
+            let view = UIView()
             view.backgroundColor = UIColor.black.withAlphaComponent(0.45)
             return view
         }()
         
         fileprivate lazy var iconImageView: UIImageView = {
-           let view = UIImageView()
+            let view = UIImageView()
             view.kf.setImage(with: URL(string: "https://ss1.baidu.com/6ON1bjeh1BF3odCf/it/u=1930835780,4092337419&fm=15&gp=0.jpg"))
             return view
         }()
         
         fileprivate lazy var contentLabel: UILabel = {
-           let label = UILabel()
+            let label = UILabel()
             label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 12)
             return label
@@ -255,7 +317,7 @@ class NewsCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseView
         self.carouseDelegate = self
         self.backgroundColor = .clear
         self.isUserInteractionEnabled = false
-        self.register(CustomCarouseCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(cellClass: CustomCarouseCell.self)
     }
     
     fileprivate let names = ["刚刚好", "MengLiMing", "一个幸运的用户"]
@@ -265,13 +327,20 @@ class NewsCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseView
     }
     
     func carouseView(_ carouseView: EasyCarouseView, cellForItemAt indexPath: IndexPath, itemIndex: Int) -> UICollectionViewCell {
-        let cell = carouseView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
-            CustomCarouseCell
+        let cell = carouseView.collectionView.dequeueReusableCell(cellClass: CustomCarouseCell.self, indexPath: indexPath)!
         cell.contentLabel.text = (names.element(itemIndex) ?? "") + "抽中了一等奖"
         return cell
     }
     
     func numberOfItems(in caroueView: EasyCarouseView) -> Int {
         return names.count
+    }
+}
+
+import SnapKit
+extension UIView {
+    func addSubview(_ view: UIView, layout: (ConstraintMaker) -> Void) {
+        addSubview(view)
+        view.snp.makeConstraints(layout)
     }
 }

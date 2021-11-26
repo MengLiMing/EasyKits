@@ -14,7 +14,7 @@ class EasyCarouseCell: EasyListViewCell {
         let v = EasyCarouseView(direction: .horizontal)
         v.carouseDataSource = self
         v.carouseDelegate = self
-        v.register(ImageCell.self, forCellWithReuseIdentifier: "cell")
+        v.collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "cell")
         return v
     }()
     
@@ -73,7 +73,7 @@ class EasyCarouseCell: EasyListViewCell {
 
 extension EasyCarouseCell: EasyCarouseViewDelegate, EasyCarouseViewDataSource {
     func carouseView(_ carouseView: EasyCarouseView, cellForItemAt indexPath: IndexPath, itemIndex: Int) -> UICollectionViewCell {
-        let cell = carouseView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
+        let cell = carouseView.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
             ImageCell
         cell.imageView.kf.setImage(with: URL(string: images.element(itemIndex) ?? ""))
         return cell

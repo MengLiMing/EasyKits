@@ -11,16 +11,19 @@ import RxSwift
 import RxCocoa
 
 /// ListBaseSection可以实现此协议实现刷新功能
-public protocol ListBindingBaseSectionReloadProvider: AnyObject {
-
+public protocol ListBindingBaseSectionAPIProvider: AnyObject {
 }
 
 private var listBindingSectionControllerKey: UInt8 = 0
 
-extension ListBindingBaseSectionReloadProvider {
+extension ListBindingBaseSectionAPIProvider {
     /// 刷新的前提是 items Diff后 数据源有改变
     public func reloadSection(animated: Bool, completion: ((Bool) -> Void)? = nil) {
         bindingSectionController?.update(animated: animated, completion: completion)
+    }
+    
+    public var section: Int? {
+        self.bindingSectionController?.section
     }
     
     fileprivate var bindingSectionController: ListBindingBaseSectionController? {
@@ -49,7 +52,6 @@ open class ListBindingBaseSectionController: ListBindingSectionController<ListBa
         inset = section.insets
         minimumLineSpacing = section.minimumLineSpacing
         minimumInteritemSpacing = section.minimumInteritemSpacing
-        section.section = self.section
         section.bindingSectionController = self
     }
     
@@ -83,13 +85,11 @@ extension ListBindingBaseSectionController: ListSupplementaryViewSource {
         if elementKind == UICollectionView.elementKindSectionHeader,
            let header = object?.header {
             view = collectionContext!.dequeueReusableSupplementaryView(ofKind: elementKind, for: self, class: header.itemType, at: index) as? ListBindableCell
-            header.itemStyle = .header
             view?.bindViewModel(header)
         }
         if elementKind == UICollectionView.elementKindSectionFooter,
            let footer = object?.footer {
             view = collectionContext!.dequeueReusableSupplementaryView(ofKind: elementKind, for: self, class: footer.itemType, at: index) as? ListBindableCell
-            footer.itemStyle = .footer
             view?.bindViewModel(footer)
         }
         
@@ -116,7 +116,6 @@ extension ListBindingBaseSectionController: ListBindingSectionControllerDataSour
     
     public func sectionController(_ sectionController: ListBindingSectionController<ListDiffable>, cellForViewModel viewModel: Any, at index: Int) -> UICollectionViewCell & ListBindable {
         guard let viewModel = viewModel as? ListBaseItem else { return LisetBaseCollectionCell() }
-        viewModel.itemStyle = .cell(index)
         return collectionContext!.dequeueReusableCell(of: viewModel.itemType, for: self, at: index) as! (UICollectionViewCell & ListBindable)
     }
     

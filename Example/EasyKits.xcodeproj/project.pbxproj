@@ -31,6 +31,12 @@
 		95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956DA525E662C70021FF3F /* EasyListOtherCell.swift */; };
 		95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */; };
 		F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46DB4D82733734000C94414 /* EasyIGListVC.swift */; };
+		F49052922750AE390071EE59 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490528F2750AE390071EE59 /* NestViewController.swift */; };
+		F49052932750AE390071EE59 /* NestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052902750AE390071EE59 /* NestListViewController.swift */; };
+		F49052942750AE390071EE59 /* NestCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052912750AE390071EE59 /* NestCategoryViewController.swift */; };
+		F49052D82750B29E0071EE59 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052D72750B29E0071EE59 /* UIScrollView+Refresh.swift */; };
+		F49052DA2750B3120071EE59 /* SnapKit+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052D92750B3120071EE59 /* SnapKit+Ex.swift */; };
+		F49052DC2750B35E0071EE59 /* IGListKit+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052DB2750B35E0071EE59 /* IGListKit+Ex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +74,12 @@
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F46DB4D82733734000C94414 /* EasyIGListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyIGListVC.swift; sourceTree = "<group>"; };
+		F490528F2750AE390071EE59 /* NestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
+		F49052902750AE390071EE59 /* NestListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestListViewController.swift; sourceTree = "<group>"; };
+		F49052912750AE390071EE59 /* NestCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestCategoryViewController.swift; sourceTree = "<group>"; };
+		F49052D72750B29E0071EE59 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
+		F49052D92750B3120071EE59 /* SnapKit+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnapKit+Ex.swift"; sourceTree = "<group>"; };
+		F49052DB2750B35E0071EE59 /* IGListKit+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IGListKit+Ex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +128,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				95956A9F25CCE3EE0021FF3F /* VCCell.swift */,
+				F49052D62750B2860071EE59 /* Common */,
 				95956AA525CCE4110021FF3F /* Demo */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -247,8 +260,29 @@
 			isa = PBXGroup;
 			children = (
 				F46DB4D82733734000C94414 /* EasyIGListVC.swift */,
+				F490528E2750AE390071EE59 /* NestDemo */,
 			);
 			path = EasyIGList;
+			sourceTree = "<group>";
+		};
+		F490528E2750AE390071EE59 /* NestDemo */ = {
+			isa = PBXGroup;
+			children = (
+				F490528F2750AE390071EE59 /* NestViewController.swift */,
+				F49052902750AE390071EE59 /* NestListViewController.swift */,
+				F49052912750AE390071EE59 /* NestCategoryViewController.swift */,
+			);
+			path = NestDemo;
+			sourceTree = "<group>";
+		};
+		F49052D62750B2860071EE59 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F49052D72750B29E0071EE59 /* UIScrollView+Refresh.swift */,
+				F49052D92750B3120071EE59 /* SnapKit+Ex.swift */,
+				F49052DB2750B35E0071EE59 /* IGListKit+Ex.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,7 +422,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				950BBA99263A802A00408C55 /* NestContainerListVC.swift in Sources */,
+				F49052D82750B29E0071EE59 /* UIScrollView+Refresh.swift in Sources */,
 				95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */,
+				F49052DC2750B35E0071EE59 /* IGListKit+Ex.swift in Sources */,
 				95956D0F25E5FFC60021FF3F /* EasyCarouseCell.swift in Sources */,
 				95145CB1263BD12600A8CDAD /* NestSyncContainerListVC.swift in Sources */,
 				95956AD525CCF03D0021FF3F /* ERBView.swift in Sources */,
@@ -399,15 +435,19 @@
 				950BBAB1263A861D00408C55 /* NestContainerSubVC.swift in Sources */,
 				95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				F49052942750AE390071EE59 /* NestCategoryViewController.swift in Sources */,
 				95956AD225CCF0330021FF3F /* ERAView.swift in Sources */,
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,
 				F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */,
 				95956AD825CCF0460021FF3F /* ERCView.swift in Sources */,
 				95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */,
 				95956D0A25E5EFEF0021FF3F /* EasyListViewVC.swift in Sources */,
+				F49052932750AE390071EE59 /* NestListViewController.swift in Sources */,
+				F49052922750AE390071EE59 /* NestViewController.swift in Sources */,
 				95956D1325E6011E0021FF3F /* EasyCarouseViewVC.swift in Sources */,
 				95956AA925CCE4310021FF3F /* EasyPopupVC.swift in Sources */,
 				95956ACE25CCEF5D0021FF3F /* EasyResponder.swift in Sources */,
+				F49052DA2750B3120071EE59 /* SnapKit+Ex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

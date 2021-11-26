@@ -35,6 +35,12 @@ public final class SyncScrollContext {
             self.resetOuterBounces(outerItem.scrollView.contentOffset)
         }
     }
+    
+    private var _maxOffsetY: CGFloat {
+        /// 向下取整，避免出现一些bug
+        floor(maxOffsetY)
+    }
+    
     /// 外部偏移
     fileprivate var outerOffset: CGPoint = .zero
     /// 内部偏移
@@ -94,7 +100,7 @@ public final class SyncScrollContext {
         
         if let innerItem = innerItem,
            innerOffset.y > innerItem.scrollView.sync_minY {
-            outer.scrollView.contentOffset.y = maxOffsetY
+            outer.scrollView.contentOffset.y = _maxOffsetY
             outerOffset = outer.scrollView.contentOffset
         } else {
             outerOffset = contentOffset
@@ -111,12 +117,12 @@ public final class SyncScrollContext {
         case .inner:
             outer.scrollView.bounces = false
         case .outer:
-            outer.scrollView.bounces = contentOffset.y <= (self.maxOffsetY)/2
+            outer.scrollView.bounces = contentOffset.y <= (_maxOffsetY)/2
         }
     }
     
     fileprivate func changeHover() {
-        if self.outerOffset.y >= self.maxOffsetY {/// 处于悬停状态
+        if self.outerOffset.y >= _maxOffsetY {/// 处于悬停状态
             self.isHover.accept(true)
         } else {
             if self.isHover.value != false {
@@ -155,13 +161,13 @@ public final class SyncScrollContext {
         }
         switch refreshType {
         case .inner:
-            if outerOffset.y < maxOffsetY  {
+            if outerOffset.y < _maxOffsetY  {
                 if outerOffset.y > outer.scrollView.sync_minY {
                     fixedScrollViewToMinY(inner.scrollView)
                 }
             }
         case .outer:
-            if outerOffset.y < maxOffsetY {
+            if outerOffset.y < _maxOffsetY {
                 fixedScrollViewToMinY(inner.scrollView)
             }
         }

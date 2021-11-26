@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.3.6'
+    s.version          = '0.4.6'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -52,6 +52,9 @@ Pod::Spec.new do |s|
     
     # 轮播 - 支持左右 上下轮播
     s.subspec "EasyCarouseView" do |ss|
+        ss.dependency 'RxSwift'
+        ss.dependency 'RxCocoa'
+        
         ss.source_files = 'EasyKits/EasyCarouseView/*.swift'
     end
     
@@ -82,8 +85,9 @@ Pod::Spec.new do |s|
         ss.dependency 'SnapKit'
         ss.dependency 'EasyKits/EasyResponder'
         ss.dependency 'EasyKits/EasyExtension'
+        ss.dependency 'EasyKits/EasySyncScroll'
 
-        ss.source_files = 'EasyKits/EasyIGListKit/*.swift'
+        ss.source_files = 'EasyKits/EasyIGListKit/**/*'
     end
     
     s.frameworks = 'UIKit'

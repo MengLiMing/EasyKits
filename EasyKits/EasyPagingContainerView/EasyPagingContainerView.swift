@@ -194,6 +194,10 @@ open class EasyPagingContainerView: UIView {
     /// 刷新
     /// - Parameter index: 刷新后选中 默认为0
     public func reloadData(selectedAt index: Int = 0) {
+        guard isFirstLayout == false else {
+            self.defaultSelectedIndex = index
+            return
+        }
         configScrollViewContenSize()
         self.removeAllItem()
         self.scroll(toIndex: index, animated: false)
@@ -225,7 +229,7 @@ open class EasyPagingContainerView: UIView {
     }
     
     public func scroll(toIndex index: Int, animated: Bool = false) {
-        guard let count = self.dataSource?.numberOfItems(in: self), index < count else {
+        guard let count = self.dataSource?.numberOfItems(in: self), index < count, self.frame.width > 0 else {
             return
         }
         let contentOffset_x = CGFloat(index) * self.frame.width
