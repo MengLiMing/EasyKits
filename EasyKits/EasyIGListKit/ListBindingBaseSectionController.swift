@@ -26,6 +26,16 @@ extension ListBindingBaseSectionAPIProvider {
         self.bindingSectionController?.section
     }
     
+    /// 快捷刷新section
+    public func invalidateLayout(completion: ((Bool) -> Void)?) {
+        guard let sectionController = self.bindingSectionController else {
+            return
+        }
+        sectionController.collectionContext?.invalidateLayout(for: sectionController, completion: {
+            completion?($0)
+        })
+    }
+    
     fileprivate var bindingSectionController: ListBindingBaseSectionController? {
         get {
             (objc_getAssociatedObject(self, &listBindingSectionControllerKey) as? WeakWrapper<ListBindingBaseSectionController>)?.obj

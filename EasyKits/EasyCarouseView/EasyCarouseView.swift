@@ -172,7 +172,9 @@ open class EasyCarouseView: UIView {
             position = .centeredHorizontally
         }
         currentIndexPath = indexPath
-        collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
+        DispatchQueue.main.async {
+            self.collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
+        }
     }
     
     fileprivate func judgeScrollView(by contentOffset: CGPoint) {
@@ -379,7 +381,7 @@ fileprivate extension EasyCarouseView {
             return
         }
         Observable<Int>
-            .interval(.seconds(second), scheduler: MainScheduler.instance)
+            .interval(.seconds(second), scheduler: MainScheduler.asyncInstance)
             .take(until: rx.deallocated)
             .subscribe(onNext: { [weak self] _ in
                 self?.automaticScroll()
@@ -417,6 +419,8 @@ extension EasyCarouseView: UIScrollViewDelegate {
             velocityForward = velocity.x
         case .vertical:
             velocityForward = velocity.y
+        @unknown default:
+            velocityForward = 0
         }
 
         if velocityForward > 0 {
@@ -426,11 +430,9 @@ extension EasyCarouseView: UIScrollViewDelegate {
         } else {
             currentIndexPath = scrollingIndexPath()
         }
-        DispatchQueue.main.async {
-            self.safeScrollToItem(at: self.currentIndexPath, animated: true)
-        }
+        self.safeScrollToItem(at: self.currentIndexPath, animated: true)
     }
-    
+
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollViewEndScroll(scrollView)
     }
@@ -454,6 +456,9 @@ extension EasyCarouseView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = self.pageIndex(by: indexPath)
         self.carouseDelegate?.carouseView(self, selectedAt: index)
+        
+        /// 处理点击之后打断之前滑动动画
+        self.safeScrollToItem(at: self.scrollingIndexPath(), animated: true)
     }
 }
 
