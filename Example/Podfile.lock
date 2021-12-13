@@ -1,21 +1,21 @@
 PODS:
-  - EasyKits (0.4.7):
-    - EasyKits/EasyCarouseView (= 0.4.7)
-    - EasyKits/EasyExtension (= 0.4.7)
-    - EasyKits/EasyIGListKit (= 0.4.7)
-    - EasyKits/EasyListView (= 0.4.7)
-    - EasyKits/EasyPagingContainerView (= 0.4.7)
-    - EasyKits/EasyPopup (= 0.4.7)
-    - EasyKits/EasyResponder (= 0.4.7)
-    - EasyKits/EasySegmentedView (= 0.4.7)
-    - EasyKits/EasySyncScroll (= 0.4.7)
-  - EasyKits/EasyCarouseView (0.4.7):
+  - EasyKits (0.4.8):
+    - EasyKits/EasyCarouseView (= 0.4.8)
+    - EasyKits/EasyExtension (= 0.4.8)
+    - EasyKits/EasyIGListKit (= 0.4.8)
+    - EasyKits/EasyListView (= 0.4.8)
+    - EasyKits/EasyPagingContainerView (= 0.4.8)
+    - EasyKits/EasyPopup (= 0.4.8)
+    - EasyKits/EasyResponder (= 0.4.8)
+    - EasyKits/EasySegmentedView (= 0.4.8)
+    - EasyKits/EasySyncScroll (= 0.4.8)
+  - EasyKits/EasyCarouseView (0.4.8):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyExtension (0.4.7):
+  - EasyKits/EasyExtension (0.4.8):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyIGListKit (0.4.7):
+  - EasyKits/EasyIGListKit (0.4.8):
     - EasyKits/EasyExtension
     - EasyKits/EasyResponder
     - EasyKits/EasySyncScroll
@@ -24,13 +24,13 @@ PODS:
     - RxSwift
     - SnapKit
     - Then
-  - EasyKits/EasyListView (0.4.7)
-  - EasyKits/EasyPagingContainerView (0.4.7)
-  - EasyKits/EasyPopup (0.4.7):
+  - EasyKits/EasyListView (0.4.8)
+  - EasyKits/EasyPagingContainerView (0.4.8)
+  - EasyKits/EasyPopup (0.4.8):
     - SnapKit
-  - EasyKits/EasyResponder (0.4.7)
-  - EasyKits/EasySegmentedView (0.4.7)
-  - EasyKits/EasySyncScroll (0.4.7):
+  - EasyKits/EasyResponder (0.4.8)
+  - EasyKits/EasySegmentedView (0.4.8)
+  - EasyKits/EasySyncScroll (0.4.8):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -70,7 +70,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyKits: bf18bb888b20cace8756dd31c82879119bae633d
+  EasyKits: 77d37302674523cac2248505268fbe95057a67cf
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74

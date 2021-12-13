@@ -36,7 +36,6 @@ public extension Reactive where Base: UITextField {
     var nonMarkedText: Observable<String?> {
         return base.rx
             .text
-            .distinctUntilChanged()
             .withLatestFrom(Observable.just(base)) { $1.nonMarkedText }
     }
 }
@@ -45,7 +44,6 @@ public extension Reactive where Base: UITextView {
     var nonMarkedText: Observable<String?> {
         return base.rx
             .text
-            .distinctUntilChanged()
             .withLatestFrom(Observable.just(base)) { $1.nonMarkedText }
     }
 }
