@@ -66,6 +66,13 @@ open class EasyCarouseView: UIView {
         }
     }
     
+    public enum ItemSize {
+        /// 相对父试图的宽高比例
+        case scale(widthScale: CGFloat, heightScale: CGFloat)
+        /// 固定宽高
+        case size(CGSize)
+    }
+    
     public weak var carouseDataSource: EasyCarouseViewDataSource?
     
     public weak var carouseDelegate: EasyCarouseViewDelegate?
@@ -108,8 +115,7 @@ open class EasyCarouseView: UIView {
         
     fileprivate var totalItemsCount: Int = 0
         
-    private let itemWidthScale: CGFloat
-    private let itemHeightScale: CGFloat
+    private let itemSize: ItemSize
     
     private var currentIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     
@@ -125,10 +131,8 @@ open class EasyCarouseView: UIView {
                 transformScale: CGFloat = 1,
                 alphaScale: CGFloat = 1,
                 itemSpace: CGFloat = 0,
-                itemWidthScale: CGFloat = 1,
-                itemHeightScale: CGFloat = 1) {
-        self.itemWidthScale = max(0, min(1, itemWidthScale))
-        self.itemHeightScale = max(0, min(1, itemHeightScale))
+                itemSize: ItemSize = .scale(widthScale: 1, heightScale: 1)) {
+        self.itemSize = itemSize
         self.direction = direction
         self.flowLayout = EasyCarouseViewLayout(transformScale: transformScale,
                                            alphaScale: alphaScale,
@@ -216,9 +220,16 @@ open class EasyCarouseView: UIView {
     // MARK: override
     public override func layoutSubviews() {
         super.layoutSubviews()
-
-        let targetSize = CGSize(width: itemWidthScale * self.bounds.size.width,
+        var targetSize: CGSize
+        switch itemSize {
+        case .scale(let widthScale, let heightScale):
+            let itemWidthScale = max(0, min(1, widthScale))
+            let itemHeightScale = max(0, min(1, heightScale))
+            targetSize = CGSize(width: itemWidthScale * self.bounds.size.width,
                                 height: itemHeightScale * self.bounds.size.height)
+        case .size(let size):
+            targetSize = size
+        }
         if targetSize != self.flowLayout.itemSize {
             let hInset = (frame.size.width - targetSize.width)/2
             let vInset = (frame.size.height - targetSize.height)/2

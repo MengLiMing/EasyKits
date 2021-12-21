@@ -253,7 +253,7 @@ public extension EasySegmentedView {
         return cell
     }
     
-    fileprivate func changeSelectedIndex(to targetIndex: Int) {
+    func changeSelectedIndex(to targetIndex: Int) {
         configIndicatorView()
         changeItem(to: targetIndex, progress: 1)
         collectionView.reloadData()
