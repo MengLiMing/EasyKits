@@ -36,7 +36,11 @@ extension ListBindingBaseSectionAPIProvider {
         })
     }
     
-    fileprivate var bindingSectionController: ListBindingBaseSectionController? {
+    public var bindingSectionController: ListBindingBaseSectionController? {
+        _bindingSectionController
+    }
+    
+    fileprivate var _bindingSectionController: ListBindingBaseSectionController? {
         get {
             (objc_getAssociatedObject(self, &listBindingSectionControllerKey) as? WeakWrapper<ListBindingBaseSectionController>)?.obj
         }
@@ -62,7 +66,7 @@ open class ListBindingBaseSectionController: ListBindingSectionController<ListBa
         inset = section.insets
         minimumLineSpacing = section.minimumLineSpacing
         minimumInteritemSpacing = section.minimumInteritemSpacing
-        section.bindingSectionController = self
+        section._bindingSectionController = self
     }
     
     open override func didSelectItem(at index: Int) {
