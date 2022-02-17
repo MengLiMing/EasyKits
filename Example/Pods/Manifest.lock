@@ -1,21 +1,22 @@
 PODS:
-  - EasyKits (0.5.1):
-    - EasyKits/EasyCarouseView (= 0.5.1)
-    - EasyKits/EasyExtension (= 0.5.1)
-    - EasyKits/EasyIGListKit (= 0.5.1)
-    - EasyKits/EasyListView (= 0.5.1)
-    - EasyKits/EasyPagingContainerView (= 0.5.1)
-    - EasyKits/EasyPopup (= 0.5.1)
-    - EasyKits/EasyResponder (= 0.5.1)
-    - EasyKits/EasySegmentedView (= 0.5.1)
-    - EasyKits/EasySyncScroll (= 0.5.1)
-  - EasyKits/EasyCarouseView (0.5.1):
+  - EasyKits (0.5.2):
+    - EasyKits/EasyCarouseView (= 0.5.2)
+    - EasyKits/EasyExtension (= 0.5.2)
+    - EasyKits/EasyIGListKit (= 0.5.2)
+    - EasyKits/EasyListView (= 0.5.2)
+    - EasyKits/EasyMediator (= 0.5.2)
+    - EasyKits/EasyPagingContainerView (= 0.5.2)
+    - EasyKits/EasyPopup (= 0.5.2)
+    - EasyKits/EasyResponder (= 0.5.2)
+    - EasyKits/EasySegmentedView (= 0.5.2)
+    - EasyKits/EasySyncScroll (= 0.5.2)
+  - EasyKits/EasyCarouseView (0.5.2):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyExtension (0.5.1):
+  - EasyKits/EasyExtension (0.5.2):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyIGListKit (0.5.1):
+  - EasyKits/EasyIGListKit (0.5.2):
     - EasyKits/EasyExtension
     - EasyKits/EasyResponder
     - EasyKits/EasySyncScroll
@@ -24,13 +25,15 @@ PODS:
     - RxSwift
     - SnapKit
     - Then
-  - EasyKits/EasyListView (0.5.1)
-  - EasyKits/EasyPagingContainerView (0.5.1)
-  - EasyKits/EasyPopup (0.5.1):
+  - EasyKits/EasyListView (0.5.2)
+  - EasyKits/EasyMediator (0.5.2):
+    - EasyKits/EasyExtension
+  - EasyKits/EasyPagingContainerView (0.5.2)
+  - EasyKits/EasyPopup (0.5.2):
     - SnapKit
-  - EasyKits/EasyResponder (0.5.1)
-  - EasyKits/EasySegmentedView (0.5.1)
-  - EasyKits/EasySyncScroll (0.5.1):
+  - EasyKits/EasyResponder (0.5.2)
+  - EasyKits/EasySegmentedView (0.5.2)
+  - EasyKits/EasySyncScroll (0.5.2):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -38,6 +41,18 @@ PODS:
     - IGListDiffKit (= 4.0.0)
   - Kingfisher (6.3.1)
   - MJRefresh (3.7.2)
+  - ModuleA (0.1.0):
+    - ModuleServices
+  - ModuleAServices (0.1.0):
+    - EasyKits/EasyMediator
+  - ModuleB (0.1.0):
+    - ModuleServices
+  - ModuleBServices (0.1.0):
+    - EasyKits/EasyMediator
+  - ModuleServices (0.1.0):
+    - EasyKits/EasyMediator
+    - ModuleAServices
+    - ModuleBServices
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -51,6 +66,11 @@ DEPENDENCIES:
   - EasyKits (from `../`)
   - Kingfisher
   - MJRefresh
+  - ModuleA (from `../Module/ModuleA`)
+  - ModuleAServices (from `../Module/ModuleAServices`)
+  - ModuleB (from `../Module/ModuleB`)
+  - ModuleBServices (from `../Module/ModuleBServices`)
+  - ModuleServices (from `../Module/ModuleServices`)
   - Then
 
 SPEC REPOS:
@@ -68,19 +88,34 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   EasyKits:
     :path: "../"
+  ModuleA:
+    :path: "../Module/ModuleA"
+  ModuleAServices:
+    :path: "../Module/ModuleAServices"
+  ModuleB:
+    :path: "../Module/ModuleB"
+  ModuleBServices:
+    :path: "../Module/ModuleBServices"
+  ModuleServices:
+    :path: "../Module/ModuleServices"
 
 SPEC CHECKSUMS:
-  EasyKits: ea5cd2e2f19ce11e2494327c231bd1bde00d06c1
+  EasyKits: 0b4fd33d10fe832c926870d8dbe43ddf1c501b7b
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
+  ModuleA: 90a43ad13f3f1dd49a168728b0a84b6c259c8f4a
+  ModuleAServices: 37dd476f27197a8419cd6febee01a3f40c28bbd5
+  ModuleB: 1017debb1b1061f9258f62a930bf315ceb0631fa
+  ModuleBServices: 10939a15e7ead227e066862726b9eafd1a4ce433
+  ModuleServices: d7051d821285a1e5f74f230ef766282dd67443d1
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: b545631d32af2939526d2081b104bbabd49e62af
+PODFILE CHECKSUM: b06c482fb6fd0a5cf548d63e56601d875d049f01
 
 COCOAPODS: 1.11.2

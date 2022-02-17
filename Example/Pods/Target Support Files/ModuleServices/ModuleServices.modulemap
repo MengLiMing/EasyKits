@@ -1,0 +1,6 @@
+framework module ModuleServices {
+  umbrella header "ModuleServices-umbrella.h"
+
+  export *
+  module * { export * }
+}

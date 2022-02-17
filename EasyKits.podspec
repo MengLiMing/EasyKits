@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.5.1'
+    s.version          = '0.5.2'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -88,6 +88,13 @@ Pod::Spec.new do |s|
         ss.dependency 'EasyKits/EasySyncScroll'
 
         ss.source_files = 'EasyKits/EasyIGListKit/**/*'
+    end
+    
+    # 路由
+    s.subspec 'EasyMediator' do |ss|
+      ss.dependency 'EasyKits/EasyExtension'
+      
+      ss.source_files = 'EasyKits/EasyMediator/**/*'
     end
     
     s.frameworks = 'UIKit'

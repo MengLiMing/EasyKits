@@ -1,0 +1,31 @@
+{
+  "name": "ModuleServices",
+  "version": "0.1.0",
+  "summary": "基础组件库",
+  "description": "基础组件库",
+  "homepage": "https://github.com/Ming/ModuleServices",
+  "authors": {
+    "Ming": "13014795306@163.com"
+  },
+  "source": {
+    "git": "https://github.com/Ming/ModuleServices.git",
+    "tag": "0.1.0"
+  },
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "ModuleServices/**/*",
+  "dependencies": {
+    "EasyKits/EasyMediator": [
+
+    ],
+    "ModuleAServices": [
+
+    ],
+    "ModuleBServices": [
+
+    ]
+  },
+  "swift_version": "5.0"
+}

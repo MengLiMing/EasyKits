@@ -82,8 +82,7 @@ class CarouseImageView: UIView, EasyCarouseViewDelegate, EasyCarouseViewDataSour
                                 transformScale: transformScale,
                                 alphaScale: alpha,
                                 itemSpace: itemSpace,
-                                itemWidthScale: itemWidthScale,
-                                itemHeightScale: itemHeightScale)
+                                itemSize: .scale(widthScale: itemWidthScale, heightScale: itemHeightScale))
         v.status = .auto(3)
         v.carouseDataSource = self
         v.carouseDelegate = self
@@ -229,7 +228,7 @@ class CustomCarouseView: EasyCarouseView, EasyCarouseViewDelegate, EasyCarouseVi
     }
     
     init() {
-        super.init(direction: .horizontal, transformScale: 0.9, alphaScale: 0.4, itemSpace: 5, itemWidthScale: 0.85, itemHeightScale: 1)
+        super.init(direction: .horizontal, transformScale: 0.9, alphaScale: 0.4, itemSpace: 5, itemSize: .scale(widthScale: 0.85, heightScale: 1))
         self.status = .none
         self.carouseDataSource = self
         self.carouseDelegate = self

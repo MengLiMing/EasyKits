@@ -30,6 +30,7 @@
 		95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956D7D25E65C1C0021FF3F /* EasyListPriceCell.swift */; };
 		95956DA625E662C70021FF3F /* EasyListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956DA525E662C70021FF3F /* EasyListOtherCell.swift */; };
 		95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */; };
+		F4584A7527BE4DA100933215 /* RouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4584A7427BE4DA100933215 /* RouterViewController.swift */; };
 		F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46DB4D82733734000C94414 /* EasyIGListVC.swift */; };
 		F49052922750AE390071EE59 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490528F2750AE390071EE59 /* NestViewController.swift */; };
 		F49052932750AE390071EE59 /* NestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052902750AE390071EE59 /* NestListViewController.swift */; };
@@ -73,6 +74,7 @@
 		B85BEF9B3FF56656A93DD048 /* Pods_EasyKits_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EasyKits_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA2E3DFC194A465A6386F1F /* Pods-EasyKits_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EasyKits_Tests.debug.xcconfig"; path = "Target Support Files/Pods-EasyKits_Tests/Pods-EasyKits_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		F4584A7427BE4DA100933215 /* RouterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterViewController.swift; sourceTree = "<group>"; };
 		F46DB4D82733734000C94414 /* EasyIGListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyIGListVC.swift; sourceTree = "<group>"; };
 		F490528F2750AE390071EE59 /* NestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F49052902750AE390071EE59 /* NestListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestListViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		95956AA525CCE4110021FF3F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				F4584A7327BE4D8400933215 /* RouterDemo */,
 				F46DB4D72733732100C94414 /* EasyIGList */,
 				950BBA97263A7F8500408C55 /* NestContainer */,
 				95956E3125E7AC8C0021FF3F /* EasySegmentedView */,
@@ -254,6 +257,14 @@
 				7D5FDBEC34C58DFAF2443F1F /* Pods-EasyKits_Tests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F4584A7327BE4D8400933215 /* RouterDemo */ = {
+			isa = PBXGroup;
+			children = (
+				F4584A7427BE4DA100933215 /* RouterViewController.swift */,
+			);
+			path = RouterDemo;
 			sourceTree = "<group>";
 		};
 		F46DB4D72733732100C94414 /* EasyIGList */ = {
@@ -368,6 +379,11 @@
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/ModuleA/ModuleA.framework",
+				"${BUILT_PRODUCTS_DIR}/ModuleAServices/ModuleAServices.framework",
+				"${BUILT_PRODUCTS_DIR}/ModuleB/ModuleB.framework",
+				"${BUILT_PRODUCTS_DIR}/ModuleBServices/ModuleBServices.framework",
+				"${BUILT_PRODUCTS_DIR}/ModuleServices/ModuleServices.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -381,6 +397,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ModuleA.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ModuleAServices.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ModuleB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ModuleBServices.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ModuleServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -438,6 +459,7 @@
 				F49052942750AE390071EE59 /* NestCategoryViewController.swift in Sources */,
 				95956AD225CCF0330021FF3F /* ERAView.swift in Sources */,
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,
+				F4584A7527BE4DA100933215 /* RouterViewController.swift in Sources */,
 				F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */,
 				95956AD825CCF0460021FF3F /* ERCView.swift in Sources */,
 				95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */,

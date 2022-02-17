@@ -7,4 +7,11 @@ target 'EasyKits_Example' do
   pod 'MJRefresh'
   pod 'Kingfisher'
   pod 'Then'
+  
+  pod 'ModuleA', :path => '../Module/ModuleA'
+  pod 'ModuleB', :path => '../Module/ModuleB'
+  
+  pod 'ModuleAServices', :path => '../Module/ModuleAServices'
+  pod 'ModuleBServices', :path => '../Module/ModuleBServices'
+  pod 'ModuleServices', :path => '../Module/ModuleServices'
 end

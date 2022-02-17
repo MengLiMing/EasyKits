@@ -30,6 +30,8 @@ class ViewController: UIViewController {
         /// IGListKit
         case iglist
         case nestIgList
+        /// 路由
+        case router
 
         var data: (title: String, vcType: UIViewController.Type?) {
             switch self {
@@ -53,6 +55,8 @@ class ViewController: UIViewController {
                 return ("EasyIGList", EasyIGListVC.self)
             case .nestIgList:
                 return ("EasyIGList+EasySyncScroll的嵌套", NestViewController.self)
+            case .router:
+                return ("路由Demo", RouterViewController.self)
             }
         }
     }

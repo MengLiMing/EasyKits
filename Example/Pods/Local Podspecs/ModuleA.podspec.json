@@ -1,0 +1,25 @@
+{
+  "name": "ModuleA",
+  "version": "0.1.0",
+  "summary": "基础组件库",
+  "description": "基础组件库",
+  "homepage": "https://github.com/Ming/ModuleA",
+  "authors": {
+    "Ming": "13014795306@163.com"
+  },
+  "source": {
+    "git": "https://github.com/Ming/ModuleA.git",
+    "tag": "0.1.0"
+  },
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "dependencies": {
+    "ModuleServices": [
+
+    ]
+  },
+  "source_files": "ModuleA/**/*",
+  "swift_version": "5.0"
+}
