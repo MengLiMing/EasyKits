@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol ModuleProtocol {
+public protocol ModuleProtocol: UIApplicationDelegate {
     /// 模块ID 非必须
     func moduleID() -> String
     /// 模块级别

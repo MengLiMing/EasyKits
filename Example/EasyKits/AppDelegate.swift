@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        ModuleManager.shared.modules.forEach { _ = $0.application?(application, didFinishLaunchingWithOptions: launchOptions) ?? true }
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = .white
         self.window?.rootViewController = rootVC()
