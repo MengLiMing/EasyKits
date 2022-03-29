@@ -49,7 +49,7 @@ pod 'EasyKits/EasyMediator'
 - EasyCarouseView：轮播视图，支持横竖两个方向、自定义视图
 - EasySegmentedView：分类导航栏实现，可自定义任何样式的导航栏效果(指示器和Item均可自定义)
 - EasyPagingContainerView：横向滑动切换实现，支持最大显示个数
-- EasyMediator：路由封装
+- EasyMediator：路由
 
 
 ## DEMO演示
