@@ -13,6 +13,12 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
+### Swift Package Manager
+- File > Swift Packages > Add Package Dependency
+- Add `https://github.com/MengLiMing/EasyKits.git`
+- Select "Up to Next Major" with "0.5.9"
+
+### Cocoapods
 EasyKits is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 ```ruby
@@ -38,7 +44,6 @@ pod 'EasyKits/EasyRxExtension'
 
 pod 'EasyKits/EasyMediator'
 ```
-
 
 ## 组件列表
 - EasyListView: 复杂列表的简单实现，可用于快速构建电商类首页、商品详情、朋友圈等复杂列表 - 可以使用EasyIGListKit替换
