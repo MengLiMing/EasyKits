@@ -16,7 +16,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ### Swift Package Manager
 - File > Swift Packages > Add Package Dependency
 - Add `https://github.com/MengLiMing/EasyKits.git`
-- Select "Up to Next Major" with "0.5.9"
+- Select "Branch" with "master"
 
 ### Cocoapods
 EasyKits is available through [CocoaPods](https://cocoapods.org). To install
