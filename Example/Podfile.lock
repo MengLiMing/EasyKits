@@ -1,22 +1,22 @@
 PODS:
-  - EasyKits (0.5.3):
-    - EasyKits/EasyCarouseView (= 0.5.3)
-    - EasyKits/EasyExtension (= 0.5.3)
-    - EasyKits/EasyIGListKit (= 0.5.3)
-    - EasyKits/EasyListView (= 0.5.3)
-    - EasyKits/EasyMediator (= 0.5.3)
-    - EasyKits/EasyPagingContainerView (= 0.5.3)
-    - EasyKits/EasyPopup (= 0.5.3)
-    - EasyKits/EasyResponder (= 0.5.3)
-    - EasyKits/EasySegmentedView (= 0.5.3)
-    - EasyKits/EasySyncScroll (= 0.5.3)
-  - EasyKits/EasyCarouseView (0.5.3):
+  - EasyKits (0.5.9):
+    - EasyKits/EasyCarouseView (= 0.5.9)
+    - EasyKits/EasyExtension (= 0.5.9)
+    - EasyKits/EasyIGListKit (= 0.5.9)
+    - EasyKits/EasyListView (= 0.5.9)
+    - EasyKits/EasyMediator (= 0.5.9)
+    - EasyKits/EasyPagingContainerView (= 0.5.9)
+    - EasyKits/EasyPopup (= 0.5.9)
+    - EasyKits/EasyResponder (= 0.5.9)
+    - EasyKits/EasySegmentedView (= 0.5.9)
+    - EasyKits/EasySyncScroll (= 0.5.9)
+  - EasyKits/EasyCarouseView (0.5.9):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyExtension (0.5.3):
+  - EasyKits/EasyExtension (0.5.9):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyIGListKit (0.5.3):
+  - EasyKits/EasyIGListKit (0.5.9):
     - EasyKits/EasyExtension
     - EasyKits/EasyResponder
     - EasyKits/EasySyncScroll
@@ -25,15 +25,15 @@ PODS:
     - RxSwift
     - SnapKit
     - Then
-  - EasyKits/EasyListView (0.5.3)
-  - EasyKits/EasyMediator (0.5.3):
+  - EasyKits/EasyListView (0.5.9)
+  - EasyKits/EasyMediator (0.5.9):
     - EasyKits/EasyExtension
-  - EasyKits/EasyPagingContainerView (0.5.3)
-  - EasyKits/EasyPopup (0.5.3):
+  - EasyKits/EasyPagingContainerView (0.5.9)
+  - EasyKits/EasyPopup (0.5.9):
     - SnapKit
-  - EasyKits/EasyResponder (0.5.3)
-  - EasyKits/EasySegmentedView (0.5.3)
-  - EasyKits/EasySyncScroll (0.5.3):
+  - EasyKits/EasyResponder (0.5.9)
+  - EasyKits/EasySegmentedView (0.5.9)
+  - EasyKits/EasySyncScroll (0.5.9):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -100,7 +100,7 @@ EXTERNAL SOURCES:
     :path: "../Module/ModuleServices"
 
 SPEC CHECKSUMS:
-  EasyKits: 0624cb1f5aab0c62da6eb5cbcc2a5e8015b296a3
+  EasyKits: 841335714feca9c957b502992b0039187221c39a
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74

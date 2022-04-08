@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.5.3'
+    s.version          = '0.5.9'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -27,17 +27,17 @@ Pod::Spec.new do |s|
     s.subspec "EasyPopup" do |ss|
         ss.dependency 'SnapKit'
         
-        ss.source_files = 'EasyKits/EasyPopup/*.swift'
+        ss.source_files = 'Sources/EasyPopup/*.swift'
     end
     
     # 简单的事件传递，解决某些情况下多重嵌套代理，莫种意义上也降低了耦合性
     s.subspec "EasyResponder" do |ss|
-        ss.source_files = 'EasyKits/EasyResponder/*.swift'
+        ss.source_files = 'Sources/EasyResponder/*.swift'
     end
     
     # 处理复杂列表 - 电商类首页/商品详情/朋友圈等
     s.subspec "EasyListView" do |ss|
-        ss.source_files = 'EasyKits/EasyListView/**/*'
+        ss.source_files = 'Sources/EasyListView/**/*'
     end
     
     # 处理首页嵌套 - 简书个人中心/电商类首页等
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
         ss.dependency 'RxSwift'
         ss.dependency 'RxCocoa'
         
-        ss.source_files = 'EasyKits/EasySyncScroll/*.swift'
+        ss.source_files = 'Sources/EasySyncScroll/*.swift'
         
         ss.frameworks = 'WebKit'
     end
@@ -55,17 +55,17 @@ Pod::Spec.new do |s|
         ss.dependency 'RxSwift'
         ss.dependency 'RxCocoa'
         
-        ss.source_files = 'EasyKits/EasyCarouseView/*.swift'
+        ss.source_files = 'Sources/EasyCarouseView/*.swift'
     end
     
     # 分段选择器
     s.subspec "EasySegmentedView" do |ss|
-        ss.source_files = 'EasyKits/EasySegmentedView/**/*'
+        ss.source_files = 'Sources/EasySegmentedView/**/*'
     end
     
     # 页面切换
     s.subspec "EasyPagingContainerView" do |ss|
-        ss.source_files = 'EasyKits/EasyPagingContainerView/*.swift'
+        ss.source_files = 'Sources/EasyPagingContainerView/*.swift'
     end
     
     # 一些日常使用的扩展
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
         ss.dependency 'RxSwift'
         ss.dependency 'RxCocoa'
         
-        ss.source_files = 'EasyKits/EasyExtension/**/*'
+        ss.source_files = 'Sources/EasyExtension/**/*'
     end
     
     # IGListKit+RxSwift封装
@@ -87,14 +87,14 @@ Pod::Spec.new do |s|
         ss.dependency 'EasyKits/EasyExtension'
         ss.dependency 'EasyKits/EasySyncScroll'
 
-        ss.source_files = 'EasyKits/EasyIGListKit/**/*'
+        ss.source_files = 'Sources/EasyIGListKit/**/*'
     end
     
     # 路由
     s.subspec 'EasyMediator' do |ss|
       ss.dependency 'EasyKits/EasyExtension'
       
-      ss.source_files = 'EasyKits/EasyMediator/**/*'
+      ss.source_files = 'Sources/EasyMediator/**/*'
     end
     
     s.frameworks = 'UIKit'

@@ -1,0 +1,78 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "iglistkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/Instagram/IGListKit.git",
+          "name" : "IGListKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "36da20119ca70c0a8b46ef0acc93b3bcb5a9ea69",
+            "version" : "4.0.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "IGListKit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "rxswift",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/ReactiveX/RxSwift.git",
+          "name" : "RxSwift"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "b4307ba0b6425c0ba4178e138799946c3da594f8",
+            "version" : "6.5.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "RxSwift"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "snapkit",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/SnapKit/SnapKit.git",
+          "name" : "SnapKit"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "d458564516e5676af9c70b4f4b2a9178294f1bc6",
+            "version" : "5.0.1"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "SnapKit"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "then",
+          "kind" : "remoteSourceControl",
+          "location" : "https://github.com/devxoul/Then.git",
+          "name" : "Then"
+        },
+        "state" : {
+          "checkoutState" : {
+            "revision" : "e421a7b3440a271834337694e6050133a3958bc7",
+            "version" : "2.7.0"
+          },
+          "name" : "sourceControlCheckout"
+        },
+        "subpath" : "Then"
+      }
+    ]
+  },
+  "version" : 5
+}

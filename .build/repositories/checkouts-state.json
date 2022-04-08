@@ -1,0 +1,23 @@
+{
+  "object" : {
+    "repositories" : {
+      "https://github.com/devxoul/Then.git" : {
+        "repositoryURL" : "https://github.com/devxoul/Then.git",
+        "subpath" : "Then-5dab7bb0"
+      },
+      "https://github.com/Instagram/IGListKit.git" : {
+        "repositoryURL" : "https://github.com/Instagram/IGListKit.git",
+        "subpath" : "IGListKit-75b4c680"
+      },
+      "https://github.com/ReactiveX/RxSwift.git" : {
+        "repositoryURL" : "https://github.com/ReactiveX/RxSwift.git",
+        "subpath" : "RxSwift-87bc79fc"
+      },
+      "https://github.com/SnapKit/SnapKit.git" : {
+        "repositoryURL" : "https://github.com/SnapKit/SnapKit.git",
+        "subpath" : "SnapKit-dd27728c"
+      }
+    }
+  },
+  "version" : 1
+}

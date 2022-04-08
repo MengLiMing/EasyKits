@@ -72,9 +72,11 @@ class RouterViewController: UIViewController {
         
         ///1、easyKits://aController?isNeedLogin=1
         ///2、easyKits://pushLogin
+        
         aB.rx.tap
             .subscribe(onNext: { _ in
                 Router.shared.router("easyKits://aController?isNeedLogin=1") { error, message, args in
+                    /// 此处表现为先登录 登陆成功之后 再跳转
                     guard let vc = args as? UIViewController else {
                         return
                     }
