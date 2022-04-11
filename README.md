@@ -35,7 +35,7 @@ pod 'EasyKits/EasyResponder'
 
 /// 下方数据驱动列表可二选一
 pod 'EasyKits/EasyListView' // 基于UITableView封装
-pod 'EasyKits/EasyIGListKit' // 基于IGListKit + RxSwift 封装的
+pod 'EasyKits/EasyIGListKit' // 基于IGListKit + RxSwift 封装
 
 pod 'EasyKits/EasySyncScroll'
 pod 'EasyKits/EasyCarouseView'
