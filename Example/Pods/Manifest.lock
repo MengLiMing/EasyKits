@@ -1,11 +1,11 @@
 PODS:
-  - EasyKits/EasyCarouseView (0.6.1):
+  - EasyKits/EasyCarouseView (0.6.2):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyExtension (0.6.1):
+  - EasyKits/EasyExtension (0.6.2):
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyIGListKit (0.6.1):
+  - EasyKits/EasyIGListKit (0.6.2):
     - EasyKits/EasyExtension
     - EasyKits/EasyResponder
     - EasyKits/EasySyncScroll
@@ -14,22 +14,22 @@ PODS:
     - RxSwift
     - SnapKit
     - Then
-  - EasyKits/EasyListView (0.6.1)
-  - EasyKits/EasyMediator (0.6.1):
+  - EasyKits/EasyListView (0.6.2)
+  - EasyKits/EasyMediator (0.6.2):
     - EasyKits/EasyExtension
-  - EasyKits/EasyPagingContainerView (0.6.1)
-  - EasyKits/EasyPermission/Core (0.6.1)
-  - EasyKits/EasyPermission/EasyCamera (0.6.1):
+  - EasyKits/EasyPagingContainerView (0.6.2)
+  - EasyKits/EasyPermission/Core (0.6.2)
+  - EasyKits/EasyPermission/EasyCamera (0.6.2):
     - EasyKits/EasyPermission/Core
-  - EasyKits/EasyPermission/EasyPermissionRx (0.6.1):
+  - EasyKits/EasyPermission/EasyPermissionRx (0.6.2):
     - EasyKits/EasyPermission/Core
     - RxCocoa
     - RxSwift
-  - EasyKits/EasyPopup (0.6.1):
+  - EasyKits/EasyPopup (0.6.2):
     - SnapKit
-  - EasyKits/EasyResponder (0.6.1)
-  - EasyKits/EasySegmentedView (0.6.1)
-  - EasyKits/EasySyncScroll (0.6.1):
+  - EasyKits/EasyResponder (0.6.2)
+  - EasyKits/EasySegmentedView (0.6.2)
+  - EasyKits/EasySyncScroll (0.6.2):
     - RxCocoa
     - RxSwift
   - IGListDiffKit (4.0.0)
@@ -107,7 +107,7 @@ EXTERNAL SOURCES:
     :path: "../Module/ModuleServices"
 
 SPEC CHECKSUMS:
-  EasyKits: f834afa053b8cf40e86010f92ca24da2fb26b7df
+  EasyKits: 5063db1ef817a7621349292e4370ad7333a56b16
   IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
   IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74

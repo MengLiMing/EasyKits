@@ -10,6 +10,7 @@ import EasyPermission
 
 #if PERMISSION_EASYNOTIFICATION
 import Foundation
+import UserNotifications
 
 public extension Permission {
     static let notification: Accessor = EasyNotification()

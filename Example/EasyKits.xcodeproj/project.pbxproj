@@ -110,6 +110,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				F47867FC2824BF7E00151C2F /* Packages */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for EasyKits */,
 				607FACD11AFB9204008FA782 /* Products */,
@@ -285,6 +286,13 @@
 				F47867F82823C3A900151C2F /* PermissionViewController.swift */,
 			);
 			path = EasyPermission;
+			sourceTree = "<group>";
+		};
+		F47867FC2824BF7E00151C2F /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 		F490528E2750AE390071EE59 /* NestDemo */ = {

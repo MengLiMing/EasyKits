@@ -63,54 +63,73 @@ let package = Package(
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.5.0")),
         /// https://github.com/Instagram/IGListKit/issues/1557
-        .package(url: "https://github.com/Instagram/IGListKit.git", revision: "b22a10e47ffa87c79993ea19db7b52605e83ebbf"),
-        .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "2.7.0")),
+        .package(url: "https://github.com/Instagram/IGListKit.git", revision: "d2f12cd92c998a1b0fecabfa14a253bd9cb2b82f"),
+//        .package(url: "https://github.com/Instagram/IGListKit.git", .upToNextMajor(from: "4.0.0")),
+        .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
     ],
     targets: [
         // EasyPopup
         .target(
             name: "EasyPopup",
-            dependencies: ["SnapKit"]),
+            dependencies: [
+                .product(name: "SnapKit", package: "SnapKit")
+            ]
+        ),
         // EasyResponder
         .target(name: "EasyResponder"),
         // EasyListView
         .target(name: "EasyListView"),
         // EasySyncScroll
-        .target(name: "EasySyncScroll",
-                dependencies: [
-                    .product(name: "RxSwift", package: "RxSwift"),
-                    .product(name: "RxCocoa", package: "RxSwift")
-                ],
-                linkerSettings: [
-                    .linkedFramework("WebKit", .when(platforms: [.iOS]))
-                ]),
+        .target(
+            name: "EasySyncScroll",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift")
+            ],
+            linkerSettings: [
+                .linkedFramework("WebKit", .when(platforms: [.iOS]))
+            ]
+        ),
         // EasyCarouseView
-        .target(name: "EasyCarouseView",
-                dependencies: [
-                    .product(name: "RxSwift", package: "RxSwift"),
-                    .product(name: "RxCocoa", package: "RxSwift")
-                ]),
+        .target(
+            name: "EasyCarouseView",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift")
+            ]
+        ),
         // EasySegmentedView
         .target(name: "EasySegmentedView"),
         // EasyPagingContainerView
         .target(name: "EasyPagingContainerView"),
         // EasyExtension
-        .target(name: "EasyExtension",
-                dependencies: [
-                    .product(name: "RxSwift", package: "RxSwift"),
-                    .product(name: "RxCocoa", package: "RxSwift")
-                ]),
+        .target(
+            name: "EasyExtension",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift")
+            ]
+        ),
         // EasyIGListKit
-        .target(name: "EasyIGListKit",
-                dependencies: [
-                    .product(name: "RxSwift", package: "RxSwift"),
-                    .product(name: "RxCocoa", package: "RxSwift"),
-                    .product(name: "IGListKit", package: "IGListKit"),
-                    .product(name: "IGListDiffKit", package: "IGListKit"),
-                    "Then", "SnapKit", "EasyResponder", "EasyExtension", "EasySyncScroll"]),
+        .target(
+            name: "EasyIGListKit",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift"),
+                .product(name: "IGListKit", package: "IGListKit"),
+                .product(name: "IGListDiffKit", package: "IGListKit"),
+                .product(name: "SnapKit", package: "SnapKit"),
+                .product(name: "Then", package: "Then"),
+                .target(name: "EasyResponder"),
+                .target(name: "EasyExtension"),
+                .target(name: "EasySyncScroll")
+            ]
+        ),
         // EasyMediator
-        .target(name: "EasyMediator",
-                dependencies: ["EasyExtension"]),
+        .target(
+            name: "EasyMediator",
+            dependencies: [.target(name: "EasyExtension")]
+        ),
         // EasyPermission
         .target(
             name: "EasyPermission",
@@ -118,7 +137,9 @@ let package = Package(
         ),
         .target(
             name: "EasyCamera",
-            dependencies: ["EasyPermission"],
+            dependencies: [
+                .target(name: "EasyPermission")
+            ],
             path: "Sources/EasyPermission/EasyCamera",
             swiftSettings: [
                 .define("PERMISSION_EASYCAMERA"),
@@ -126,7 +147,9 @@ let package = Package(
         ),
         .target(
             name: "EasyLocation",
-            dependencies: ["EasyPermission"],
+            dependencies: [
+                .target(name: "EasyPermission")
+            ],
             path: "Sources/EasyPermission/EasyLocation",
             swiftSettings: [
                 .define("PERMISSION_EASYLOCATION"),
@@ -134,7 +157,9 @@ let package = Package(
         ),
         .target(
             name: "EasyMicrophone",
-            dependencies: ["EasyPermission"],
+            dependencies: [
+                .target(name: "EasyPermission")
+            ],
             path: "Sources/EasyPermission/EasyMicrophone",
             swiftSettings: [
                 .define("PERMISSION_EASYMICROPHONE"),
@@ -142,7 +167,9 @@ let package = Package(
         ),
         .target(
             name: "EasyNotification",
-            dependencies: ["EasyPermission"],
+            dependencies: [
+                .target(name: "EasyPermission")
+            ],
             path: "Sources/EasyPermission/EasyNotification",
             swiftSettings: [
                 .define("PERMISSION_EASYNOTIFICATION"),
@@ -150,7 +177,9 @@ let package = Package(
         ),
         .target(
             name: "EasyPhoto",
-            dependencies: ["EasyPermission"],
+            dependencies: [
+                .target(name: "EasyPermission")
+            ],
             path: "Sources/EasyPermission/EasyPhoto",
             swiftSettings: [
                 .define("PERMISSION_EASYPHOTO"),
@@ -161,7 +190,7 @@ let package = Package(
             dependencies: [
                 .product(name: "RxSwift", package: "RxSwift"),
                 .product(name: "RxCocoa", package: "RxSwift"),
-                "EasyPermission"
+                .target(name: "EasyPermission")
             ],
             path: "Sources/EasyPermission/Rx"
         ),
