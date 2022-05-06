@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         case nestIgList
         /// 路由
         case router
+        /// 设备权限
+        case permission
 
         var data: (title: String, vcType: UIViewController.Type?) {
             switch self {
@@ -57,6 +59,8 @@ class ViewController: UIViewController {
                 return ("EasyIGList+EasySyncScroll的嵌套", NestViewController.self)
             case .router:
                 return ("路由Demo", RouterViewController.self)
+            case .permission:
+                return ("设备权限", PermissionViewController.self)
             }
         }
     }

@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "permissionskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparrowcode/PermissionsKit",
+      "state" : {
+        "revision" : "098f1455339a7f3ef57603260ca767a6544785b9",
+        "version" : "8.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

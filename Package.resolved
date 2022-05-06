@@ -5,7 +5,6 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Instagram/IGListKit.git",
       "state" : {
-        "branch" : "b22a10e",
         "revision" : "b22a10e47ffa87c79993ea19db7b52605e83ebbf"
       }
     },

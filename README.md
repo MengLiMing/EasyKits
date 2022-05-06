@@ -40,9 +40,15 @@ pod 'EasyKits/EasyIGListKit' // 基于IGListKit + RxSwift 封装
 pod 'EasyKits/EasySyncScroll'
 pod 'EasyKits/EasyCarouseView'
 pod 'EasyKits/EasyExtension'
-pod 'EasyKits/EasyRxExtension'
 
 pod 'EasyKits/EasyMediator'
+
+pod 'EasyKits/EasyPermission/EasyCamera'
+pod 'EasyKits/EasyPermission/EasyLocation'
+pod 'EasyKits/EasyPermission/EasyMicrophone'
+pod 'EasyKits/EasyPermission/EasyNotification'
+pod 'EasyKits/EasyPermission/EasyPhoto'
+pod 'EasyKits/EasyPermission/EasyPermissionRx'
 ```
 
 ## 组件列表

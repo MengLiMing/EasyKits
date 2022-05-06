@@ -32,6 +32,7 @@
 		95956E3325E7ACA70021FF3F /* EasySegmentedViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95956E3225E7ACA70021FF3F /* EasySegmentedViewVC.swift */; };
 		F4584A7527BE4DA100933215 /* RouterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4584A7427BE4DA100933215 /* RouterViewController.swift */; };
 		F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46DB4D82733734000C94414 /* EasyIGListVC.swift */; };
+		F47867F92823C3A900151C2F /* PermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47867F82823C3A900151C2F /* PermissionViewController.swift */; };
 		F49052922750AE390071EE59 /* NestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490528F2750AE390071EE59 /* NestViewController.swift */; };
 		F49052932750AE390071EE59 /* NestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052902750AE390071EE59 /* NestListViewController.swift */; };
 		F49052942750AE390071EE59 /* NestCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49052912750AE390071EE59 /* NestCategoryViewController.swift */; };
@@ -76,6 +77,7 @@
 		E3BA514077C52F70D9D83922 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		F4584A7427BE4DA100933215 /* RouterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterViewController.swift; sourceTree = "<group>"; };
 		F46DB4D82733734000C94414 /* EasyIGListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyIGListVC.swift; sourceTree = "<group>"; };
+		F47867F82823C3A900151C2F /* PermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewController.swift; sourceTree = "<group>"; };
 		F490528F2750AE390071EE59 /* NestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestViewController.swift; sourceTree = "<group>"; };
 		F49052902750AE390071EE59 /* NestListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestListViewController.swift; sourceTree = "<group>"; };
 		F49052912750AE390071EE59 /* NestCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestCategoryViewController.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		95956AA525CCE4110021FF3F /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				F47867F52823C35C00151C2F /* EasyPermission */,
 				F4584A7327BE4D8400933215 /* RouterDemo */,
 				F46DB4D72733732100C94414 /* EasyIGList */,
 				950BBA97263A7F8500408C55 /* NestContainer */,
@@ -274,6 +277,14 @@
 				F490528E2750AE390071EE59 /* NestDemo */,
 			);
 			path = EasyIGList;
+			sourceTree = "<group>";
+		};
+		F47867F52823C35C00151C2F /* EasyPermission */ = {
+			isa = PBXGroup;
+			children = (
+				F47867F82823C3A900151C2F /* PermissionViewController.swift */,
+			);
+			path = EasyPermission;
 			sourceTree = "<group>";
 		};
 		F490528E2750AE390071EE59 /* NestDemo */ = {
@@ -461,6 +472,7 @@
 				95956AE625E348C20021FF3F /* SyncInnerItems.swift in Sources */,
 				F4584A7527BE4DA100933215 /* RouterViewController.swift in Sources */,
 				F46DB4D92733734000C94414 /* EasyIGListVC.swift in Sources */,
+				F47867F92823C3A900151C2F /* PermissionViewController.swift in Sources */,
 				95956AD825CCF0460021FF3F /* ERCView.swift in Sources */,
 				95956D7E25E65C1D0021FF3F /* EasyListPriceCell.swift in Sources */,
 				95956D0A25E5EFEF0021FF3F /* EasyListViewVC.swift in Sources */,

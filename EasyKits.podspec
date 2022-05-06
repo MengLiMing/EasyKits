@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.5.9'
+    s.version          = '0.6.0'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -92,9 +92,63 @@ Pod::Spec.new do |s|
     
     # 路由
     s.subspec 'EasyMediator' do |ss|
-      ss.dependency 'EasyKits/EasyExtension'
-      
-      ss.source_files = 'Sources/EasyMediator/**/*'
+        ss.dependency 'EasyKits/EasyExtension'
+        
+        ss.source_files = 'Sources/EasyMediator/**/*'
+    end
+    
+    # 设备权限简单封装
+    s.subspec 'EasyPermission' do |ss|
+        ss.subspec 'Core' do |core|
+            core.source_files = 'Sources/EasyPermission/Core/*.swift'
+        end
+        
+        ss.subspec 'EasyCamera' do |ec|
+            ec.source_files = 'Sources/EasyPermission/EasyCamera/*.swift'
+            ec.dependency 'EasyKits/EasyPermission/Core'
+            ec.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYCAMERA"
+            }
+        end
+        
+        ss.subspec 'EasyLocation' do |el|
+            el.source_files = 'Sources/EasyPermission/EasyLocation/*.swift'
+            el.dependency 'EasyKits/EasyPermission/Core'
+            el.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYLOCATION"
+            }
+        end
+        
+        ss.subspec 'EasyMicrophone' do |em|
+            em.source_files = 'Sources/EasyPermission/EasyMicrophone/*.swift'
+            em.dependency 'EasyKits/EasyPermission/Core'
+            em.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYMICROPHONE"
+            }
+        end
+        
+        ss.subspec 'EasyNotification' do |en|
+            en.source_files = 'Sources/EasyPermission/EasyNotification/*.swift'
+            en.dependency 'EasyKits/EasyPermission/Core'
+            en.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYNOTIFICATION"
+            }
+        end
+        
+        ss.subspec 'EasyPhoto' do |ep|
+            ep.dependency 'EasyKits/EasyPermission/Core'
+            ep.source_files = 'Sources/EasyPermission/EasyPhoto/*.swift'
+            ep.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYPHOTO"
+            }
+        end
+        
+        ss.subspec 'EasyPermissionRx' do |rx|
+            rx.dependency 'RxSwift'
+            rx.dependency 'RxCocoa'
+            rx.dependency 'EasyKits/EasyPermission/Core'
+            rx.source_files = 'Sources/EasyPermission/Rx/*.swift'
+        end
     end
     
     s.frameworks = 'UIKit'

@@ -3,7 +3,27 @@ use_frameworks!
 platform :ios, '10.0'
 
 target 'EasyKits_Example' do
-  pod 'EasyKits', :path => '../'
+#  pod 'EasyKits', :path => '../'
+
+
+pod 'EasyKits/EasySegmentedView', :path => '../'
+pod 'EasyKits/EasyPagingContainerView', :path => '../'
+pod 'EasyKits/EasyPopup', :path => '../'
+pod 'EasyKits/EasyResponder', :path => '../'
+pod 'EasyKits/EasyListView', :path => '../'
+pod 'EasyKits/EasyIGListKit', :path => '../'
+pod 'EasyKits/EasySyncScroll', :path => '../'
+pod 'EasyKits/EasyCarouseView', :path => '../'
+pod 'EasyKits/EasyExtension', :path => '../'
+pod 'EasyKits/EasyMediator', :path => '../'
+
+pod 'EasyKits/EasyPermission/EasyCamera', :path => '../'
+#pod 'EasyKits/EasyPermission/EasyLocation', :path => '../'
+#pod 'EasyKits/EasyPermission/EasyMicrophone', :path => '../'
+#pod 'EasyKits/EasyPermission/EasyNotification', :path => '../'
+#pod 'EasyKits/EasyPermission/EasyPhoto', :path => '../'
+pod 'EasyKits/EasyPermission/EasyPermissionRx', :path => '../'
+
   pod 'MJRefresh'
   pod 'Kingfisher'
   pod 'Then'

@@ -36,7 +36,28 @@ let package = Package(
             targets: ["EasyIGListKit"]),
         .library(
             name: "EasyMediator",
-            targets: ["EasyMediator"])
+            targets: ["EasyMediator"]),
+        .library(
+            name: "EasyPermission",
+            targets: ["EasyPermission"]),
+        .library(
+            name: "EasyCamera",
+            targets: ["EasyCamera"]),
+        //        .library(
+        //            name: "EasyLocation",
+        //            targets: ["EasyPermission"]),
+        //        .library(
+        //            name: "EasyMicrophone",
+        //            targets: ["EasyPermission"]),
+        //        .library(
+        //            name: "EasyNotification",
+        //            targets: ["EasyPermission"]),
+        //        .library(
+        //            name: "EasyPhoto",
+        //            targets: ["EasyPermission"]),
+            .library(
+                name: "EasyPermissionRx",
+                targets: ["EasyPermissionRx"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
@@ -89,7 +110,61 @@ let package = Package(
                     "Then", "SnapKit", "EasyResponder", "EasyExtension", "EasySyncScroll"]),
         // EasyMediator
         .target(name: "EasyMediator",
-                dependencies: ["EasyExtension"])
+                dependencies: ["EasyExtension"]),
+        // EasyPermission
+        .target(
+            name: "EasyPermission",
+            path: "Sources/EasyPermission/Core"
+        ),
+        .target(
+            name: "EasyCamera",
+            dependencies: ["EasyPermission"],
+            path: "Sources/EasyPermission/EasyCamera",
+            swiftSettings: [
+                .define("PERMISSION_EASYCAMERA"),
+            ]
+        ),
+        .target(
+            name: "EasyLocation",
+            dependencies: ["EasyPermission"],
+            path: "Sources/EasyPermission/EasyLocation",
+            swiftSettings: [
+                .define("PERMISSION_EASYLOCATION"),
+            ]
+        ),
+        .target(
+            name: "EasyMicrophone",
+            dependencies: ["EasyPermission"],
+            path: "Sources/EasyPermission/EasyMicrophone",
+            swiftSettings: [
+                .define("PERMISSION_EASYMICROPHONE"),
+            ]
+        ),
+        .target(
+            name: "EasyNotification",
+            dependencies: ["EasyPermission"],
+            path: "Sources/EasyPermission/EasyNotification",
+            swiftSettings: [
+                .define("PERMISSION_EASYNOTIFICATION"),
+            ]
+        ),
+        .target(
+            name: "EasyPhoto",
+            dependencies: ["EasyPermission"],
+            path: "Sources/EasyPermission/EasyPhoto",
+            swiftSettings: [
+                .define("PERMISSION_EASYPHOTO"),
+            ]
+        ),
+        .target(
+            name: "EasyPermissionRx",
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift"),
+                "EasyPermission"
+            ],
+            path: "Sources/EasyPermission/Rx"
+        ),
     ],
     swiftLanguageVersions: [
         .v5
