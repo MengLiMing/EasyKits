@@ -43,21 +43,21 @@ let package = Package(
         .library(
             name: "EasyCamera",
             targets: ["EasyCamera"]),
-        //        .library(
-        //            name: "EasyLocation",
-        //            targets: ["EasyPermission"]),
-        //        .library(
-        //            name: "EasyMicrophone",
-        //            targets: ["EasyPermission"]),
-        //        .library(
-        //            name: "EasyNotification",
-        //            targets: ["EasyPermission"]),
-        //        .library(
-        //            name: "EasyPhoto",
-        //            targets: ["EasyPermission"]),
-            .library(
-                name: "EasyPermissionRx",
-                targets: ["EasyPermissionRx"]),
+        .library(
+            name: "EasyLocation",
+            targets: ["EasyLocation"]),
+        .library(
+            name: "EasyMicrophone",
+            targets: ["EasyMicrophone"]),
+        .library(
+            name: "EasyNotification",
+            targets: ["EasyNotification"]),
+        .library(
+            name: "EasyPhoto",
+            targets: ["EasyPhoto"]),
+        .library(
+            name: "EasyPermissionRx",
+            targets: ["EasyPermissionRx"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),

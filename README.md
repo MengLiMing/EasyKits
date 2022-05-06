@@ -43,12 +43,14 @@ pod 'EasyKits/EasyExtension'
 
 pod 'EasyKits/EasyMediator'
 
+/// 设备权限 根据需要导入
 pod 'EasyKits/EasyPermission/EasyCamera'
 pod 'EasyKits/EasyPermission/EasyLocation'
 pod 'EasyKits/EasyPermission/EasyMicrophone'
 pod 'EasyKits/EasyPermission/EasyNotification'
 pod 'EasyKits/EasyPermission/EasyPhoto'
 pod 'EasyKits/EasyPermission/EasyPermissionRx'
+
 ```
 
 ## 组件列表
