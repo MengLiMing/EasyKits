@@ -11,7 +11,7 @@ import EasyKits
 import WebKit
 import MJRefresh
 
-class SyncInnerScrollView: UIScrollView, SyncInnerScroll {
+class SyncInnerScrollView: UIScrollView, SyncInnerScroll, SyncScrollInnerProvider {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .gray
@@ -27,9 +27,13 @@ class SyncInnerScrollView: UIScrollView, SyncInnerScroll {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var syncInner: SyncInnerScroll {
+        self
+    }
 }
 
-class SyncInnerWebView: WKWebView, SyncInnerScroll {
+class SyncInnerWebView: WKWebView, SyncInnerScroll, SyncScrollInnerProvider {
     init() {
         super.init(frame: .zero, configuration: WKWebViewConfiguration())
         self.load(URLRequest(url: URL(string: "https://www.baidu.com")!))
@@ -44,12 +48,17 @@ class SyncInnerWebView: WKWebView, SyncInnerScroll {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var syncInner: SyncInnerScroll {
+        self
+    }
 }
 
 class SyncInnerTableView: UITableView,
                           SyncInnerScroll,
                           UITableViewDelegate,
-                          UITableViewDataSource {
+                          UITableViewDataSource,
+                          SyncScrollInnerProvider {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 100
     }
@@ -78,5 +87,9 @@ class SyncInnerTableView: UITableView,
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    var syncInner: SyncInnerScroll {
+        self
     }
 }

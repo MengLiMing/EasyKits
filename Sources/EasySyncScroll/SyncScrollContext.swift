@@ -66,29 +66,44 @@ public final class SyncScrollContext {
     
     /// 外部scrollView
     fileprivate var outerDisposeBag = DisposeBag()
+    fileprivate var outerCombineContext = _ScrollCombineContext()
     public weak var outerItem: SyncOuterScroll? {
         didSet {
             outerDisposeBag = DisposeBag()
+            outerCombineContext.dispose()
             guard let outerItem = outerItem else {
                 return
             }
-            outerItem.scrollView.rx
-                .kvo_contentOffset
-                .observe(on: MainScheduler.asyncInstance)
-                .asDriver(onErrorJustReturn: .zero)
-                .distinctUntilChanged()
-                .drive(onNext: {[weak self] contentOffset in
-                    self?.outerOffsetChanged(contentOffset)
-                })
-                .disposed(by: outerDisposeBag)
             
-            outerItem.scrollView.rx
-                .kvo_contentSize
-                .distinctUntilChanged()
-                .subscribe(onNext: {[weak self] _ in
-                    self?.changeHover()
-                })
-                .disposed(by: outerDisposeBag)
+            if #available(iOS 13.0, *) {
+                outerCombineContext
+                    .scrollContentOffset(scrollView: outerItem.scrollView) {[weak self] contentOffset in
+                        self?.outerOffsetChanged(contentOffset)
+                    }
+                
+                outerCombineContext
+                    .scrollContentSize(scrollView: outerItem.scrollView) {[weak self] _ in
+                        self?.changeHover()
+                    }
+            } else {
+                outerItem.scrollView.rx
+                    .kvo_contentOffset
+                    .distinctUntilChanged()
+                    .observe(on: MainScheduler.asyncInstance)
+                    .subscribe(onNext: {[weak self] contentOffset in
+                        self?.outerOffsetChanged(contentOffset)
+                    })
+                    .disposed(by: outerDisposeBag)
+                
+                outerItem.scrollView.rx
+                    .kvo_contentSize
+                    .distinctUntilChanged()
+                    .subscribe(onNext: {[weak self] _ in
+                        self?.changeHover()
+                    })
+                    .disposed(by: outerDisposeBag)
+            }
+            
         }
     }
     
@@ -105,7 +120,7 @@ public final class SyncScrollContext {
         } else {
             outerOffset = contentOffset
         }
-
+        
         changeHover()
     }
     
@@ -133,24 +148,33 @@ public final class SyncScrollContext {
             self.isHover.accept(false)
         }
     }
-
+    
     /// Container内部Item
     fileprivate var innerDisposeBag = DisposeBag()
+    fileprivate var innerCombineContext = _ScrollCombineContext()
     public weak var innerItem: SyncInnerScroll? {
         didSet {
+            innerCombineContext.dispose()
             self.innerDisposeBag = DisposeBag()
             guard let innerItem = innerItem else {
                 return
             }
-            innerItem.scrollView.rx
-                .kvo_contentOffset
-                .observe(on: MainScheduler.asyncInstance)
-                .asDriver(onErrorJustReturn: .zero)
-                .distinctUntilChanged()
-                .drive(onNext: { [weak self] contentOffset in
-                    self?.innerOffsetChanged(contentOffset)
-                })
-                .disposed(by: self.innerDisposeBag)
+            
+            if #available(iOS 13.0, *) {
+                innerCombineContext
+                    .scrollContentOffset(scrollView: innerItem.scrollView) {[weak self] contentOffset in
+                        self?.innerOffsetChanged(contentOffset)
+                    }
+            } else {
+                innerItem.scrollView.rx
+                    .kvo_contentOffset
+                    .distinctUntilChanged()
+                    .observe(on: MainScheduler.asyncInstance)
+                    .subscribe(onNext: { [weak self] contentOffset in
+                        self?.innerOffsetChanged(contentOffset)
+                    })
+                    .disposed(by: self.innerDisposeBag)
+            }
         }
     }
     
@@ -171,9 +195,14 @@ public final class SyncScrollContext {
                 fixedScrollViewToMinY(inner.scrollView)
             }
         }
-                    
+        
+        if inner.scrollView.contentOffset.y > inner.scrollView.sync_minY {
+            outer.scrollView.contentOffset.y = _maxOffsetY
+            outerOffset = outer.scrollView.contentOffset
+        }
+        
         innerOffset = inner.scrollView.contentOffset
-
+        
         outerItem?.scrollView.scrollsToTop = contentOffset.y <= inner.scrollView.sync_minY
         innerItem?.scrollView.scrollsToTop = contentOffset.y > inner.scrollView.sync_minY
     }
@@ -183,5 +212,39 @@ public final class SyncScrollContext {
             return
         }
         scrollView.contentOffset.y = scrollView.sync_minY
+    }
+}
+
+#if canImport(Combine)
+import Combine
+#endif
+
+private class _ScrollCombineContext {
+    private var disposeBag: Set<AnyHashable> = []
+    
+    @available(iOS 13.0, *)
+    func scrollContentOffset(scrollView: UIScrollView, _ changed: @escaping (CGPoint) -> Void) {
+        let cancelable = scrollView.publisher(for: \.contentOffset)
+            .removeDuplicates()
+            .sink { contentOffset in
+                changed(contentOffset)
+            }
+        
+        _ = disposeBag.insert(cancelable)
+    }
+    
+    @available(iOS 13.0, *)
+    func scrollContentSize(scrollView: UIScrollView, _ changed: @escaping(CGSize) -> Void) {
+        let cancelable = scrollView.publisher(for: \.contentSize)
+            .removeDuplicates()
+            .sink { contentSize in
+                changed(contentSize)
+            }
+        
+        _ = disposeBag.insert(cancelable)
+    }
+    
+    func dispose() {
+        disposeBag.removeAll()
     }
 }
