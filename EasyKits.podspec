@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'EasyKits'
-    s.version          = '0.6.4'
+    s.version          = '0.6.5'
     s.summary          = '使用简单的工具集合'
     
     s.description      = <<-DESC
@@ -140,6 +140,14 @@ Pod::Spec.new do |s|
             ep.source_files = 'Sources/EasyPermission/EasyPhoto/*.swift'
             ep.pod_target_xcconfig = {
                 "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYPHOTO"
+            }
+        end
+        
+        ss.subspec 'EasyBluetooth' do |eb|
+            eb.dependency 'EasyKits/EasyPermission/Core'
+            eb.source_files = 'Sources/EasyPermission/EasyBluetooth/*.swift'
+            eb.pod_target_xcconfig = {
+                "SWIFT_ACTIVE_COMPILATION_CONDITIONS" => "PERMISSION_EASYBLUETOOTH"
             }
         end
         

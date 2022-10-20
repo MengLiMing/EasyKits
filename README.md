@@ -44,12 +44,16 @@ pod 'EasyKits/EasyExtension'
 pod 'EasyKits/EasyMediator'
 
 /// 设备权限 根据需要导入
+/// 就算是下方方没有提供的权限封装也推荐使用，可以导入 EasyPermission/Core，使用Rx可以导入EasyPermissionRx
+/// 这样你可以按照已经封装的代码快速封装出你所需要的权限，还能具备Rx的使用效果
 pod 'EasyKits/EasyPermission/EasyCamera'
 pod 'EasyKits/EasyPermission/EasyLocation'
 pod 'EasyKits/EasyPermission/EasyMicrophone'
 pod 'EasyKits/EasyPermission/EasyNotification'
 pod 'EasyKits/EasyPermission/EasyPhoto'
+pod 'EasyKits/EasyPermission/EasyBluetooth'
 pod 'EasyKits/EasyPermission/EasyPermissionRx'
+
 
 ```
 
@@ -63,7 +67,7 @@ pod 'EasyKits/EasyPermission/EasyPermissionRx'
 - EasySegmentedView：分类导航栏实现，可自定义任何样式的导航栏效果(指示器和Item均可自定义)
 - EasyPagingContainerView：横向滑动切换实现，支持最大显示个数
 - EasyMediator：路由
-- EasyPermission：系统权限统一
+- EasyPermission：系统权限统一，遇到没有提供的权限管理也推荐导入Core和Rx，你也可以定义出代码风格统一的权限使用
 
 
 ## DEMO演示
